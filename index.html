@@ -5,10 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MINDA INKLUSIF AI — Special Needs Learning Portal</title>
   
+  <!-- Favicon Integration -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2338bdf8'/><stop offset='100%' stop-color='%23c084fc'/></linearGradient></defs><rect width='100' height='100' rx='24' fill='%230f172a'/><circle cx='50' cy='50' r='35' fill='none' stroke='url(%23g)' stroke-width='8'/><path d='M35 40a15 15 0 0 1 30 0c0 10-15 15-15 25' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/><circle cx='50' cy='80' r='5' fill='%2338bdf8'/></svg>">
+
   <!-- Inter & Fredoka Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Vector Icons CDN Integration -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     /* ==========================================================================
@@ -185,8 +191,14 @@
 
     .header-brand {
       display: flex;
-      align-items: baseline;
-      gap: 10px;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-svg-logo {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
     }
 
     .brand-title {
@@ -222,7 +234,7 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       transition: all 0.2s ease;
     }
 
@@ -235,7 +247,7 @@
       position: absolute;
       top: calc(100% + 8px);
       right: 0;
-      width: 210px;
+      width: 220px;
       background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -271,8 +283,13 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       transition: background 0.15s ease;
+    }
+
+    .a11y-option-btn i {
+      width: 16px;
+      text-align: center;
     }
 
     .a11y-option-btn:hover {
@@ -317,7 +334,11 @@
       color: #e2e8f0;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+    }
+
+    .card-title i {
+      color: #38bdf8;
     }
 
     .card-subtitle {
@@ -487,12 +508,19 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-main);
-      padding: 4px 8px;
+      padding: 4px 10px;
       font-size: 0.72rem;
       font-weight: 500;
       border-radius: 6px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       transition: all 0.15s ease;
+    }
+
+    .quick-btn i {
+      color: #38bdf8;
     }
 
     .quick-btn:hover {
@@ -527,11 +555,14 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: #ffffff;
-      padding: 6px 10px;
+      padding: 6px 12px;
       font-size: 0.8rem;
       font-weight: 600;
       border-radius: 8px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       transition: background 0.2s ease;
     }
 
@@ -593,7 +624,11 @@
       color: #f8fafc;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 8px;
+    }
+
+    .material-info h4 i {
+      color: #38bdf8;
     }
 
     .material-info p {
@@ -609,7 +644,7 @@
       align-self: flex-start;
       display: flex;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
     }
 
     /* ==========================================================================
@@ -668,21 +703,47 @@
     <!-- 1. COMPACT HEADER -->
     <header class="app-header">
       <div class="header-brand">
-        <h1 class="brand-title">MINDA INKLUSIF AI</h1>
-        <span class="brand-subtitle">Visual Mind Mapping & AI Support</span>
+        <!-- SVG Vector Portal Logo -->
+        <svg class="brand-svg-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" stroke="url(#logo-grad)" stroke-dasharray="4 2"/>
+          <path d="M9.5 8.5A2.5 2.5 0 0 1 12 6a2.5 2.5 0 0 1 2.5 2.5c0 1.5-1.5 2.5-2.5 4" stroke="url(#logo-grad)"/>
+          <path d="M12 16.5v.01" stroke-width="3" stroke="url(#logo-grad)"/>
+          <path d="M18 6l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="#38bdf8" stroke="none"/>
+          <defs>
+            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38bdf8" />
+              <stop offset="100%" stop-color="#c084fc" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div>
+          <h1 class="brand-title">MINDA INKLUSIF AI</h1>
+          <span class="brand-subtitle">Visual Mind Mapping & AI Support</span>
+        </div>
       </div>
 
       <!-- Accessibility Control Popover Trigger -->
       <div class="a11y-control-wrapper">
         <button class="a11y-trigger-btn" onclick="toggleA11yPopover()" aria-label="Accessibility Settings">
-          ♿ Accessibility ▾
+          <i class="fa-solid fa-universal-access"></i> Accessibility <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem;"></i>
         </button>
         <div class="a11y-popover" id="a11yPopover">
-          <button class="a11y-option-btn" id="ttsToggleBtn" onclick="toggleSpeech()">🔊 Text-to-Speech: OFF</button>
-          <button class="a11y-option-btn" onclick="adjustFontSize(1)">🔤 Increase Text Size</button>
-          <button class="a11y-option-btn" onclick="adjustFontSize(-1)">🔤 Decrease Text Size</button>
-          <button class="a11y-option-btn" onclick="toggleAnimatedBg()">🌊 Animated Background</button>
-          <button class="a11y-option-btn" onclick="toggleContrast()">🎨 High Contrast</button>
+          <button class="a11y-option-btn" id="ttsToggleBtn" onclick="toggleSpeech()">
+            <i class="fa-solid fa-volume-high"></i> Text-to-Speech: OFF
+          </button>
+          <button class="a11y-option-btn" onclick="adjustFontSize(1)">
+            <i class="fa-solid fa-font"></i> Increase Text Size
+          </button>
+          <button class="a11y-option-btn" onclick="adjustFontSize(-1)">
+            <i class="fa-solid fa-font"></i> Decrease Text Size
+          </button>
+          <button class="a11y-option-btn" onclick="toggleAnimatedBg()">
+            <i class="fa-solid fa-water"></i> Animated Background
+          </button>
+          <button class="a11y-option-btn" onclick="toggleContrast()">
+            <i class="fa-solid fa-circle-half-stroke"></i> High Contrast
+          </button>
         </div>
       </div>
     </header>
@@ -693,7 +754,7 @@
       <!-- LEFT COLUMN: i-Think Mind Maps (60%) -->
       <section class="glass-card">
         <div class="card-header">
-          <h2 class="card-title">🧠 i-Think Mind Maps</h2>
+          <h2 class="card-title"><i class="fa-solid fa-diagram-project"></i> i-Think Mind Maps</h2>
           <p class="card-subtitle">Select a map to start learning</p>
         </div>
 
@@ -717,11 +778,11 @@
         <div class="mindmap-workspace" id="mindmapCanvas">
           <!-- Initial Active Example Map -->
           <div class="mindmap-node-tree">
-            <div class="node-root">🐱 Animals</div>
+            <div class="node-root"><i class="fa-solid fa-paw"></i> Animals</div>
             <div class="node-branches">
-              <div class="node-child">🐱 Cat (Pet)</div>
-              <div class="node-child">🐶 Dog (Pet)</div>
-              <div class="node-child">🐦 Bird (Fly)</div>
+              <div class="node-child"><i class="fa-solid fa-cat"></i> Cat (Pet)</div>
+              <div class="node-child"><i class="fa-solid fa-dog"></i> Dog (Pet)</div>
+              <div class="node-child"><i class="fa-solid fa-crow"></i> Bird (Fly)</div>
             </div>
           </div>
         </div>
@@ -730,7 +791,7 @@
       <!-- RIGHT COLUMN: Friendly AI Assistant (40%) -->
       <section class="glass-card ai-chat-card">
         <div class="card-header">
-          <h2 class="card-title">🤖 Friendly AI Assistant</h2>
+          <h2 class="card-title"><i class="fa-solid fa-robot"></i> Friendly AI Assistant</h2>
           <p class="card-subtitle">Ask questions or request mind map ideas</p>
         </div>
 
@@ -741,16 +802,16 @@
 
         <!-- Quick Action Suggestion Buttons -->
         <div class="quick-actions">
-          <button class="quick-btn" onclick="sendQuickAction('Explain a Topic')">✨ Explain a Topic</button>
-          <button class="quick-btn" onclick="sendQuickAction('Create Mind Map')">🧠 Create Mind Map</button>
-          <button class="quick-btn" onclick="sendQuickAction('Give Examples')">📚 Give Examples</button>
+          <button class="quick-btn" onclick="sendQuickAction('Explain a Topic')"><i class="fa-solid fa-wand-magic-sparkles"></i> Explain Topic</button>
+          <button class="quick-btn" onclick="sendQuickAction('Create Mind Map')"><i class="fa-solid fa-brain"></i> Create Map</button>
+          <button class="quick-btn" onclick="sendQuickAction('Give Examples')"><i class="fa-solid fa-list-check"></i> Examples</button>
         </div>
 
         <!-- Input Bar -->
         <div class="chat-input-area">
           <input type="text" class="chat-input" id="userInput" placeholder="Type a topic..." onkeypress="handleKey(event)">
-          <button class="action-icon-btn" id="micBtn" onclick="toggleVoiceInput()" title="Voice Input">🎙</button>
-          <button class="action-icon-btn" onclick="sendMessage()">Send</button>
+          <button class="action-icon-btn" id="micBtn" onclick="toggleVoiceInput()" title="Voice Input"><i class="fa-solid fa-microphone"></i></button>
+          <button class="action-icon-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i> Send</button>
         </div>
       </section>
 
@@ -758,39 +819,39 @@
 
     <!-- 6. LEARNING MATERIALS DASHBOARD SECTION -->
     <footer class="learning-materials-section">
-      <h2 class="card-title" style="font-size: 1rem;">📚 Learning Materials</h2>
+      <h2 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-shapes"></i> Learning Materials</h2>
       
       <div class="materials-grid">
         <a href="cards.html" class="material-card">
           <div class="material-info">
-            <h4>📖 Notes</h4>
+            <h4><i class="fa-solid fa-book-open"></i> Notes</h4>
             <p>Learning notes & visual summaries.</p>
           </div>
-          <span class="material-action">Explore →</span>
+          <span class="material-action">Explore <i class="fa-solid fa-arrow-right"></i></span>
         </a>
 
         <a href="audiobooks.html" class="material-card">
           <div class="material-info">
-            <h4>🎥 Videos</h4>
+            <h4><i class="fa-solid fa-video"></i> Videos</h4>
             <p>Educational video resources.</p>
           </div>
-          <span class="material-action">Watch →</span>
+          <span class="material-action">Watch <i class="fa-solid fa-arrow-right"></i></span>
         </a>
 
         <a href="puzzle.html" class="material-card">
           <div class="material-info">
-            <h4>📝 Quizzes</h4>
+            <h4><i class="fa-solid fa-puzzle-piece"></i> Quizzes</h4>
             <p>Interactive learning quizzes.</p>
           </div>
-          <span class="material-action">Start →</span>
+          <span class="material-action">Start <i class="fa-solid fa-arrow-right"></i></span>
         </a>
 
         <a href="game.html" class="material-card">
           <div class="material-info">
-            <h4>🎮 Activities</h4>
+            <h4><i class="fa-solid fa-gamepad"></i> Activities</h4>
             <p>Interactive educational games.</p>
           </div>
-          <span class="material-action">Play →</span>
+          <span class="material-action">Play <i class="fa-solid fa-arrow-right"></i></span>
         </a>
       </div>
     </footer>
@@ -855,11 +916,11 @@
       const ttsBtn = document.getElementById('ttsToggleBtn');
       
       if (ttsActive) {
-        ttsBtn.innerText = "🔊 Text-to-Speech: ON";
+        ttsBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Text-to-Speech: ON';
         ttsBtn.classList.add('active-tts');
         speakText("Text to speech enabled. Hover or click buttons to hear sound, and AI chat replies will be read aloud.");
       } else {
-        ttsBtn.innerText = "🔊 Text-to-Speech: OFF";
+        ttsBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> Text-to-Speech: OFF';
         ttsBtn.classList.remove('active-tts');
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       }
@@ -872,7 +933,7 @@
       
       // Clean emoji or icon prefixes out for smoother speech readability
       let text = el.innerText || el.textContent;
-      text = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+      text = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
       return text;
     }
 
@@ -925,14 +986,14 @@
        INTERACTIVE MIND MAP WORKSPACE & MAP RENDERING
        ========================================================================== */
     const mapSampleData = {
-      'Circle': `<div class="mindmap-node-tree"><div class="node-root">⭕ Context: Solar System</div><div class="node-branches"><div class="node-child">Sun</div><div class="node-child">Planets</div><div class="node-child">Moons</div><div class="node-child">Stars</div></div></div>`,
-      'Bubble': `<div class="mindmap-node-tree"><div class="node-root">💭 Adjectives: Ocean</div><div class="node-branches"><div class="node-child">Deep</div><div class="node-child">Blue</div><div class="node-child">Vast</div><div class="node-child">Salty</div></div></div>`,
-      'Double Bubble': `<div class="mindmap-node-tree"><div class="node-root">⚖️ Compare: Apple vs Orange</div><div class="node-branches"><div class="node-child">Fruit (Same)</div><div class="node-child">Red Skin (Apple)</div><div class="node-child">Citrus (Orange)</div></div></div>`,
-      'Tree': `<div class="mindmap-node-tree"><div class="node-root">🐱 Animals</div><div class="node-branches"><div class="node-child">Cat (Pet)</div><div class="node-child">Dog (Pet)</div><div class="node-child">Bird (Fly)</div></div></div>`,
-      'Brace': `<div class="mindmap-node-tree"><div class="node-root">🧱 Whole: Computer</div><div class="node-branches"><div class="node-child">Monitor</div><div class="node-child">Keyboard</div><div class="node-child">CPU</div></div></div>`,
-      'Flow': `<div class="mindmap-node-tree"><div class="node-root">➡️ Order: Plant Growth</div><div class="node-branches"><div class="node-child">1. Seed</div><div class="node-child">2. Sprout</div><div class="node-child">3. Flower</div></div></div>`,
-      'Multi-Flow': `<div class="mindmap-node-tree"><div class="node-root">🔀 Cause/Effect: Rain</div><div class="node-branches"><div class="node-child">Clouds (Cause)</div><div class="node-child">Wet Ground (Effect)</div></div></div>`,
-      'Bridge': `<div class="mindmap-node-tree"><div class="node-root">🌉 Analogy: Wings to Bird</div><div class="node-branches"><div class="node-child">Fins to Fish</div><div class="node-child">Wheels to Car</div></div></div>`
+      'Circle': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-regular fa-circle"></i> Context: Solar System</div><div class="node-branches"><div class="node-child">Sun</div><div class="node-child">Planets</div><div class="node-child">Moons</div><div class="node-child">Stars</div></div></div>`,
+      'Bubble': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-regular fa-comment-dots"></i> Adjectives: Ocean</div><div class="node-branches"><div class="node-child">Deep</div><div class="node-child">Blue</div><div class="node-child">Vast</div><div class="node-child">Salty</div></div></div>`,
+      'Double Bubble': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-scale-balanced"></i> Compare: Apple vs Orange</div><div class="node-branches"><div class="node-child">Fruit (Same)</div><div class="node-child">Red Skin (Apple)</div><div class="node-child">Citrus (Orange)</div></div></div>`,
+      'Tree': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-paw"></i> Animals</div><div class="node-branches"><div class="node-child"><i class="fa-solid fa-cat"></i> Cat (Pet)</div><div class="node-child"><i class="fa-solid fa-dog"></i> Dog (Pet)</div><div class="node-child"><i class="fa-solid fa-crow"></i> Bird (Fly)</div></div></div>`,
+      'Brace': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-cubes"></i> Whole: Computer</div><div class="node-branches"><div class="node-child">Monitor</div><div class="node-child">Keyboard</div><div class="node-child">CPU</div></div></div>`,
+      'Flow': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-arrow-right-long"></i> Order: Plant Growth</div><div class="node-branches"><div class="node-child">1. Seed</div><div class="node-child">2. Sprout</div><div class="node-child">3. Flower</div></div></div>`,
+      'Multi-Flow': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-code-fork"></i> Cause/Effect: Rain</div><div class="node-branches"><div class="node-child">Clouds (Cause)</div><div class="node-child">Wet Ground (Effect)</div></div></div>`,
+      'Bridge': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-bridge"></i> Analogy: Wings to Bird</div><div class="node-branches"><div class="node-child">Fins to Fish</div><div class="node-child">Wheels to Car</div></div></div>`
     };
 
     const mapImages = {
