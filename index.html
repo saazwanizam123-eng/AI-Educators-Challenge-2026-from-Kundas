@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MINDA INKLUSIF AI — Special Needs Learning Portal</title>
+  <title>INCLUSIVE MIND AI — Special Needs Learning Portal</title>
   
   <!-- Favicon Integration -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2338bdf8'/><stop offset='100%' stop-color='%23c084fc'/></linearGradient></defs><rect width='100' height='100' rx='24' fill='%230f172a'/><circle cx='50' cy='50' r='35' fill='none' stroke='url(%23g)' stroke-width='8'/><path d='M35 40a15 15 0 0 1 30 0c0 10-15 15-15 25' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/><circle cx='50' cy='80' r='5' fill='%2338bdf8'/></svg>">
@@ -912,7 +912,7 @@
         </svg>
 
         <div>
-          <h1 class="brand-title">MINDA INKLUSIF AI</h1>
+          <h1 class="brand-title">INCLUSIVE MIND AI</h1>
           <span class="brand-subtitle">Visual Mind Mapping, Dyslexia Adapters & AI Support</span>
         </div>
       </div>
@@ -949,22 +949,22 @@
       <section class="glass-card">
         <div class="card-header">
           <h2 class="card-title"><i class="fa-solid fa-diagram-project"></i> i-Think Mind Maps</h2>
-          <p class="card-subtitle">Pilih peta untuk mula belajar</p>
+          <p class="card-subtitle">Select a map to start learning</p>
         </div>
 
         <!-- Segmented Control Selection -->
         <div style="display: flex; flex-direction: column; gap: 4px;">
           <div class="segmented-control">
-            <button class="segment-btn active" onclick="selectMap('Circle', this)">Bulatan</button>
-            <button class="segment-btn" onclick="selectMap('Bubble', this)">Buih</button>
-            <button class="segment-btn" onclick="selectMap('Double Bubble', this)">Buih Berganda</button>
-            <button class="segment-btn" onclick="selectMap('Tree', this)">Pokok</button>
+            <button class="segment-btn active" onclick="selectMap('Circle', this)">Circle</button>
+            <button class="segment-btn" onclick="selectMap('Bubble', this)">Bubble</button>
+            <button class="segment-btn" onclick="selectMap('Double Bubble', this)">Double Bubble</button>
+            <button class="segment-btn" onclick="selectMap('Tree', this)">Tree</button>
           </div>
           <div class="segmented-control">
-            <button class="segment-btn" onclick="selectMap('Brace', this)">Dakap</button>
-            <button class="segment-btn" onclick="selectMap('Flow', this)">Alir</button>
-            <button class="segment-btn" onclick="selectMap('Multi-Flow', this)">Pelbagai Alir</button>
-            <button class="segment-btn" onclick="selectMap('Bridge', this)">Jambatan</button>
+            <button class="segment-btn" onclick="selectMap('Brace', this)">Brace</button>
+            <button class="segment-btn" onclick="selectMap('Flow', this)">Flow</button>
+            <button class="segment-btn" onclick="selectMap('Multi-Flow', this)">Multi-Flow</button>
+            <button class="segment-btn" onclick="selectMap('Bridge', this)">Bridge</button>
           </div>
         </div>
 
@@ -972,40 +972,40 @@
         <div class="mindmap-workspace" id="mindmapCanvas">
           <!-- Initial Active Example Map -->
           <div class="mindmap-node-tree">
-            <div class="node-root"><i class="fa-solid fa-paw"></i> Haiwan</div>
+            <div class="node-root"><i class="fa-solid fa-paw"></i> Animals</div>
             <div class="node-branches">
-              <div class="node-child"><i class="fa-solid fa-cat"></i> Kucing (Darat)</div>
-              <div class="node-child"><i class="fa-solid fa-fish"></i> Ikan (Air)</div>
-              <div class="node-child"><i class="fa-solid fa-crow"></i> Burung (Udara)</div>
+              <div class="node-child"><i class="fa-solid fa-cat"></i> Cat (Land)</div>
+              <div class="node-child"><i class="fa-solid fa-fish"></i> Fish (Water)</div>
+              <div class="node-child"><i class="fa-solid fa-crow"></i> Bird (Air)</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- RIGHT COLUMN: Friendly AI Assistant (AI Pembina Thinking Map) -->
+      <!-- RIGHT COLUMN: Friendly AI Assistant (AI Thinking Map Builder) -->
       <section class="glass-card ai-chat-card">
         <div class="card-header">
-          <h2 class="card-title"><i class="fa-solid fa-robot"></i> AI Pembina Thinking Map</h2>
-          <p class="card-subtitle">Taip topik, perkataan atau langkah untuk membina peta ASCII</p>
+          <h2 class="card-title"><i class="fa-solid fa-robot"></i> AI Thinking Map Builder</h2>
+          <p class="card-subtitle">Type a topic, word, or step to build an ASCII map</p>
         </div>
 
         <!-- Chat Messages Container -->
         <div class="chat-messages" id="chatMessages">
-          <div class="chat-msg ai">Assalamualaikum dan salam mesra! 👋 Saya Cikgu Pembimbing Thinking Map anda.\n\nBerikan Cikgu sebarang tajuk, perkataan atau urutan (contoh: "wuduk", "bahagian pokok", atau "ciri kucing"), Cikgu akan bina Peta Thinking Map khas untuk anda! 🌟</div>
+          <div class="chat-msg ai">Hello and warm welcome! 👋 I am your AI Thinking Map Guide. Give me any topic, word, or sequence (e.g., "ablution steps", "parts of a tree", or "cat characteristics"), and I will generate a custom Thinking Map for you! 🌟</div>
         </div>
 
         <!-- Quick Action Suggestion Buttons -->
         <div class="quick-actions">
-          <button class="quick-btn" onclick="sendQuickAction('Urutan wuduk')"><i class="fa-solid fa-hands-wash"></i> Urutan Wuduk</button>
-          <button class="quick-btn" onclick="sendQuickAction('Bahagian pokok')"><i class="fa-solid fa-tree"></i> Bahagian Pokok</button>
-          <button class="quick-btn" onclick="sendQuickAction('Ciri kucing')"><i class="fa-solid fa-cat"></i> Ciri Kucing</button>
+          <button class="quick-btn" onclick="sendQuickAction('Ablution sequence')"><i class="fa-solid fa-hands-wash"></i> Ablution Steps</button>
+          <button class="quick-btn" onclick="sendQuickAction('Parts of a tree')"><i class="fa-solid fa-tree"></i> Parts of a Tree</button>
+          <button class="quick-btn" onclick="sendQuickAction('Cat characteristics')"><i class="fa-solid fa-cat"></i> Cat Features</button>
         </div>
 
         <!-- Input Bar -->
         <div class="chat-input-area">
-          <input type="text" class="chat-input" id="userInput" placeholder="Taip topik atau soalan..." onkeypress="handleKey(event)">
+          <input type="text" class="chat-input" id="userInput" placeholder="Type a topic or question..." onkeypress="handleKey(event)">
           <button class="action-icon-btn" id="micBtn" onclick="toggleVoiceInput()" title="Voice Input"><i class="fa-solid fa-microphone"></i></button>
-          <button class="action-icon-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i> Hantar</button>
+          <button class="action-icon-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i> Send</button>
         </div>
       </section>
 
@@ -1056,19 +1056,19 @@
       <div class="dyslexia-grid">
         <!-- Input Text Box -->
         <div>
-          <label for="inputText" style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">📝 Tampal Teks:</label>
-          <textarea id="inputText" class="dyslexia-textarea" placeholder="Tampal sebarang petikan teks atau buku teks di sini..."></textarea>
+          <label for="inputText" style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">📝 Paste Text:</label>
+          <textarea id="inputText" class="dyslexia-textarea" placeholder="Paste any text passage or textbook content here..."></textarea>
           <button class="btn-primary-adapter" onclick="transformText()">
-            <i class="fa-solid fa-bolt"></i> Ubah untuk Pembaca Disleksia
+            <i class="fa-solid fa-bolt"></i> Adapt for Dyslexic Readers
           </button>
         </div>
 
         <!-- Dynamic Adapted Output Display Card -->
         <div>
-          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">🎯 Hasil Mudah Baca:</label>
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">🎯 Easy-to-Read Output:</label>
           <div id="outputCard" class="dyslexia-output-card">
             <div id="outputContainer">
-              <p style="color: #94a3b8; font-style: italic;">Hasil teks ringkas bermaklumat bersama panduan suku kata dan poin visual akan dipaparkan di sini...</p>
+              <p style="color: #94a3b8; font-style: italic;">Condensed informative text results with syllable guides and visual bullet points will appear here...</p>
             </div>
           </div>
         </div>
@@ -1077,39 +1077,39 @@
 
     <!-- 4. LEARNING MATERIALS DASHBOARD SECTION -->
     <footer class="learning-materials-section">
-      <h2 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-shapes"></i> Bahan Pembelajaran</h2>
+      <h2 class="card-title" style="font-size: 1rem;"><i class="fa-solid fa-shapes"></i> Learning Materials</h2>
       
       <div class="materials-grid">
         <a href="cards.html" class="material-card">
           <div class="material-info">
-            <h4><i class="fa-solid fa-book-open"></i> Nota Visual</h4>
-            <p>Nota kilat & ringkasan bergambar.</p>
+            <h4><i class="fa-solid fa-book-open"></i> Visual Notes</h4>
+            <p>Flash notes & pictorial summaries.</p>
           </div>
-          <span class="material-action">Terokai <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="material-action">Explore <i class="fa-solid fa-arrow-right"></i></span>
         </a>
 
         <a href="audiobooks.html" class="material-card">
           <div class="material-info">
-            <h4><i class="fa-solid fa-video"></i> Video</h4>
-            <p>Sumber video pembelajaran.</p>
+            <h4><i class="fa-solid fa-video"></i> Videos</h4>
+            <p>Learning video resources.</p>
           </div>
-          <span class="material-action">Tonton <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="material-action">Watch <i class="fa-solid fa-arrow-right"></i></span>
         </a>
 
         <a href="puzzle.html" class="material-card">
           <div class="material-info">
-            <h4><i class="fa-solid fa-puzzle-piece"></i> Kuiz Interaktif</h4>
-            <p>Uji kefahaman dengan kuiz.</p>
+            <h4><i class="fa-solid fa-puzzle-piece"></i> Interactive Quizzes</h4>
+            <p>Test understanding with quizzes.</p>
           </div>
-          <span class="material-action">Mula <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="material-action">Start <i class="fa-solid fa-arrow-right"></i></span>
         </a>
 
         <a href="game.html" class="material-card">
           <div class="material-info">
-            <h4><i class="fa-solid fa-gamepad"></i> Permainan</h4>
-            <p>Aktiviti pembelajaran menyeronokkan.</p>
+            <h4><i class="fa-solid fa-gamepad"></i> Games</h4>
+            <p>Fun learning activities.</p>
           </div>
-          <span class="material-action">Main <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="material-action">Play <i class="fa-solid fa-arrow-right"></i></span>
         </a>
       </div>
     </footer>
@@ -1166,7 +1166,7 @@
       const utterance = new SpeechSynthesisUtterance(text.trim());
       utterance.rate = 0.92;
       utterance.pitch = 1.0;
-      utterance.lang = 'ms-MY';
+      utterance.lang = 'en-US';
       window.speechSynthesis.speak(utterance);
     }
 
@@ -1177,7 +1177,7 @@
       if (ttsActive) {
         ttsBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Text-to-Speech: ON';
         ttsBtn.classList.add('active-tts');
-        speakText("Suara diaktifkan.");
+        speakText("Voice activated.");
       } else {
         ttsBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> Text-to-Speech: OFF';
         ttsBtn.classList.remove('active-tts');
@@ -1243,7 +1243,7 @@
       const outputContainer = document.getElementById('outputContainer');
 
       if (!rawText) {
-        outputContainer.innerHTML = '<p style="color: #ef4444;"><i class="fa-solid fa-circle-exclamation"></i> Sila tampal teks terlebih dahulu!</p>';
+        outputContainer.innerHTML = '<p style="color: #ef4444;"><i class="fa-solid fa-circle-exclamation"></i> Please paste text first!</p>';
         return;
       }
 
@@ -1270,31 +1270,31 @@
 
       outputContainer.innerHTML = `
         <div class="output-section">
-          <strong style="color: #38bdf8;"><i class="fa-solid fa-align-left"></i> RINGKASAN TEKS</strong>
+          <strong style="color: #38bdf8;"><i class="fa-solid fa-align-left"></i> TEXT SUMMARY</strong>
           <p style="margin-top: 4px; opacity: 0.85; font-size: 0.88rem;">${summaryText}</p>
         </div>
 
         <div class="output-section">
-          <strong style="color: #38bdf8;"><i class="fa-solid fa-sparkles"></i> ADAPTASI MESRA DISLEKSIA</strong>
+          <strong style="color: #38bdf8;"><i class="fa-solid fa-sparkles"></i> DYSLEXIA-FRIENDLY ADAPTATION</strong>
           <ul class="dyslexia-list" style="margin-top: 10px;">
             ${adaptedBullets.join('')}
           </ul>
         </div>
 
         <div class="output-section">
-          <strong style="color: #38bdf8;"><i class="fa-solid fa-lightbulb"></i> KATA KUNCI UTAMA</strong>
+          <strong style="color: #38bdf8;"><i class="fa-solid fa-lightbulb"></i> KEY KEYWORDS</strong>
           <ul class="dyslexia-list" style="margin-top: 8px;">
-            <li>Perkataan fokus: <strong>${uniqueComplex.join(', ') || 'Tiada perkataan sukar'}</strong>.</li>
+            <li>Focus words: <strong>${uniqueComplex.join(', ') || 'No complex words'}</strong>.</li>
           </ul>
         </div>
 
         <div class="teacher-box">
-          <strong>💡 TIP GURU:</strong> Gunakan pembaris fizikal atau penunjuk visual untuk membantu murid membaca baris demi baris.
+          <strong>💡 TEACHER'S TIP:</strong> Use a physical ruler or visual pointer to help students read line by line.
         </div>
       `;
 
       if (ttsActive) {
-        speakText("Adaptasi teks selesai.");
+        speakText("Text adaptation complete.");
       }
     }
 
@@ -1302,14 +1302,14 @@
        INTERACTIVE MIND MAP WORKSPACE & MAP RENDERING
        ========================================================================== */
     const mapSampleData = {
-      'Circle': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-regular fa-circle"></i> Maksud: Sistem Suria</div><div class="node-branches"><div class="node-child">Matahari</div><div class="node-child">Planet</div><div class="node-child">Bulan</div></div></div>`,
-      'Bubble': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-regular fa-comment-dots"></i> Ciri: Lautan</div><div class="node-branches"><div class="node-child">Dalam</div><div class="node-child">Biru</div><div class="node-child">Luas</div><div class="node-child">Masin</div></div></div>`,
-      'Double Bubble': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-scale-balanced"></i> Banding: Epal vs Oren</div><div class="node-branches"><div class="node-child">Buah (Sama)</div><div class="node-child">Merah (Epal)</div><div class="node-child">Jingga (Oren)</div></div></div>`,
-      'Tree': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-paw"></i> Haiwan</div><div class="node-branches"><div class="node-child"><i class="fa-solid fa-cat"></i> Kucing (Darat)</div><div class="node-child"><i class="fa-solid fa-fish"></i> Ikan (Air)</div><div class="node-child"><i class="fa-solid fa-crow"></i> Burung (Udara)</div></div></div>`,
-      'Brace': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-cubes"></i> Bahagian: Komputer</div><div class="node-branches"><div class="node-child">Skrin</div><div class="node-child">Papan Kekunci</div><div class="node-child">Tetikus</div></div></div>`,
-      'Flow': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-arrow-right-long"></i> Urutan: Tumbesaran Tumbuhan</div><div class="node-branches"><div class="node-child">1. Biji Benih</div><div class="node-child">2. Bercambah</div><div class="node-child">3. Pokok</div></div></div>`,
-      'Multi-Flow': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-code-fork"></i> Sebab & Akibat: Hujan</div><div class="node-branches"><div class="node-child">Awan Tebal (Sebab)</div><div class="node-child">Tanah Basah (Akibat)</div></div></div>`,
-      'Bridge': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-bridge"></i> Analogi: Kepak kepada Burung</div><div class="node-branches"><div class="node-child">Sirip kepada Ikan</div><div class="node-child">Roda kepada Kereta</div></div></div>`
+      'Circle': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-regular fa-circle"></i> Meaning: Solar System</div><div class="node-branches"><div class="node-child">Sun</div><div class="node-child">Planets</div><div class="node-child">Moon</div></div></div>`,
+      'Bubble': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-regular fa-comment-dots"></i> Feature: Ocean</div><div class="node-branches"><div class="node-child">Deep</div><div class="node-child">Blue</div><div class="node-child">Vast</div><div class="node-child">Salty</div></div></div>`,
+      'Double Bubble': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-scale-balanced"></i> Compare: Apple vs Orange</div><div class="node-branches"><div class="node-child">Fruit (Same)</div><div class="node-child">Red (Apple)</div><div class="node-child">Orange (Orange)</div></div></div>`,
+      'Tree': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-paw"></i> Animals</div><div class="node-branches"><div class="node-child"><i class="fa-solid fa-cat"></i> Cat (Land)</div><div class="node-child"><i class="fa-solid fa-fish"></i> Fish (Water)</div><div class="node-child"><i class="fa-solid fa-crow"></i> Bird (Air)</div></div></div>`,
+      'Brace': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-cubes"></i> Parts: Computer</div><div class="node-branches"><div class="node-child">Screen</div><div class="node-child">Keyboard</div><div class="node-child">Mouse</div></div></div>`,
+      'Flow': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-arrow-right-long"></i> Sequence: Plant Growth</div><div class="node-branches"><div class="node-child">1. Seed</div><div class="node-child">2. Sprout</div><div class="node-child">3. Tree</div></div></div>`,
+      'Multi-Flow': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-code-fork"></i> Cause & Effect: Rain</div><div class="node-branches"><div class="node-child">Heavy Clouds (Cause)</div><div class="node-child">Wet Ground (Effect)</div></div></div>`,
+      'Bridge': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-bridge"></i> Analogy: Wing to Bird</div><div class="node-branches"><div class="node-child">Fin to Fish</div><div class="node-child">Wheel to Car</div></div></div>`
     };
 
     const mapImages = {
@@ -1337,7 +1337,7 @@
     }
 
     /* ==========================================================================
-       AI ASSISTANT ENGINE (INTEGRATED WITH SYSTEM PROMPT: AI PEMBINA THINKING MAP)
+       AI ASSISTANT ENGINE (INTEGRATED WITH SYSTEM PROMPT: AI THINKING MAP BUILDER)
        ========================================================================== */
     function sendMessage() {
       const input = document.getElementById('userInput');
@@ -1394,143 +1394,143 @@
       const input = query.toLowerCase().trim();
 
       // Greeting handling
-      if (input === 'hi' || input === 'hello' || input === 'assalamualaikum' || input === 'salam') {
-        return "Waalaikumsalam dan salam mesra! 😊 Saya Cikgu AI Pembina Thinking Map. Sila berikan topik, kata kunci, atau aktiviti yang murid hendak pelajari hari ini!";
+      if (input === 'hi' || input === 'hello' || input === 'hey' || input === 'greetings') {
+        return "Hello and warm welcome! 😊 I am your AI Thinking Map Builder. Please provide any topic, keywords, or activity you want to learn today!";
       }
 
-      // 1. PETA ALIR (Flow Map) - Purpose: Steps, Sequences, Order, Chronology
+      // 1. FLOW MAP - Purpose: Steps, Sequences, Order, Chronology
       if (
-        input.includes('wuduk') || input.includes('urutan') || input.includes('langkah') || 
-        input.includes('proses') || input.includes('cara') || input.includes('dahulu') || 
-        input.includes('kemudian') || input.includes('sebelum') || input.includes('selepas') || 
-        input.includes('mula') || input.includes('tumbuh') || input.includes('masak') ||
-        input.includes('benih') || input.includes('kronologi')
+        input.includes('ablution') || input.includes('sequence') || input.includes('step') || 
+        input.includes('process') || input.includes('method') || input.includes('first') || 
+        input.includes('then') || input.includes('before') || input.includes('after') || 
+        input.includes('start') || input.includes('grow') || input.includes('cook') ||
+        input.includes('seed') || input.includes('chronology')
       ) {
-        if (input.includes('wuduk')) {
-          return "Syabas! Untuk **urutan mengambil wuduk**, kita hendak menunjukkan **langkah demi langkah**. Maka, pilihan terbaik ialah **PETA ALIR**! 🌊\n\n" +
+        if (input.includes('ablution') || input.includes('wuduk')) {
+          return "Great job! To show the **ablution steps**, we want to demonstrate a **step-by-step sequence**. Therefore, the best choice is a **FLOW MAP**! 🌊\n" +
             "```\n" +
-            "[ Niat ] ➔ [ Cuci Muka ] ➔ [ Basuh Tangan ke Siku ]\n" +
-            "                               │\n" +
-            "                               ▼\n" +
-            "[ Basuh Kaki ] ◄─ [ Sapu Telinga ] ◄─ [ Sapu Kepala ]\n" +
-            "```\n\n" +
-            "💡 **Penerangan Mesra Cikgu:** Peta Alir membantu anak-anak ingat urutan dari awal hingga akhir dengan petunjuk anak panah yang jelas!";
+            "[ Intention ] ➔ [ Wash Face ] ➔ [ Wash Arms to Elbows ]\n" +
+            "                                      │\n" +
+            "                                      ▼\n" +
+            "[ Wash Feet ] ◄─ [ Wipe Ears ] ◄─ [ Wipe Head ]\n" +
+            "```\n" +
+            "💡 **Teacher's Tip:** Flow Maps help children remember ordered steps from start to finish with clear arrows!";
         }
 
-        return "Bagus sekali! Kerana maklumat ini menunjukkan **langkah, urutan, atau proses secara bersiri**, Cikgu memilih **PETA ALIR**! ➔\n\n" +
+        return "Excellent! Because this information shows **steps, sequence, or a process**, I chose a **FLOW MAP**! ➔\n" +
           "```\n" +
-          "[ Mula / Langkah 1 ] ➔ [ Langkah 2 ] ➔ [ Langkah 3 ] ➔ [ Selesai ]\n" +
-          "```\n\n" +
-          "💡 **Penerangan Mesra Cikgu:** Gunakan Peta Alir apabila kita mahu menyusun perkara yang berlaku mengikut urutan masa!";
+          "[ Start / Step 1 ] ➔ [ Step 2 ] ➔ [ Step 3 ] ➔ [ Finish ]\n" +
+          "```\n" +
+          "💡 **Teacher's Tip:** Use Flow Maps whenever you want to organize things that happen in sequential order!";
       }
 
-      // 2. PETA DAKAP (Brace Map) - Purpose: Whole to Parts (Bahagian)
+      // 2. BRACE MAP - Purpose: Whole to Parts (Components/Parts)
       if (
-        input.includes('bahagian') || input.includes('komponen') || input.includes('anggota') || 
-        input.includes('elemen') || input.includes('terdiri daripada') || input.includes('akar') || 
-        input.includes('badan') || input.includes('rumah') || input.includes('kereta') || input.includes('pokok')
+        input.includes('part') || input.includes('component') || input.includes('member') || 
+        input.includes('element') || input.includes('consist') || input.includes('root') || 
+        input.includes('body') || input.includes('house') || input.includes('car') || input.includes('tree')
       ) {
-        let topicName = input.includes('pokok') ? 'Pokok' : (input.includes('badan') ? 'Badan' : 'Objek');
-        return `Hebat! Kerana maklumat menunjukkan **bahagian-bahagian fizikal** daripada satu keseluruhan, peta paling sesuai ialah **PETA DAKAP**! 🧩\n\n` +
+        let topicName = input.includes('tree') ? 'Tree' : (input.includes('body') ? 'Body' : 'Object');
+        return `Awesome! Since this shows **physical parts** of a whole object, the most suitable map is a **BRACE MAP**! 🧩\n` +
           "```\n" +
-          `               ┌─ Akar\n` +
-          `Bahagian ${topicName} ┼─ Batang\n` +
-          `               └─ Daun & Bunga\n` +
-          "```\n\n" +
-          "💡 **Penerangan Mesra Cikgu:** Peta Dakap digunakan khusus apabila kita membahagikan sesuatu benda kepada bahagian-bahagian kecilnya!";
+          `               ┌─ Roots\n` +
+          `Parts of ${topicName} ┼─ Trunk\n` +
+          `               └─ Leaves & Flowers\n` +
+          "```\n" +
+          "💡 **Teacher's Tip:** Brace Maps are used specifically when dividing a whole object into its smaller physical components!";
       }
 
-      // 3. PETA BUIH (Bubble Map) - Purpose: Adjectives, Qualities, Characteristics
+      // 3. BUBBLE MAP - Purpose: Adjectives, Qualities, Characteristics
       if (
-        input.includes('ciri') || input.includes('sifat') || input.includes('rupa') || 
-        input.includes('keadaan') || input.includes('kualiti') || input.includes('warna') || 
-        input.includes('tinggi') || input.includes('comel') || input.includes('kucing')
+        input.includes('feature') || input.includes('trait') || input.includes('characteristic') || 
+        input.includes('quality') || input.includes('color') || input.includes('property') || 
+        input.includes('tall') || input.includes('cute') || input.includes('cat')
       ) {
-        let subject = input.includes('kucing') ? 'KUCING' : 'TOPIK';
-        return `Wah, bijaknya! Kerana kita mahu menerangkan **ciri-ciri atau sifat** bagi ${subject}, Cikgu memilih **PETA BUIH**! 💭\n\n` +
+        let subject = input.includes('cat') ? 'CAT' : 'TOPIC';
+        return `Wonderful! To describe the **characteristics or qualities** of ${subject}, I choose a **BUBBLE MAP**! 💭\n` +
           "```\n" +
-          "       ( Berbulu Halus )\n" +
-          "               │\n" +
-          "( Berkaki 4 ) ── [ " + subject + " ] ── ( Ada Ekor )\n" +
-          "               │\n" +
-          "       ( Boleh Mengeong )\n" +
-          "```\n\n" +
-          "💡 **Penerangan Mesra Cikgu:** Peta Buih fokus kepada kata sifat untuk menggambarkan keadaan atau rupa sesuatu benda!";
+          "       ( Soft Fur )\n" +
+          "            │\n" +
+          "( 4 Legs ) ── [ " + subject + " ] ── ( Has Tail )\n" +
+          "            │\n" +
+          "       ( Can Meow )\n" +
+          "```\n" +
+          "💡 **Teacher's Tip:** Bubble Maps focus on adjectives to describe the qualities or appearance of a subject!";
       }
 
-      // 4. PETA POKOK (Tree Map) - Purpose: Classification, Categories, Groups
+      // 4. TREE MAP - Purpose: Classification, Categories, Groups
       if (
-        input.includes('jenis') || input.includes('kategori') || input.includes('kumpulan') || 
-        input.includes('dibahagikan') || input.includes('kelaskan') || input.includes('darat') || 
-        input.includes('air') || input.includes('haiwan')
+        input.includes('type') || input.includes('category') || input.includes('group') || 
+        input.includes('classify') || input.includes('divide') || input.includes('land') || 
+        input.includes('water') || input.includes('animal') || input.includes('types')
       ) {
-        return "Bagus! Apabila maklumat boleh **dikelaskan atau dibahagikan kepada beberapa kumpulan/kategori**, peta yang paling tepat ialah **PETA POKOK**! 🌳\n\n" +
+        return "Great! When information can be **classified or divided into categories**, the right map is a **TREE MAP**! 🌳\n" +
           "```\n" +
-          "                       [ KUMPULAN HAIWAN ]\n" +
-          "           ┌────────────────────┼────────────────────┐\n" +
-          "       [ Haiwan Darat ]     [ Haiwan Air ]     [ Haiwan Udara ]\n" +
-          "          • Kucing             • Ikan             • Burung\n" +
-          "          • Lembu              • Udang            • Lebah\n" +
-          "```\n\n" +
-          "💡 **Penerangan Mesra Cikgu:** Peta Pokok memudahkan kita menyusun fakta mengikut tajuk kecil dan kategori!";
+          "                       [ ANIMAL GROUPS ]\n" +
+          "           ┌───────────────────┼───────────────────┐\n" +
+          "    [ Land Animals ]    [ Water Animals ]   [ Air Animals ]\n" +
+          "       • Cat               • Fish              • Bird\n" +
+          "       • Cow               • Shrimp            • Bee\n" +
+          "```\n" +
+          "💡 **Teacher's Tip:** Tree Maps make it easy to organize facts under subtopics and categories!";
       }
 
-      // 5. PETA BUIH BERGANDA (Double Bubble Map) - Purpose: Compare & Contrast
+      // 5. DOUBLE BUBBLE MAP - Purpose: Compare & Contrast
       if (
-        input.includes('banding') || input.includes('sama') || input.includes('beza') || 
-        input.includes('persamaan') || input.includes('perbezaan') || input.includes('vs') || 
-        input.includes('lawan')
+        input.includes('compare') || input.includes('same') || input.includes('different') || 
+        input.includes('similarity') || input.includes('difference') || input.includes('vs') || 
+        input.includes('contrast')
       ) {
-        return "Menarik sekali! Kerana murid mahu **membandingkan dua perkara (mencari persamaan dan perbezaan)**, pilihan wajib ialah **PETA BUIH BERGANDA**! 👥\n\n" +
+        return "Very interesting! To **compare two things (find similarities and differences)**, the essential choice is a **DOUBLE BUBBLE MAP**! 👥\n" +
           "```\n" +
-          " (Beza A) ── [ Topik A ] ── ( Persamaan ) ── [ Topik B ] ── (Beza B)\n" +
-          "```\n\n" +
-          "💡 **Penerangan Mesra Cikgu:** Bulatan di tengah menunjukkan perkara yang SAMA, manakala bulatan di tepi menunjukkan perbezaannya!";
+          " ( Diff A ) ── [ Topic A ] ── ( Similarity ) ── [ Topic B ] ── ( Diff B )\n" +
+          "```\n" +
+          "💡 **Teacher's Tip:** Circles in the middle show SIMILARITIES, while outer circles show differences!";
       }
 
-      // 6. PETA PELBAGAI ALIR (Multi-Flow Map) - Purpose: Cause & Effect
+      // 6. MULTI-FLOW MAP - Purpose: Cause & Effect
       if (
-        input.includes('sebab') || input.includes('akibat') || input.includes('punca') || 
-        input.includes('kesan') || input.includes('kerana') || input.includes('mengapa')
+        input.includes('cause') || input.includes('effect') || input.includes('reason') || 
+        input.includes('impact') || input.includes('result') || input.includes('why') || input.includes('because')
       ) {
-        return "Hebat! Apabila kita menganalisis **sebab (punca) dan akibat (kesan)** sesuatu peristiwa, peta yang digunakan ialah **PETA PELBAGAI ALIR**! 🔀\n\n" +
+        return "Awesome! When analyzing the **causes and effects** of an event, the map to use is a **MULTI-FLOW MAP**! 🔀\n" +
           "```\n" +
-          "[ Punca / Sebab 1 ] ➔ ┌──────────────────┐ ➔ [ Kesan / Akibat 1 ]\n" +
-          "                      │ PERISTIWA UTAMA  │\n" +
-          "[ Punca / Sebab 2 ] ➔ └──────────────────┘ ➔ [ Kesan / Akibat 2 ]\n" +
-          "```\n\n" +
-          "💡 **Penerangan Mesra Cikgu:** Bahagian kiri ialah sebab berlakunya peristiwa, manakala bahagian kanan ialah kesan selepas peristiwa berlaku!";
+          "[ Cause 1 ] ➔ ┌──────────────────┐ ➔ [ Effect 1 ]\n" +
+          "              │   MAIN EVENT   │\n" +
+          "[ Cause 2 ] ➔ └──────────────────┘ ➔ [ Effect 2 ]\n" +
+          "```\n" +
+          "💡 **Teacher's Tip:** Left side shows causes, while the right side shows effects following the event!";
       }
 
-      // 7. PETA JAMBATAN (Bridge Map) - Purpose: Analogy, Relational Pairs
+      // 7. BRIDGE MAP - Purpose: Analogy, Relational Pairs
       if (
-        input.includes('analogi') || input.includes('hubungan') || input.includes('sama seperti') || 
-        input.includes('seperti') || input.includes('pasangan')
+        input.includes('analogy') || input.includes('relationship') || input.includes('same as') || 
+        input.includes('like') || input.includes('pair')
       ) {
-        return "Sangat kreatif! Untuk menunjukkan **hubungan analogi yang sama antara pasangan perkara**, Cikgu bina **PETA JAMBATAN**! 🌉\n\n" +
+        return "Very creative! To show an **analogous relationship between paired items**, I built a **BRIDGE MAP**! 🌉\n" +
           "```\n" +
-          " Kepak               Sirip\n" +
-          "────────── (seperti) ──────────\n" +
-          " Burung              Ikan\n" +
-          "```\n\n" +
-          "💡 **Penerangan Mesra Cikgu:** Faktor penghubung di sini ialah 'organ untuk bergerak' bagi haiwan tersebut!";
+          " Wing                 Fin\n" +
+          "────────── (as) ──────────\n" +
+          " Bird                 Fish\n" +
+          "```\n" +
+          "💡 **Teacher's Tip:** The relating factor here is 'movement organ' for the animal!";
       }
 
-      // 8. PETA BULATAN (Circle Map) - Default / Brainstorming / Definition / Facts
-      return "Syabas! Untuk **memberikan fakta umum, maklumat asas, atau pengetahuan** tentang tajuk ini, Cikgu gunakan **PETA BULATAN**! ⭕\n\n" +
+      // 8. CIRCLE MAP - Default / Brainstorming / Definition / Facts
+      return "Great job! To share **general facts, basic information, or background knowledge** about this topic, I use a **CIRCLE MAP**! ⭕\n" +
         "```\n" +
         "┌───────────────────────────────────────────────────────────┐\n" +
-        "│  [Sumber: Buku Teks / Guru]                              │\n" +
+        "│  [Source: Textbook / Teacher]                            │\n" +
         "│              ┌─────────────────────────────┐              │\n" +
-        "│              │   Fakta 1     Fakta 2       │              │\n" +
+        "│              │   Fact 1      Fact 2        │              │\n" +
         "│              │       ┌─────────────┐       │              │\n" +
         "│              │       │  " + query.toUpperCase().substring(0, 12) + "  │       │              │\n" +
         "│              │       └─────────────┘       │              │\n" +
-        "│              │   Fakta 3     Fakta 4       │              │\n" +
+        "│              │   Fact 3      Fact 4        │              │\n" +
         "│              └─────────────────────────────┘              │\n" +
         "└───────────────────────────────────────────────────────────┘\n" +
-        "```\n\n" +
-        "💡 **Penerangan Mesra Cikgu:** Peta Bulatan sangat sesuai untuk kita 'sumbang saran' (brainstorm) semua benda yang kita tahu tentang tajuk ini!";
+        "```\n" +
+        "💡 **Teacher's Tip:** Circle Maps are perfect for brainstorming everything we know about a topic!";
     }
 
     /* Voice Recognition Support */
@@ -1540,7 +1540,7 @@
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognition = new SpeechRecognition();
-      recognition.lang = 'ms-MY';
+      recognition.lang = 'en-US';
       recognition.onresult = (e) => {
         document.getElementById('userInput').value = e.results[0][0].transcript;
         stopListening();
@@ -1550,7 +1550,7 @@
     }
 
     function toggleVoiceInput() {
-      if (!recognition) return alert("Pengecaman suara tidak disokong pada pelayar ini.");
+      if (!recognition) return alert("Voice recognition is not supported in this browser.");
       const btn = document.getElementById('micBtn');
       if (isListening) {
         recognition.stop();
