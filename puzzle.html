@@ -72,7 +72,7 @@
       border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 16px;
     }
 
-    .question-box { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .question-box { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
     .question-text { font-size: 1.1rem; color: #fff; line-height: 1.5; }
 
     .tts-prompt-btn {
@@ -97,9 +97,8 @@
 
     .chip-options { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
 
-    /* Multiple Choice Options */
-    .mc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    @media (max-width: 600px) { .mc-grid { grid-template-columns: 1fr; } }
+    /* Multiple Choice Options - Diubah ke flex column untuk 3 pilihan jawapan */
+    .mc-grid { display: flex; flex-direction: column; gap: 12px; }
 
     .option-btn {
       background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border);
@@ -137,7 +136,7 @@
 
     <!-- Quiz Tracker -->
     <div class="quiz-tracker">
-      <span id="questionCount">Question 1 of 3</span>
+      <span id="questionCount">Question 1 of 15</span>
       <span class="score-badge"><i class="fa-solid fa-star"></i> Score: <span id="scoreVal">0</span></span>
     </div>
 
@@ -146,26 +145,20 @@
       
       <!-- Question Title -->
       <div class="question-box">
-        <h2 class="question-text" id="qText">1. Bawa perkataan ini bersama: [sa] + [bun]</h2>
+        <h2 class="question-text" id="qText">Loading question...</h2>
         <button class="tts-prompt-btn" onclick="readQuestion()"><i class="fa-solid fa-volume-high"></i></button>
       </div>
 
       <!-- Syllable Assembly Area (Mode A) -->
-      <div id="syllableArea">
-        <p style="font-size: 0.8rem; color: var(--text-sub);">Tekan suku kata mengikut urutan yang betul:</p>
+      <div id="syllableArea" style="display: none;">
+        <p style="font-size: 0.8rem; color: var(--text-sub);">Tap the syllables/letters in the correct order:</p>
         <div class="syllable-dropzone" id="dropzone" style="margin-top: 6px;"></div>
         
-        <div class="chip-options" id="chipPool">
-          <button class="syllable-chip" onclick="selectChip(this, 'bun')">bun</button>
-          <button class="syllable-chip" onclick="selectChip(this, 'sa')">sa</button>
-        </div>
+        <div class="chip-options" id="chipPool"></div>
       </div>
 
       <!-- Multiple Choice Area (Mode B) -->
-      <div class="mc-grid" id="mcArea" style="display: none;">
-        <button class="option-btn" onclick="checkMC(this, false)"><span>A. 1/4 (Satu perempat)</span> <i class="fa-regular fa-circle"></i></button>
-        <button class="option-btn" onclick="checkMC(this, true)"><span>B. 1/2 (Satu perdua)</span> <i class="fa-regular fa-circle"></i></button>
-      </div>
+      <div class="mc-grid" id="mcArea" style="display: none;"></div>
 
       <!-- Feedback Banner -->
       <div class="feedback-toast" id="feedbackToast"></div>
@@ -178,30 +171,129 @@
   </div>
 
   <script>
-    /* Quiz Data State */
+    /* 15 Questions Data covering Math, Science, English, and Bahasa Melayu */
     const quizData = [
       {
-        type: 'syllable',
-        text: '1. Cantumkan suku kata untuk membentuk perkataan: "sabun"',
-        target: 'sabun',
-        chips: ['bun', 'sa']
-      },
-      {
         type: 'mc',
-        text: '2. Apakah jawapan bagi $$\\frac{1}{2}$$ daripada separuh kek?',
+        text: '1. Math: What is 5 + 4?',
         options: [
-          { label: 'A. Satu perempat (1/4)', correct: false },
-          { label: 'B. Satu perdua (1/2)', correct: true },
-          { label: 'C. Tiga perempat (3/4)', correct: false }
+          { label: 'A. 8', correct: false },
+          { label: 'B. 9', correct: true },
+          { label: 'C. 10', correct: false }
         ]
       },
       {
         type: 'mc',
-        text: '3. English Phonics: Which word rhymes with "CAT"?',
+        text: '2. Science: Which animal can fly?',
         options: [
-          { label: 'A. DOG', correct: false },
-          { label: 'B. HAT', correct: true },
-          { label: 'C. PEN', correct: false }
+          { label: 'A. Dog', correct: false },
+          { label: 'B. Bird', correct: true },
+          { label: 'C. Fish', correct: false }
+        ]
+      },
+      {
+        type: 'syllable',
+        text: '3. English: Put the parts together to spell "APPLE".',
+        target: 'APPLE',
+        chips: ['PLE', 'AP']
+      },
+      {
+        type: 'syllable',
+        text: '4. Bahasa Melayu: Cantumkan suku kata untuk membentuk perkataan "buku".',
+        target: 'buku',
+        chips: ['ku', 'bu']
+      },
+      {
+        type: 'mc',
+        text: '5. Math: What is 10 - 3?',
+        options: [
+          { label: 'A. 6', correct: false },
+          { label: 'B. 7', correct: true },
+          { label: 'C. 8', correct: false }
+        ]
+      },
+      {
+        type: 'mc',
+        text: '6. Science: What do plants need to grow?',
+        options: [
+          { label: 'A. Milk', correct: false },
+          { label: 'B. Sunlight', correct: true },
+          { label: 'C. Candy', correct: false }
+        ]
+      },
+      {
+        type: 'mc',
+        text: '7. English: What is the opposite of the word "HOT"?',
+        options: [
+          { label: 'A. Cold', correct: true },
+          { label: 'B. Big', correct: false },
+          { label: 'C. Sad', correct: false }
+        ]
+      },
+      {
+        type: 'mc',
+        text: '8. Bahasa Melayu: Apakah warna buah epal yang telah masak?',
+        options: [
+          { label: 'A. Biru (Blue)', correct: false },
+          { label: 'B. Merah (Red)', correct: true },
+          { label: 'C. Hitam (Black)', correct: false }
+        ]
+      },
+      {
+        type: 'mc',
+        text: '9. Math: Which shape has 3 sides?',
+        options: [
+          { label: 'A. Square', correct: false },
+          { label: 'B. Triangle', correct: true },
+          { label: 'C. Circle', correct: false }
+        ]
+      },
+      {
+        type: 'mc',
+        text: '10. Science: We use our eyes to...',
+        options: [
+          { label: 'A. Smell', correct: false },
+          { label: 'B. See', correct: true },
+          { label: 'C. Hear', correct: false }
+        ]
+      },
+      {
+        type: 'syllable',
+        text: '11. English: Spell the word "SUN".',
+        target: 'SUN',
+        chips: ['UN', 'S']
+      },
+      {
+        type: 'syllable',
+        text: '12. Bahasa Melayu: Bina perkataan "meja" (table).',
+        target: 'meja',
+        chips: ['ja', 'me']
+      },
+      {
+        type: 'mc',
+        text: '13. Math: What number comes after 19?',
+        options: [
+          { label: 'A. 18', correct: false },
+          { label: 'B. 20', correct: true },
+          { label: 'C. 21', correct: false }
+        ]
+      },
+      {
+        type: 'mc',
+        text: '14. Science: What gives us light during the day?',
+        options: [
+          { label: 'A. The Moon', correct: false },
+          { label: 'B. The Sun', correct: true },
+          { label: 'C. The Stars', correct: false }
+        ]
+      },
+      {
+        type: 'mc',
+        text: '15. English: Which word rhymes with "CAT"?',
+        options: [
+          { label: 'A. MAT', correct: true },
+          { label: 'B. PEN', correct: false },
+          { label: 'C. PIG', correct: false }
         ]
       }
     ];
@@ -242,7 +334,7 @@
       } else {
         document.getElementById('syllableArea').style.display = 'none';
         const mcArea = document.getElementById('mcArea');
-        mcArea.style.display = 'grid';
+        mcArea.style.display = 'flex';
         mcArea.innerHTML = q.options.map(opt => `
           <button class="option-btn" onclick="checkMC(this, ${opt.correct})">
             <span>${opt.label}</span> <i class="fa-regular fa-circle"></i>
@@ -263,9 +355,9 @@
 
       if (currentWord.length >= target.length) {
         if (currentWord === target) {
-          showFeedback(true, '🎉 Syabas! Perkataan betul!');
+          showFeedback(true, '🎉 Great Job! Correct!');
         } else {
-          showFeedback(false, '❌ Cuba lagi! Tekan reset.');
+          showFeedback(false, '❌ Not quite! The answer was: ' + target);
         }
       }
     }
@@ -308,7 +400,7 @@
       window.speechSynthesis.cancel();
       const text = document.getElementById('qText').innerText;
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.9;
+      utterance.rate = 0.85; // Sedikit perlahan untuk kanak-kanak
       window.speechSynthesis.speak(utterance);
     }
 
@@ -321,7 +413,7 @@
           <div style="text-align: center; padding: 20px;">
             <h2 style="font-family: var(--heading-font); color: #22c55e; font-size: 1.8rem;">🎉 Quiz Completed!</h2>
             <p style="margin-top: 8px; color: #fff;">Your Final Score: <strong>${score} Points</strong></p>
-            <a href="index.html" class="btn-next" style="display: inline-flex; margin-top: 16px; text-decoration: none;">Return to Dashboard</a>
+            <a href="index.html" class="btn-next" style="display: inline-flex; margin-top: 16px; text-decoration: none; margin-left: auto; margin-right: auto;">Return to Dashboard</a>
           </div>
         `;
       }
