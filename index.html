@@ -5,38 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minda Inklusif AI — Special Needs Learning Portal</title>
   
-  <!-- Google Font for Calligraphy Effect on Hover -->
+  <!-- Clean, Accessible Sans-Serif Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Fredoka:wght@600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
        LIQUID GLASS DESIGN SYSTEM & ACCESSIBILITY STYLES
        ========================================================================== */
     :root {
-      /* Increased transparency (reduced alpha from 0.15 to 0.08) */
       --glass-bg: rgba(255, 255, 255, 0.08);
       --glass-border: rgba(255, 255, 255, 0.25);
       --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-      --text-main: #0f172a;
+      --text-main: #f8fafc;
       --accent-teal: #0d9488;
       --accent-glow: rgba(13, 148, 136, 0.6);
-      --calligraphy-font: 'Great Vibes', cursive, serif;
+      --primary-font: 'Nunito', 'Segoe UI', sans-serif;
+      --heading-font: 'Fredoka', 'Segoe UI', sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: var(--primary-font);
     }
 
     /* BACKGROUND IMAGE WITH OVERLAY */
     body {
       min-height: 100vh;
-      background: linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.45)), url('bg1.jpg') center/cover no-repeat fixed;
-      color: #f8fafc;
+      background: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.55)), url('assets/image/bg1.jpg') center/cover no-repeat fixed;
+      color: var(--text-main);
       padding: 20px;
       transition: background 0.3s ease, color 0.3s ease;
     }
@@ -48,10 +48,13 @@
     }
 
     body.high-contrast .app-container,
-    body.high-contrast .glass-card {
+    body.high-contrast .glass-card,
+    body.high-contrast .story-card,
+    body.high-contrast .slot {
       background: #000000 !important;
       border: 2px solid #ffff00 !important;
       box-shadow: none !important;
+      color: #ffff00 !important;
     }
 
     body.high-contrast .interactive-btn {
@@ -71,11 +74,9 @@
       border-radius: 24px;
       box-shadow: var(--glass-shadow);
       padding: 30px;
-      /* Smooth fade effect for 5-minute idle mode */
       transition: opacity 0.8s ease-in-out;
     }
 
-    /* IDLE MODE CLASS (Fades UI so background stands out) */
     .app-container.idle-transparent {
       opacity: 0.15;
     }
@@ -84,10 +85,11 @@
        RAINBOW WAVE ANIMATED MAIN TITLE
        ========================================================================== */
     .image-heading {
+      font-family: var(--heading-font);
       font-size: 2.8rem;
-      font-weight: 900;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       margin-bottom: 20px;
       display: inline-block;
       
@@ -97,7 +99,7 @@
       -webkit-text-fill-color: transparent;
       animation: rainbowWave 6s linear infinite;
       
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s ease, font-family 0.3s ease;
+      transition: transform 0.3s ease, filter 0.3s ease;
       cursor: pointer;
     }
 
@@ -107,17 +109,15 @@
     }
 
     .image-heading:hover {
-      font-family: var(--calligraphy-font);
-      text-transform: none;
-      transform: scale(1.08) translateY(-4px);
-      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 25px rgba(6, 182, 212, 0.8));
+      transform: scale(1.04) translateY(-2px);
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
     }
 
     /* ==========================================================================
        VIBRANT 3D CLAY TEXTURE SECTION HEADINGS
        ========================================================================== */
     .section-title {
-      font-family: 'Fredoka', 'Segoe UI', sans-serif;
+      font-family: var(--heading-font);
       font-size: 2.1rem;
       font-weight: 800;
       margin: 30px 0 15px 0;
@@ -132,59 +132,51 @@
               drop-shadow(0px 4px 0px #075985)
               drop-shadow(0px 6px 1px rgba(0, 0, 0, 0.4));
       
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease, font-family 0.3s ease;
+      transition: transform 0.3s ease, filter 0.3s ease;
       cursor: pointer;
     }
 
     .section-title:hover {
-      font-family: var(--calligraphy-font);
-      -webkit-text-fill-color: #ffffff;
-      transform: scale(1.06) translateY(-2px);
-      filter: drop-shadow(0 0 12px var(--accent-glow)) drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.5));
+      transform: scale(1.03) translateY(-2px);
+      filter: drop-shadow(0 0 12px var(--accent-glow));
     }
 
     h3 {
-      transition: font-family 0.3s ease, transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    h3:hover {
-      font-family: var(--calligraphy-font);
-      transform: scale(1.03);
+      font-family: var(--heading-font);
+      font-size: 1.35rem;
+      transition: transform 0.3s ease;
     }
 
     /* ==========================================================================
-       GLOW & GROW INTERACTIVE BUTTONS WITH CALLIGRAPHY HOVER EFFECT
+       INTERACTIVE BUTTONS (CLEAN TYPOGRAPHY)
        ========================================================================== */
     .interactive-btn {
-      /* More transparent button background */
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.3);
       color: #ffffff;
-      padding: 12px 24px;
+      padding: 12px 20px;
       font-size: 1rem;
       font-weight: 700;
       border-radius: 12px;
       cursor: pointer;
       backdrop-filter: blur(6px);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease, box-shadow 0.3s ease, font-family 0.3s ease;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
       outline: none;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
     }
 
     .interactive-btn:hover {
-      font-family: var(--calligraphy-font);
-      font-size: 1.25rem;
-      transform: scale(1.08) translateY(-2px);
-      background: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 0 20px var(--accent-glow), 0 0 10px rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px) scale(1.04);
+      background: rgba(255, 255, 255, 0.28);
+      box-shadow: 0 0 15px var(--accent-glow);
       border-color: #ffffff;
     }
 
     .interactive-btn:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
     .recording-active {
@@ -213,7 +205,6 @@
       .grid-2 { grid-template-columns: 1fr; }
     }
 
-    /* Increased card transparency (0.06 alpha) */
     .glass-card {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.18);
@@ -234,12 +225,10 @@
 
     .ithink-btn {
       padding: 10px;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       text-align: center;
-      justify-content: center;
     }
 
-    /* More transparent canvas background */
     .mindmap-canvas {
       width: 100%;
       height: 280px;
@@ -298,7 +287,6 @@
       white-space: pre-line;
     }
 
-    /* More transparent chat bubbles */
     .chat-msg.ai {
       background: rgba(13, 148, 136, 0.35);
       border: 1px solid rgba(13, 148, 136, 0.5);
@@ -332,9 +320,6 @@
       box-shadow: 0 0 8px var(--accent-glow);
     }
 
-    /* ==========================================================================
-       ACCESSIBILITY TOOLBAR
-       ========================================================================== */
     .accessibility-bar {
       display: flex;
       gap: 10px;
@@ -344,14 +329,137 @@
       background: rgba(0, 0, 0, 0.15);
       border-radius: 12px;
     }
+
+    /* ==========================================================================
+       STORYTELLER GAME MODAL & BOARD
+       ========================================================================== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: rgba(239, 68, 68, 0.3);
+      border: 1px solid #ef4444;
+      color: #fff;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .sequence-board {
+      display: flex;
+      gap: 15px;
+      margin: 20px 0;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .slot {
+      width: 160px;
+      height: 180px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px dashed rgba(255, 255, 255, 0.4);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      position: relative;
+    }
+
+    .slot-num {
+      position: absolute;
+      top: 6px;
+      left: 10px;
+      font-weight: 800;
+      opacity: 0.5;
+      font-size: 0.85rem;
+    }
+
+    .cards-pool {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 15px;
+      min-height: 140px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 16px;
+    }
+
+    .story-card {
+      width: 140px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .story-card:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .story-card.selected {
+      border: 2px solid #38bdf8;
+      box-shadow: 0 0 15px #38bdf8;
+    }
+
+    .story-card-emoji {
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+    }
+
+    .story-card-text {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .feedback-box {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      min-height: 30px;
+    }
   </style>
 </head>
 <body>
 
   <div class="app-container" id="mainContainer">
-    <!-- Main Heading with Rainbow Wave & Hover Effect -->
+    <!-- Main Heading -->
     <h1 class="image-heading">Minda Inklusif AI</h1>
-    <p style="margin-top: -10px; opacity: 0.8;">Empowering Special Needs Education with Visual Mind Mapping & AI Support</p>
+    <p style="margin-top: -10px; opacity: 0.85; font-weight: 600;">Empowering Special Needs Education with Visual Mind Mapping & AI Support</p>
 
     <!-- Accessibility & Assistive Tools -->
     <div class="accessibility-bar" style="margin-top: 15px;">
@@ -362,11 +470,10 @@
     </div>
 
     <div class="grid-2">
-      
       <!-- LEFT COLUMN: 8 I-THINK MIND MAP MODULE -->
       <div class="glass-card">
         <h2 class="section-title">i-Think Mind Maps</h2>
-        <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 12px;">Select an i-Think map to structure learning visually:</p>
+        <p style="font-size: 0.88rem; opacity: 0.85; margin-bottom: 12px;">Select an i-Think map to structure learning visually:</p>
         
         <div class="ithink-grid">
           <button class="interactive-btn ithink-btn" onclick="renderMap('Circle')">Circle Map</button>
@@ -400,32 +507,69 @@ What subject and topic did your teacher teach you today? Tell me what you want t
           </div>
         </div>
       </div>
-
     </div>
 
     <!-- LOWER SECTION: EXPANDABLE SPECIAL NEEDS RESOURCES -->
     <h2 class="section-title">Learning Materials</h2>
     <div class="grid-2" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+      
+      <!-- CARD 1: VISUAL CARDS -->
       <div class="glass-card">
         <h3>🎨 Visual Symbol Cards</h3>
-        <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 5px;">Picture-assisted learning cues designed for non-verbal or low-literacy students.</p>
-        <button class="interactive-btn" style="margin-top: 10px;" onclick="window.location.href='cards.html'">Open Cards</button>
+        <p style="font-size: 0.88rem; opacity: 0.85; margin-top: 5px;">Picture-assisted learning cues designed for non-verbal or low-literacy students.</p>
+        <button class="interactive-btn" style="margin-top: 15px;" onclick="window.location.href='cards.html'">Open Cards</button>
       </div>
 
-      <!-- ADDED: GAMES SECTION (BETWEEN CARDS AND AUDIOBOOKS) -->
+      <!-- CARD 2: GAMES (WITH STORYTELLER & PUZZLE OPTIONS) -->
       <div class="glass-card">
-        <h3>🎮 Games</h3>
-        <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 5px;">Interactive puzzle games designed to build sequential thinking and storytelling skills.</p>
-        <button class="interactive-btn" style="margin-top: 10px;" onclick="window.location.href='storyteller.html'">Play Now</button>
+        <h3>🎮 Interactive Games</h3>
+        <p style="font-size: 0.88rem; opacity: 0.85; margin-top: 5px;">Fun educational games designed to build sequential thinking and logic skills.</p>
+        <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+          <button class="interactive-btn" onclick="openStorytellerGame()">📖 Storyteller</button>
+          <button class="interactive-btn" onclick="window.location.href='puzzle.html'">🧩 Puzzle</button>
+        </div>
       </div>
 
+      <!-- CARD 3: AUDIO STORYBOOKS -->
       <div class="glass-card">
         <h3>🎧 Audio Storybooks</h3>
-        <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 5px;">Multi-sensory auditory reading materials with synchronized text highlighting.</p>
-        <button class="interactive-btn" style="margin-top: 10px;" onclick="window.location.href='audiobooks.html'">Listen Now</button>
+        <p style="font-size: 0.88rem; opacity: 0.85; margin-top: 5px;">Multi-sensory auditory reading materials with synchronized text highlighting.</p>
+        <button class="interactive-btn" style="margin-top: 15px;" onclick="window.location.href='audiobooks.html'">Listen Now</button>
       </div>
     </div>
 
+  </div>
+
+  <!-- STORYTELLER GAME MODAL -->
+  <div class="modal-overlay" id="storyModal">
+    <div class="glass-card modal-content">
+      <button class="close-btn" onclick="closeStorytellerGame()">✕</button>
+      <h2 class="section-title" style="margin-top: 0;">📖 Storyteller: Sequence Game</h2>
+      <p style="font-size: 0.95rem; opacity: 0.9;">Click a picture card below, then click a box to put the story steps in order!</p>
+
+      <!-- Target Slots -->
+      <div class="sequence-board">
+        <div class="slot" id="slot1" onclick="placeInSlot(1)">
+          <span class="slot-num">Step 1</span>
+        </div>
+        <div class="slot" id="slot2" onclick="placeInSlot(2)">
+          <span class="slot-num">Step 2</span>
+        </div>
+        <div class="slot" id="slot3" onclick="placeInSlot(3)">
+          <span class="slot-num">Step 3</span>
+        </div>
+      </div>
+
+      <!-- Draggable/Clickable Cards -->
+      <div class="cards-pool" id="cardsPool"></div>
+
+      <div class="feedback-box" id="gameFeedback"></div>
+
+      <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
+        <button class="interactive-btn" onclick="checkStorySequence()">✨ Check Answer</button>
+        <button class="interactive-btn" onclick="resetStoryGame()">🔄 Reset Game</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -433,14 +577,14 @@ What subject and topic did your teacher teach you today? Tell me what you want t
        I-THINK MAP RENDERER LOGIC
        ========================================================================== */
     const mapImages = {
-      'Circle': 'pbulat.jpg',
-      'Bubble': 'pb.jpg',
-      'Double Bubble': 'pbb.jpg',
-      'Tree': 'pp.jpg',
-      'Brace': 'pd.jpg',
-      'Flow': 'pa.jpg',
-      'Multi-Flow': 'pba.jpg',
-      'Bridge': 'pt.jpg'
+      'Circle': 'assets/image/pbulat.jpg',
+      'Bubble': 'assets/image/pb.jpg',
+      'Double Bubble': 'assets/image/pbb.jpg',
+      'Tree': 'assets/image/pp.jpg',
+      'Brace': 'assets/image/pd.jpg',
+      'Flow': 'assets/image/pa.jpg',
+      'Multi-Flow': 'assets/image/pba.jpg',
+      'Bridge': 'assets/image/pt.jpg'
     };
 
     function renderMap(type) {
@@ -492,69 +636,32 @@ What subject and topic did your teacher teach you today? Tell me what you want t
         return "Hello there! 😊 Good try reaching out! What subject and topic did your teacher teach you today?";
       }
 
-      // 1. Part / Whole -> Brace Map
       if (q.includes('part') || q.includes('body') || q.includes('car') || q.includes('house') || q.includes('brace')) {
         renderMap('Brace');
-        return `1. Best mind map: Brace Map
-2. Why it fits: It is super easy for showing the smaller parts of one whole thing!
-3. Put these ideas in your map: main topic, part one, part two, part three, small details.
-4. Add your own drawing or colour idea: Draw the main object on the left, then use blue braces!
-5. Ask one simple checking question: Can you name two parts of your topic for me?`;
+        return `1. Best mind map: Brace Map\n2. Why it fits: It is super easy for showing the smaller parts of one whole thing!\n3. Put these ideas in your map: main topic, part one, part two, part three.\n4. Drawing idea: Draw the main object on the left, then use neat braces!\n5. Checking question: Can you name two parts of your topic?`;
       }
 
-      // 2. Groups / Sorting -> Tree Map
-      if (q.includes('group') || q.includes('sort') || q.includes('type') || q.includes('animal') || q.includes('fruit') || q.includes('tree')) {
+      if (q.includes('group') || q.includes('sort') || q.includes('type') || q.includes('animal') || q.includes('tree')) {
         renderMap('Tree');
-        return `1. Best mind map: Tree Map
-2. Why it fits: It helps you sort things into neat groups like branches on a tree!
-3. Put these ideas in your map: group name, category A, category B, examples, pictures.
-4. Add your own drawing or colour idea: Colour each tree branch with a different bright marker!
-5. Ask one simple checking question: What are two groups you can sort your topic into?`;
+        return `1. Best mind map: Tree Map\n2. Why it fits: It helps you sort things into neat groups like branches!\n3. Put these ideas in your map: group name, category A, category B, examples.\n4. Drawing idea: Colour each tree branch with a different bright marker!\n5. Checking question: What are two groups you can sort your topic into?`;
       }
 
-      // 3. Steps / Order -> Flow Map
-      if (q.includes('step') || q.includes('order') || q.includes('life cycle') || q.includes('first') || (q.includes('flow') && !q.includes('multi'))) {
+      if (q.includes('step') || q.includes('order') || q.includes('first') || (q.includes('flow') && !q.includes('multi'))) {
         renderMap('Flow');
-        return `1. Best mind map: Flow Map
-2. Why it fits: It shows steps in order using neat arrows from start to finish!
-3. Put these ideas in your map: step 1, step 2, step 3, next step, final step.
-4. Add your own drawing or colour idea: Draw little arrows between boxes and color step 1 yellow!
-5. Ask one simple checking question: What is the very first step in your topic?`;
+        return `1. Best mind map: Flow Map\n2. Why it fits: It shows steps in order using arrows from start to finish!\n3. Put these ideas in your map: step 1, step 2, step 3, final step.\n4. Drawing idea: Draw arrows between boxes and color step 1 yellow!\n5. Checking question: What is the very first step in your topic?`;
       }
 
-      // 4. Compare 2 things -> Double Bubble Map
-      if (q.includes('compare') || q.includes('same') || q.includes('difference') || q.includes('vs') || q.includes('double')) {
+      if (q.includes('compare') || q.includes('same') || q.includes('difference') || q.includes('double')) {
         renderMap('Double Bubble');
-        return `1. Best mind map: Double Bubble Map
-2. Why it fits: It lets you compare two things to see what is the same and what is different!
-3. Put these ideas in your map: thing 1, thing 2, same traits, different traits, keywords.
-4. Add your own drawing or colour idea: Use green bubbles for things that are the same!
-5. Ask one simple checking question: What is one thing both of your items share?`;
+        return `1. Best mind map: Double Bubble Map\n2. Why it fits: It lets you compare two things to see similarities and differences!\n3. Put these ideas in your map: thing 1, thing 2, same traits, different traits.\n4. Drawing idea: Use green bubbles for things that are the same!\n5. Checking question: What is one thing both of your items share?`;
       }
 
-      // 5. Causes and effects -> Multi-Flow Map
-      if (q.includes('cause') || q.includes('effect') || q.includes('why') || q.includes('because') || q.includes('multi')) {
-        renderMap('Multi-Flow');
-        return `1. Best mind map: Multi-Flow Map
-2. Why it fits: It shows why something happened and what happens next!
-3. Put these ideas in your map: cause 1, main event, effect 1, effect 2, outcome.
-4. Add your own drawing or colour idea: Color the causes blue and the effects orange!
-5. Ask one simple checking question: What made this event happen?`;
-      }
-
-      // 6. Default / Describe -> Bubble Map
       renderMap('Bubble');
-      return `1. Best mind map: Bubble Map
-2. Why it fits: It is wonderful for describing something using describing words!
-3. Put these ideas in your map: topic name, describing word 1, describing word 2, color, shape.
-4. Add your own drawing or colour idea: Draw a big center bubble and surround it with colorful small bubbles!
-5. Ask one simple checking question: What is one word that describes your topic?
-
-(If you are unsure, ask your teacher to help check your ideas!)`;
+      return `1. Best mind map: Bubble Map\n2. Why it fits: It is wonderful for describing something using adjectives!\n3. Put these ideas in your map: topic name, describing word 1, describing word 2.\n4. Drawing idea: Draw a big center bubble surrounded by colorful small bubbles!\n5. Checking question: What is one word that describes your topic?`;
     }
 
     /* ==========================================================================
-       VOICE RECORDING / SPEECH-TO-TEXT LOGIC
+       VOICE RECORDING LOGIC
        ========================================================================== */
     let recognition = null;
     let isListening = false;
@@ -562,34 +669,25 @@ What subject and topic did your teacher teach you today? Tell me what you want t
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognition = new SpeechRecognition();
-      
       recognition.continuous = false;
       recognition.interimResults = false;
       recognition.lang = 'en-US';
 
       recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
-        const input = document.getElementById('userInput');
-        input.value = transcript;
+        document.getElementById('userInput').value = transcript;
         stopListening();
       };
 
-      recognition.onerror = function(event) {
-        console.error('Speech recognition error:', event.error);
-        stopListening();
-      };
-
-      recognition.onend = function() {
-        stopListening();
-      };
+      recognition.onerror = stopListening;
+      recognition.onend = stopListening;
     }
 
     function toggleVoiceInput() {
       if (!recognition) {
-        alert("Speech recognition is not supported in this browser. Please try Chrome or Edge!");
+        alert("Speech recognition is not supported in this browser.");
         return;
       }
-
       if (isListening) {
         recognition.stop();
         stopListening();
@@ -600,9 +698,7 @@ What subject and topic did your teacher teach you today? Tell me what you want t
           const micBtn = document.getElementById('micBtn');
           micBtn.classList.add('recording-active');
           micBtn.innerText = '🔴 Listening...';
-        } catch (e) {
-          console.error(e);
-        }
+        } catch (e) { console.error(e); }
       }
     }
 
@@ -616,7 +712,7 @@ What subject and topic did your teacher teach you today? Tell me what you want t
     }
 
     /* ==========================================================================
-       DYNAMIC ACCESSIBILITY & TEXT SCALING LOGIC
+       ACCESSIBILITY & TEXT SCALING
        ========================================================================== */
     let sizeOffset = 0;
 
@@ -630,16 +726,12 @@ What subject and topic did your teacher teach you today? Tell me what you want t
 
     function adjustFontSize(delta) {
       if ((sizeOffset <= -6 && delta < 0) || (sizeOffset >= 16 && delta > 0)) return;
-      
       sizeOffset += delta * 2;
       
       const elements = document.querySelectorAll('h1, h2, h3, p, button, input, div');
       elements.forEach(el => {
-        let baseSize = parseFloat(el.dataset.originalSize);
-        if (!baseSize) {
-          baseSize = parseFloat(window.getComputedStyle(el).fontSize);
-          el.dataset.originalSize = baseSize;
-        }
+        let baseSize = parseFloat(el.dataset.originalSize) || parseFloat(window.getComputedStyle(el).fontSize);
+        el.dataset.originalSize = baseSize;
         el.style.fontSize = (baseSize + sizeOffset) + 'px';
       });
     }
@@ -650,8 +742,6 @@ What subject and topic did your teacher teach you today? Tell me what you want t
         const utterance = new SpeechSynthesisUtterance(textToRead);
         utterance.rate = 0.85;
         window.speechSynthesis.speak(utterance);
-      } else {
-        alert("Text-to-speech is not supported in this browser.");
       }
     }
 
@@ -660,31 +750,95 @@ What subject and topic did your teacher teach you today? Tell me what you want t
     }
 
     /* ==========================================================================
-       5-MINUTE IDLE DETECTOR LOGIC FOR MAXIMUM TRANSPARENCY
+       STORYTELLER GAME LOGIC
        ========================================================================== */
-    let idleTimer;
-    const IDLE_TIME_LIMIT = 5 * 60 * 1000; // 5 minutes in milliseconds
-    const container = document.getElementById('mainContainer');
+    const storyData = [
+      { id: 'step2', order: 2, emoji: '🌱', text: 'Water the Seed' },
+      { id: 'step1', order: 1, emoji: '🪴', text: 'Plant the Seed' },
+      { id: 'step3', order: 3, emoji: '🌻', text: 'Flower Grows' }
+    ];
 
-    function resetIdleTimer() {
-      // Remove transparency if active
-      container.classList.remove('idle-transparent');
+    let selectedCard = null;
+    let slotContents = { 1: null, 2: null, 3: null };
+
+    function openStorytellerGame() {
+      document.getElementById('storyModal').style.display = 'flex';
+      resetStoryGame();
+    }
+
+    function closeStorytellerGame() {
+      document.getElementById('storyModal').style.display = 'none';
+    }
+
+    function resetStoryGame() {
+      selectedCard = null;
+      slotContents = { 1: null, 2: null, 3: null };
+      document.getElementById('gameFeedback').innerText = '';
       
-      // Clear existing timer and restart
+      const pool = document.getElementById('cardsPool');
+      pool.innerHTML = '';
+      
+      storyData.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'story-card';
+        card.id = item.id;
+        card.setAttribute('data-order', item.order);
+        card.onclick = () => selectCard(card);
+        card.innerHTML = `<div class="story-card-emoji">${item.emoji}</div><div class="story-card-text">${item.text}</div>`;
+        pool.appendChild(card);
+      });
+
+      for (let i = 1; i <= 3; i++) {
+        const slot = document.getElementById(`slot${i}`);
+        slot.innerHTML = `<span class="slot-num">Step ${i}</span>`;
+      }
+    }
+
+    function selectCard(card) {
+      document.querySelectorAll('.story-card').forEach(c => c.classList.remove('selected'));
+      selectedCard = card;
+      card.classList.add('selected');
+    }
+
+    function placeInSlot(slotNum) {
+      if (!selectedCard) return;
+
+      const slot = document.getElementById(`slot${slotNum}`);
+      slot.innerHTML = `<span class="slot-num">Step ${slotNum}</span>`;
+      slot.appendChild(selectedCard);
+      
+      selectedCard.classList.remove('selected');
+      slotContents[slotNum] = selectedCard.getAttribute('data-order');
+      selectedCard = null;
+    }
+
+    function checkStorySequence() {
+      const feedback = document.getElementById('gameFeedback');
+      if (slotContents[1] == '1' && slotContents[2] == '2' && slotContents[3] == '3') {
+        feedback.style.color = '#4ade80';
+        feedback.innerText = '🎉 Wonderful job! The story sequence is correct!';
+      } else {
+        feedback.style.color = '#f87171';
+        feedback.innerText = '❌ Try again! Put the steps from first to last.';
+      }
+    }
+
+    /* IDLE TIMER DETECTOR */
+    let idleTimer;
+    function resetIdleTimer() {
+      const container = document.getElementById('mainContainer');
+      if (!container) return;
+      container.classList.remove('idle-transparent');
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
         container.classList.add('idle-transparent');
-      }, IDLE_TIME_LIMIT);
+      }, 5 * 60 * 1000);
     }
 
-    // User activity listeners to reset timer on interaction
     window.onload = resetIdleTimer;
     window.onmousemove = resetIdleTimer;
-    window.onmousedown = resetIdleTimer;
-    window.ontouchstart = resetIdleTimer;
     window.onclick = resetIdleTimer;
     window.onkeydown = resetIdleTimer;
-    window.addEventListener('scroll', resetIdleTimer, true);
   </script>
 </body>
 </html>
