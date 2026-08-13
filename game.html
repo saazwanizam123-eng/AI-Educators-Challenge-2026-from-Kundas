@@ -1,828 +1,719 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Loom of Tales — Cinderella's Thread</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+SC:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kisah Cinderella - Permainan Interaktif</title>
 <style>
-  :root{
-    --night: #1a1330;
-    --night-2: #211a3a;
-    --panel: #241c3f;
-    --panel-2: #2c2350;
-    --gold: #c9a24b;
-    --gold-bright: #e8c874;
-    --rose: #d17ba0;
-    --blue: #6f8fc2;
-    --parchment: #f2e9d8;
-    --lavender: #b3a4d1;
-    --lavender-dim: #7a6d99;
-    --line: rgba(201,162,75,0.28);
-    --shadow: 0 12px 34px rgba(0,0,0,0.45);
-    --radius: 14px;
+  :root {
+    --bg-color: #FFF0F5;
+    --panel-bg: #FFFFFF;
+    --primary: #FF82AB;
+    --primary-hover: #FF69B4;
+    --secondary: #87CEFA;
+    --secondary-hover: #63B8FF;
+    --text-main: #4A4A4A;
+    --text-light: #7A7A7A;
+    --success: #32CD32;
+    --warning: #FFA500;
+    --border: #FFB6C1;
+    --shadow: 0 8px 16px rgba(255, 130, 171, 0.15);
+    --radius: 20px;
   }
-  *{box-sizing:border-box;}
-  html,body{height:100%;}
-  body{
-    margin:0;
-    min-height:100%;
-    background:
-      radial-gradient(ellipse at 20% -10%, rgba(209,123,160,0.14), transparent 55%),
-      radial-gradient(ellipse at 90% 10%, rgba(111,143,194,0.12), transparent 50%),
-      linear-gradient(180deg, var(--night) 0%, #150f28 100%);
-    color:var(--parchment);
-    font-family:'Inter', sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+  
+  * { box-sizing: border-box; font-family: 'Comic Sans MS', 'Nunito', 'Segoe UI', sans-serif; }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
-  .display{font-family:'Cormorant Garamond', serif;}
-  .smallcaps{font-family:'Cormorant SC', serif; letter-spacing:0.14em; text-transform:uppercase;}
-  #app{min-height:100vh; display:flex; flex-direction:column;}
-  .screen{display:none; flex:1; flex-direction:column;}
-  .screen.active{display:flex;}
-  a,button{font-family:inherit;}
-  button{cursor:pointer; border:none; background:none; color:inherit;}
-  ::selection{background:var(--gold); color:#211a3a;}
-
-  /* ---------- decorative thread rule ---------- */
-  .thread-rule{
-    width:180px; height:14px; margin:0 auto; position:relative;
+  
+  .screen { display: none; flex: 1; flex-direction: column; align-items: center; padding: 20px; }
+  .screen.active { display: flex; }
+  
+  h1, h2, h3 { color: var(--primary); margin-top: 0; text-align: center; }
+  
+  /* Buttons */
+  button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background-color 0.2s;
+    font-weight: bold;
   }
-  .thread-rule svg{width:100%; height:100%; display:block;}
-
-  /* ---------- TITLE SCREEN ---------- */
-  #screen-title{align-items:center; justify-content:center; text-align:center; padding:32px 20px; position:relative;}
-  .title-frame{max-width:640px; position:relative; z-index:2;}
-  .title-eyebrow{color:var(--gold); font-size:13px; margin-bottom:10px; opacity:0.85;}
-  .title-main{font-size:clamp(40px,7vw,72px); font-weight:600; line-height:1.02; margin:0 0 6px;
-    background:linear-gradient(180deg, var(--parchment) 0%, var(--gold-bright) 120%);
-    -webkit-background-clip:text; background-clip:text; color:transparent;}
-  .title-sub{font-style:italic; color:var(--lavender); font-size:19px; margin:2px 0 26px;}
-  .title-desc{color:var(--lavender); font-size:15px; line-height:1.6; max-width:480px; margin:0 auto 30px;}
-  .btn-primary{
-    background:linear-gradient(180deg, var(--gold-bright), var(--gold));
-    color:#241a3d; padding:14px 34px; border-radius:999px; font-weight:700; font-size:15px;
-    letter-spacing:0.03em; box-shadow:0 8px 24px rgba(201,162,75,0.35);
-    transition:transform .18s ease, box-shadow .18s ease;
+  button:hover { transform: translateY(-3px); background-color: var(--primary-hover); }
+  button:active { transform: translateY(0); }
+  button:disabled { background-color: #D3D3D3; cursor: not-allowed; box-shadow: none; transform: none; }
+  
+  .btn-secondary { background-color: var(--secondary); }
+  .btn-secondary:hover { background-color: var(--secondary-hover); }
+  
+  .btn-small { padding: 8px 16px; font-size: 14px; }
+  
+  /* Containers */
+  .container {
+    background: var(--panel-bg);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 20px;
   }
-  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 28px rgba(201,162,75,0.45);}
-  .btn-ghost{
-    color:var(--lavender); border:1px solid var(--line); padding:10px 22px; border-radius:999px;
-    font-size:13px; letter-spacing:0.04em; transition:all .18s ease;
+  
+  /* Title Screen */
+  #screen-title { justify-content: center; text-align: center; }
+  .title-emoji { font-size: 80px; margin-bottom: 20px; }
+  .title-desc { font-size: 20px; margin-bottom: 40px; color: var(--text-light); }
+  
+  /* Map Screen */
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
   }
-  .btn-ghost:hover{color:var(--parchment); border-color:var(--gold);}
-  .title-loom-orbit{position:absolute; inset:0; z-index:1; pointer-events:none;}
-
-  /* ---------- MAP SCREEN ---------- */
-  #screen-map{align-items:center; padding:50px 20px 40px;}
-  .map-head{text-align:center; margin-bottom:6px;}
-  .map-head .title-eyebrow{margin-bottom:4px;}
-  .map-head h1{font-size:34px; margin:0 0 30px; font-weight:600;}
-  .map-path{position:relative; width:100%; max-width:920px; padding:20px 10px 10px;}
-  .map-path svg.thread-line{position:absolute; left:0; top:0; width:100%; height:100%; z-index:0;}
-  .map-nodes{position:relative; z-index:1; display:flex; justify-content:space-between; flex-wrap:wrap; gap:26px 10px;}
-  .map-node{width:150px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px;}
-  .node-dot{
-    width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700;
-    background:radial-gradient(circle at 32% 28%, var(--panel-2), var(--panel));
-    border:2px solid var(--line); color:var(--lavender-dim);
-    transition:all .2s ease; position:relative;
+  .map-node {
+    background: #FFF;
+    border: 3px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
   }
-  .map-node.unlocked .node-dot{border-color:var(--gold); color:var(--gold-bright); box-shadow:0 0 0 5px rgba(201,162,75,0.08);}
-  .map-node.done .node-dot{background:linear-gradient(180deg, var(--gold-bright), var(--gold)); color:#241a3d; border-color:var(--gold-bright);}
-  .map-node.locked{opacity:0.45;}
-  .map-node button.node-btn{display:flex; flex-direction:column; align-items:center; gap:10px;}
-  .map-node.locked button.node-btn{cursor:default;}
-  .node-btn:hover .node-dot{transform:translateY(-3px);}
-  .map-node.locked .node-btn:hover .node-dot{transform:none;}
-  .node-label{font-size:13px; color:var(--parchment); line-height:1.3;}
-  .node-mech{font-size:10.5px; color:var(--lavender-dim); letter-spacing:0.06em; text-transform:uppercase;}
-  .map-foot{margin-top:36px;}
-
-  /* ---------- LEVEL PLAY SCREEN ---------- */
-  #screen-level{padding:0;}
-  .level-topbar{
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-    padding:16px 24px; border-bottom:1px solid var(--line);
-    background:linear-gradient(180deg, rgba(36,28,63,0.9), rgba(36,28,63,0.5));
-    backdrop-filter:blur(6px);
+  .map-node.locked { opacity: 0.5; cursor: not-allowed; border-color: #DDD; }
+  .map-node.done { border-color: var(--success); background-color: #F0FFF0; }
+  .map-node:not(.locked):hover { transform: scale(1.05); border-color: var(--primary); }
+  .node-num { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+  .node-title { font-size: 16px; }
+  
+  /* Play Screen */
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .progress-text { font-size: 16px; font-weight: bold; color: var(--text-light); background: #f0f0f0; padding: 6px 12px; border-radius: 20px; }
+  
+  .instruction-box {
+    background-color: #FFF8DC;
+    border-left: 6px solid var(--warning);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
   }
-  .level-topbar .back-btn{font-size:20px; color:var(--lavender);}
-  .level-topbar .back-btn:hover{color:var(--gold-bright);}
-  .level-id{color:var(--gold); font-size:12px; letter-spacing:0.12em; margin-bottom:2px;}
-  .level-name{font-size:22px; font-weight:600; margin:0;}
-  .progress-dots{display:flex; gap:6px;}
-  .progress-dots span{width:9px; height:9px; border-radius:50%; background:var(--panel-2); border:1px solid var(--line); display:block; transition:all .2s;}
-  .progress-dots span.done{background:var(--gold-bright); border-color:var(--gold-bright);}
-  .progress-dots span.current{background:var(--rose); border-color:var(--rose); box-shadow:0 0 0 3px rgba(209,123,160,0.22);}
-
-  .objective-ribbon{
-    margin:16px 24px 0; padding:11px 18px; border-radius:10px;
-    background:rgba(201,162,75,0.08); border:1px dashed var(--line);
-    font-style:italic; color:var(--lavender); font-size:14.5px;
+  .instruction-box p { margin: 5px 0; font-size: 16px; line-height: 1.5; }
+  .instruction-actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+  
+  /* Slots Area */
+  .slots-area {
+    background-color: #F0F8FF;
+    border: 2px dashed var(--secondary);
+    border-radius: var(--radius);
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    min-height: 160px;
   }
-  .objective-ribbon b{color:var(--gold-bright); font-style:normal; font-family:'Cormorant SC',serif; letter-spacing:0.08em; text-transform:uppercase; font-size:11.5px; margin-right:8px;}
-
-  .level-body{
-    display:grid; grid-template-columns:230px 1fr; gap:22px;
-    padding:20px 24px 40px; flex:1; align-items:start;
+  .slot {
+    width: 100px;
+    height: 120px;
+    background-color: white;
+    border: 3px dashed #CCC;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
   }
-  @media (max-width:880px){ .level-body{grid-template-columns:1fr;} .tracker{order:2;} .loom-area{order:1;} }
-
-  /* tracker sidebar */
-  .tracker{
-    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-    padding:16px; box-shadow:var(--shadow); position:sticky; top:16px;
+  .slot.filled { border: 3px solid var(--secondary); background-color: #E6F3FF; }
+  .slot:hover { border-color: var(--primary); transform: translateY(-3px); }
+  .slot-empty-text { font-size: 14px; color: #AAA; }
+  
+  /* Cards Palette */
+  .palette-category { margin-bottom: 20px; }
+  .category-title { font-size: 18px; font-weight: bold; color: var(--text-main); margin-bottom: 10px; border-bottom: 2px solid var(--border); display: inline-block; padding-bottom: 5px; }
+  .cards-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+  
+  .card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
   }
-  .tracker h3{margin:0 0 12px; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); font-family:'Cormorant SC',serif;}
-  .tracker-block{margin-bottom:14px;}
-  .tracker-block:last-child{margin-bottom:0;}
-  .tracker-name{font-size:12.5px; color:var(--lavender-dim); margin-bottom:6px; letter-spacing:0.03em;}
-  .chip-trail{display:flex; flex-wrap:wrap; gap:6px;}
-  .chip{
-    font-size:11.5px; padding:4px 9px; border-radius:999px; border:1px solid var(--line);
-    color:var(--lavender-dim); background:rgba(255,255,255,0.02);
+  .card:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-color: var(--primary); }
+  .card.highlight { animation: pulse 1.5s infinite; border-color: var(--primary); background-color: #FFF0F5; }
+  .card-icon { font-size: 24px; }
+  .card-name { font-size: 14px; font-weight: bold; }
+  
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 105, 180, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
   }
-  .chip.current{color:#241a3d; background:linear-gradient(180deg,var(--gold-bright),var(--gold)); border-color:var(--gold-bright); font-weight:600;}
-  .mech-note{margin-top:16px; padding-top:14px; border-top:1px solid var(--line); font-size:12.5px; color:var(--lavender-dim); line-height:1.5;}
-  .mech-note b{color:var(--rose); display:block; margin-bottom:4px; font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic;}
-
-  /* loom area */
-  .loom-area{display:flex; flex-direction:column; gap:22px;}
-  .loom-card{
-    background:radial-gradient(ellipse at 50% -20%, rgba(201,162,75,0.09), transparent 60%), var(--panel);
-    border:1px solid var(--line); border-radius:18px; padding:26px; box-shadow:var(--shadow);
-    position:relative; overflow:hidden;
+  
+  /* Controls & Feedback */
+  .controls-area { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 20px; }
+  .action-buttons { display: flex; gap: 15px; }
+  .feedback-box {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    min-height: 24px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
   }
-  .loom-card::before{
-    content:''; position:absolute; inset:8px; border:1px solid rgba(201,162,75,0.15); border-radius:12px; pointer-events:none;
+  .feedback-box.show { opacity: 1; }
+  .feedback-box.error { background-color: #FFE4E1; color: #DC143C; }
+  .feedback-box.hint { background-color: #FFFACD; color: #B8860B; }
+  
+  /* Story Scroll */
+  .story-scroll {
+    background-color: #FDF5E6;
+    border: 2px solid #DEB887;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
   }
-  .loom-slots-wrap{position:relative; display:flex; justify-content:center; padding:10px 0 18px;}
-  .thread-svg{position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none;}
-  .thread-svg path{fill:none; stroke:var(--line); stroke-width:2; stroke-dasharray:6 7; transition:all .5s ease;}
-  .thread-svg path.lit{stroke:var(--gold-bright); stroke-dasharray:0; filter:drop-shadow(0 0 5px rgba(232,200,116,0.7));}
-  .slots-row{display:flex; gap:34px; position:relative; z-index:1;}
-  .slot{
-    width:88px; height:88px; border-radius:50%; border:2px dashed var(--line);
-    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:3px;
-    background:rgba(0,0,0,0.15); transition:all .2s ease; position:relative;
+  .story-list { margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.6; color: #5C4033; }
+  .story-list li { margin-bottom: 8px; }
+  
+  /* Modals */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none; align-items: center; justify-content: center;
+    z-index: 100;
   }
-  .slot.filled{border-style:solid; border-color:var(--gold); background:rgba(201,162,75,0.08); cursor:pointer;}
-  .slot.filled:hover{border-color:var(--gold-bright); transform:translateY(-2px);}
-  .slot .slot-empty-label{font-size:10px; color:var(--lavender-dim); letter-spacing:0.05em; text-transform:uppercase;}
-  .slot-icon{font-size:26px; line-height:1;}
-  .slot-name{font-size:9.5px; color:var(--parchment); text-align:center; padding:0 4px;}
-  .loom-card.shake .slots-row{animation:shake .42s ease;}
-  @keyframes shake{
-    10%,90%{transform:translateX(-2px)} 20%,80%{transform:translateX(3px)}
-    30%,50%,70%{transform:translateX(-5px)} 40%,60%{transform:translateX(5px)}
+  .modal-overlay.active { display: flex; }
+  .modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: var(--radius);
+    text-align: center;
+    max-width: 400px;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  .loom-card.success .slot.filled{animation:glow .7s ease;}
-  @keyframes glow{
-    0%{box-shadow:0 0 0 0 rgba(232,200,116,0.6)} 60%{box-shadow:0 0 0 14px rgba(232,200,116,0)} 100%{box-shadow:0 0 0 0 rgba(232,200,116,0)}
+  .modal-emoji { font-size: 60px; margin-bottom: 15px; }
+  .modal-title { font-size: 24px; color: var(--success); margin-bottom: 10px; }
+  .modal-text { font-size: 18px; margin-bottom: 25px; }
+  
+  @keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
   }
-
-  .weave-controls{display:flex; align-items:center; justify-content:center; gap:12px; margin-top:6px;}
-  .btn-weave{
-    background:linear-gradient(180deg, var(--gold-bright), var(--gold)); color:#241a3d;
-    padding:11px 28px; border-radius:999px; font-weight:700; font-size:14px; letter-spacing:0.02em;
-    box-shadow:0 6px 18px rgba(201,162,75,0.3); transition:transform .15s, opacity .15s;
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container { padding: 15px; }
+    .top-bar { flex-direction: column; gap: 10px; text-align: center; }
+    .action-buttons { flex-direction: column; width: 100%; }
+    .action-buttons button { width: 100%; }
   }
-  .btn-weave:disabled{opacity:0.35; cursor:default;}
-  .btn-weave:not(:disabled):hover{transform:translateY(-2px);}
-  .btn-clear{font-size:12.5px; color:var(--lavender-dim); text-decoration:underline; text-underline-offset:3px;}
-  .btn-clear:hover{color:var(--rose);}
-
-  .feedback{min-height:26px; text-align:center; font-style:italic; font-size:14px; margin-top:12px; transition:opacity .25s;}
-  .feedback.ok{color:var(--gold-bright);}
-  .feedback.no{color:var(--rose);}
-  .feedback.empty{opacity:0;}
-
-  /* palette */
-  .palette{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow);}
-  .palette-row{margin-bottom:14px;}
-  .palette-row:last-child{margin-bottom:0;}
-  .palette-label{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--lavender-dim); margin-bottom:8px; font-family:'Cormorant SC',serif;}
-  .palette-cards{display:flex; flex-wrap:wrap; gap:10px;}
-  .p-card{
-    display:flex; align-items:center; gap:8px; padding:8px 12px 8px 8px; border-radius:999px;
-    border:1px solid var(--line); background:rgba(255,255,255,0.02); transition:all .16s ease;
-  }
-  .p-card:hover{border-color:var(--gold); transform:translateY(-1px);}
-  .p-card.selected{border-color:var(--gold-bright); background:rgba(201,162,75,0.14); box-shadow:0 0 0 3px rgba(201,162,75,0.12);}
-  .p-badge{width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;}
-  .p-badge.character{border-radius:50%; border:1.5px solid var(--gold); background:rgba(201,162,75,0.1); font-family:'Cormorant Garamond',serif; font-weight:700; color:var(--gold-bright);}
-  .p-badge.place{clip-path:polygon(50% 0%, 100% 38%, 100% 100%, 0% 100%, 0% 38%); background:rgba(111,143,194,0.16); border:1.5px solid var(--blue);}
-  .p-badge.object{transform:rotate(45deg); border:1.5px solid var(--rose); background:rgba(209,123,160,0.12);}
-  .p-badge.object span{transform:rotate(-45deg); display:block;}
-  .p-name{font-size:12.5px; color:var(--parchment);}
-  .palette-empty{font-size:12.5px; color:var(--lavender-dim); font-style:italic;}
-
-  /* scroll of woven verses */
-  .scroll-panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow);}
-  .scroll-panel h3{margin:0 0 10px; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); font-family:'Cormorant SC',serif;}
-  .verse-list{display:flex; flex-direction:column; gap:10px; max-height:230px; overflow-y:auto; padding-right:4px;}
-  .verse-list::-webkit-scrollbar{width:6px;}
-  .verse-list::-webkit-scrollbar-thumb{background:var(--line); border-radius:3px;}
-  .verse-item{display:flex; gap:10px; align-items:flex-start; padding:9px 10px; border-radius:9px; background:rgba(255,255,255,0.02); border:1px solid transparent;}
-  .verse-item .vnum{font-family:'Cormorant Garamond',serif; color:var(--gold); font-weight:700; font-size:15px; width:18px; flex-shrink:0;}
-  .verse-item p{margin:0; font-size:13px; line-height:1.5; color:var(--lavender);}
-  .verse-empty{font-size:12.5px; color:var(--lavender-dim); font-style:italic;}
-  .transform-tag{display:inline-flex; align-items:center; gap:4px; font-size:11px; color:var(--gold-bright); margin-top:4px;}
-
-  /* overlays */
-  .overlay{
-    position:fixed; inset:0; background:rgba(10,7,20,0.82); backdrop-filter:blur(4px);
-    display:none; align-items:center; justify-content:center; z-index:50; padding:20px;
-  }
-  .overlay.active{display:flex;}
-  .overlay-card{
-    max-width:520px; width:100%; background:linear-gradient(180deg, var(--panel-2), var(--panel));
-    border:1px solid var(--gold); border-radius:18px; padding:38px 34px; text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,0.55); animation:pop .35s ease;
-  }
-  @keyframes pop{from{transform:scale(0.92); opacity:0;} to{transform:scale(1); opacity:1;}}
-  .overlay-card .title-eyebrow{margin-bottom:8px;}
-  .overlay-card h2{font-size:28px; margin:0 0 14px;}
-  .overlay-card p{color:var(--lavender); font-size:15px; line-height:1.6; margin:0 0 26px;}
-  .overlay-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
-
-  /* final screen */
-  #screen-final{align-items:center; justify-content:center; text-align:center; padding:40px 20px;}
-  .final-frame{max-width:560px;}
-  .final-frame .title-main{font-size:clamp(32px,6vw,52px);}
-  .epilogue{color:var(--lavender); font-size:15.5px; line-height:1.75; margin:22px 0 30px;}
-
-  .footer-note{text-align:center; font-size:11.5px; color:var(--lavender-dim); padding:18px; opacity:0.7;}
 </style>
 </head>
 <body>
+
 <div id="app">
 
-  <!-- TITLE -->
+  <!-- TITLE SCREEN -->
   <section class="screen active" id="screen-title">
-    <div class="title-loom-orbit" id="titleOrbit"></div>
-    <div class="title-frame">
-      <div class="title-eyebrow smallcaps">A Story Woven, Not Told</div>
-      <h1 class="title-main">Loom of Tales</h1>
-      <div class="title-sub">Cinderella's Thread</div>
-      <div class="thread-rule">
-        <svg viewBox="0 0 180 14"><path d="M0 7 Q45 0 90 7 T180 7" stroke="#c9a24b" stroke-width="1.5" fill="none" opacity="0.6"/></svg>
-      </div>
-      <p class="title-desc">You are not Cinderella. You are the one who weaves her story — choosing whom she meets, where she goes, and what she carries, thread by thread, verse by verse.</p>
-      <button class="btn-primary" onclick="goToMap()">Begin the Weave</button>
+    <div class="container" style="text-align: center; max-width: 600px; margin-top: 50px;">
+      <div class="title-emoji">👸🏼🏰👠</div>
+      <h1>Kisah Cinderella</h1>
+      <p class="title-desc">Mari belajar membina ayat dan melengkapkan cerita Cinderella. Pilih watak, tempat, dan objek yang betul untuk meneruskan penceritaan!</p>
+      <button onclick="goToMap()" style="font-size: 22px; padding: 15px 40px;">Mula Bermain</button>
     </div>
   </section>
 
-  <!-- MAP -->
+  <!-- MAP SCREEN -->
   <section class="screen" id="screen-map">
-    <div class="map-head">
-      <div class="title-eyebrow smallcaps">The Loom</div>
-      <h1 class="display">Choose a Chapter</h1>
+    <div class="container">
+      <h2>Pilih Bab Cerita</h2>
+      <p style="text-align: center; font-size: 18px;">Pilih bab untuk mula membina cerita.</p>
+      <div class="map-grid" id="mapNodes"></div>
+      <div style="text-align: center; margin-top: 30px;">
+        <button class="btn-secondary" onclick="showScreen('screen-title')">Kembali</button>
+      </div>
     </div>
-    <div class="map-path">
-      <svg class="thread-line" viewBox="0 0 920 40" preserveAspectRatio="none"><path d="M40 20 C 220 -10, 340 50, 520 20 S 800 -10, 880 20" stroke="#c9a24b" stroke-width="1.5" fill="none" opacity="0.25" stroke-dasharray="3 8"/></svg>
-      <div class="map-nodes" id="mapNodes"></div>
-    </div>
-    <div class="map-foot"><button class="btn-ghost" onclick="showScreen('screen-title')">← Title</button></div>
   </section>
 
-  <!-- LEVEL PLAY -->
+  <!-- PLAY SCREEN -->
   <section class="screen" id="screen-level">
-    <div class="level-topbar">
-      <button class="back-btn" onclick="goToMap()" title="Back to the Loom">←</button>
-      <div style="flex:1; min-width:0;">
-        <div class="level-id smallcaps" id="lvlEyebrow">Chapter</div>
-        <h2 class="level-name display" id="lvlName">—</h2>
+    <div class="container" style="max-width: 900px;">
+      
+      <div class="top-bar">
+        <button class="btn-secondary btn-small" onclick="goToMap()">⬅️ Menu Utama</button>
+        <div class="progress-text" id="levelProgress">Bab 1 daripada 6</div>
       </div>
-      <div class="progress-dots" id="progressDots"></div>
-    </div>
-    <div class="objective-ribbon"><b>Objective</b><span id="lvlObjective"></span></div>
-
-    <div class="level-body">
-      <aside class="tracker" id="trackerPanel"></aside>
-
-      <div class="loom-area">
-        <div class="loom-card" id="loomCard">
-          <div class="loom-slots-wrap">
-            <svg class="thread-svg" id="threadSvg" viewBox="0 0 320 90" preserveAspectRatio="xMidYMid meet">
-              <path id="threadPath1" d="M44,45 L160,45"/>
-              <path id="threadPath2" d="M160,45 L276,45"/>
-            </svg>
-            <div class="slots-row" id="slotsRow"></div>
-          </div>
-          <div class="weave-controls">
-            <button class="btn-weave" id="weaveBtn" onclick="weave()" disabled>Weave the Verse</button>
-            <button class="btn-clear" onclick="clearSlots()">clear</button>
-          </div>
-          <div class="feedback empty" id="feedback"></div>
-        </div>
-
-        <div class="palette" id="palette"></div>
-
-        <div class="scroll-panel">
-          <h3>The Storybook So Far</h3>
-          <div class="verse-list" id="verseList"></div>
+      
+      <h2 id="lvlTitle">Tajuk Bab</h2>
+      
+      <div class="instruction-box">
+        <p><strong>Matlamat:</strong> <span id="lvlObjective"></span></p>
+        <p><strong>Arahan:</strong> Pilih kad-kad di bawah dan klik untuk meletakkannya di ruang kosong. Kemudian, tekan "Semak Jawapan".</p>
+        <div class="instruction-actions">
+          <button class="btn-secondary btn-small" onclick="ulangArahan()" aria-label="Ulang Arahan">🔊 Ulang Arahan</button>
+          <button class="btn-secondary btn-small" onclick="tunjukHint(true)" aria-label="Minta Bantuan">💡 Hint</button>
         </div>
       </div>
+      
+      <div style="text-align:center; margin-bottom:10px; font-weight:bold; color:var(--text-light);" id="questionProgress">Soalan 1 daripada 3</div>
+      
+      <div class="slots-area" id="slotsArea" aria-label="Ruang Jawapan"></div>
+      
+      <div class="controls-area">
+        <div class="feedback-box" id="feedbackBox" role="alert"></div>
+        <div class="action-buttons">
+          <button id="btnSemak" onclick="semakJawapan()">✅ Semak Jawapan</button>
+          <button class="btn-secondary" onclick="kosongkanRuang()">🔄 Cuba Lagi / Kosongkan</button>
+        </div>
+      </div>
+      
+      <div id="paletteArea"></div>
+      
+      <div class="story-scroll">
+        <h3 style="margin-top: 0; color: #8B4513; text-align: left; font-size: 18px;">📖 Cerita Kita Setakat Ini:</h3>
+        <ul class="story-list" id="storyList"></ul>
+      </div>
+      
     </div>
   </section>
 
-  <!-- FINAL -->
+  <!-- FINAL SCREEN -->
   <section class="screen" id="screen-final">
-    <div class="final-frame">
-      <div class="title-eyebrow smallcaps">Every Thread, Woven</div>
-      <h1 class="title-main">The Story is Complete</h1>
-      <div class="thread-rule"><svg viewBox="0 0 180 14"><path d="M0 7 Q45 0 90 7 T180 7" stroke="#c9a24b" stroke-width="1.5" fill="none" opacity="0.6"/></svg></div>
-      <p class="epilogue">The slipper fit, and with it, the truth. The Prince took Cinderella's hand — not the ash-covered girl the world had overlooked, but the one who had been there all along. The kingdom would tell this story for a hundred years. Tonight, you were the one who told it first.</p>
-      <div class="overlay-actions">
-        <button class="btn-primary" onclick="resetGame()">Weave It Again</button>
-        <button class="btn-ghost" onclick="goToMap()">Return to the Loom</button>
-      </div>
+    <div class="container" style="text-align: center; max-width: 600px; margin-top: 50px;">
+      <div class="title-emoji">🎉👑💖</div>
+      <h1>Tahniah! Cerita Selesai</h1>
+      <p class="title-desc">Kamu telah berjaya melengkapkan keseluruhan kisah Cinderella dengan cemerlang. Putera dan Cinderella hidup gembira selama-lamanya!</p>
+      <button onclick="resetSemua()" style="font-size: 22px; padding: 15px 40px;">Main Semula</button>
     </div>
   </section>
 
 </div>
 
-<!-- Level complete overlay -->
-<div class="overlay" id="levelOverlay">
-  <div class="overlay-card">
-    <div class="title-eyebrow smallcaps" id="ovEyebrow">Chapter Complete</div>
-    <h2 class="display" id="ovTitle">—</h2>
-    <p id="ovText"></p>
-    <div class="overlay-actions" id="ovActions"></div>
+<!-- CORRECT MODAL -->
+<div class="modal-overlay" id="modalCorrect">
+  <div class="modal-content">
+    <div class="modal-emoji">🌟</div>
+    <div class="modal-title">Bagus!</div>
+    <div class="modal-text" id="modalCorrectText">Ayat kamu betul!</div>
+    <button onclick="soalanSeterusnya()">Seterusnya ➔</button>
   </div>
 </div>
 
 <script>
 /* ============================= DATA ============================= */
 const ELEMENTS = {
-  cinderella:{name:'Cinderella', category:'character', initial:'C'},
-  stepmother:{name:'Stepmother', category:'character', initial:'S'},
-  stepsister:{name:'Stepsister', category:'character', initial:'T'},
-  stepsisters:{name:'Stepsisters', category:'character', initial:'T'},
-  prince:{name:'Prince', category:'character', initial:'P'},
-  fairy_godmother:{name:'Fairy Godmother', category:'character', initial:'F'},
-
-  house:{name:'House', category:'place', icon:'🏠'},
-  castle:{name:'Castle', category:'place', icon:'🏰'},
-  garden:{name:'Garden', category:'place', icon:'🌿'},
-  ballroom:{name:'Ballroom', category:'place', icon:'🕯️'},
-  kingdom:{name:'Kingdom', category:'place', icon:'🗺️'},
-
-  broom:{name:'Broom', category:'object', icon:'🧹'},
-  royal_invitation:{name:'Royal Invitation', category:'object', icon:'✉️'},
-  pumpkin:{name:'Pumpkin', category:'object', icon:'🎃'},
-  magical_dress:{name:'Magical Dress', category:'object', icon:'👗'},
-  glass_slipper:{name:'Glass Slipper', category:'object', icon:'👠'},
-  clock:{name:'Clock', category:'object', icon:'🕰️'},
-  carriage:{name:'Carriage', category:'object', icon:'🎠'}
+  cinderella: { name: 'Cinderella', cat: 'watak', icon: '👱‍♀️' },
+  ibu_tiri: { name: 'Ibu Tiri', cat: 'watak', icon: '🦹‍♀️' },
+  kakak_tiri: { name: 'Kakak Tiri', cat: 'watak', icon: '👯‍♀️' },
+  putera: { name: 'Putera', cat: 'watak', icon: '🤴' },
+  pari_pari: { name: 'Pari-pari', cat: 'watak', icon: '🧚‍♀️' },
+  
+  rumah: { name: 'Rumah', cat: 'tempat', icon: '🏠' },
+  istana: { name: 'Istana', cat: 'tempat', icon: '🏰' },
+  taman: { name: 'Taman', cat: 'tempat', icon: '🌳' },
+  dewan: { name: 'Dewan Tari', cat: 'tempat', icon: '✨' },
+  
+  penyapu: { name: 'Penyapu', cat: 'objek', icon: '🧹' },
+  surat: { name: 'Surat Jemputan', cat: 'objek', icon: '✉️' },
+  labu: { name: 'Labu', cat: 'objek', icon: '🎃' },
+  baju: { name: 'Baju Cantik', cat: 'objek', icon: '👗' },
+  kasut: { name: 'Kasut Kaca', cat: 'objek', icon: '👠' },
+  jam: { name: 'Jam', cat: 'objek', icon: '🕰️' }
 };
 
 const LEVELS = [
-  { title:'The Girl at Home', objective:"Help Cinderella finish her chores.",
-    mechanicName:'Basic Interaction', mechanicDesc:'Choose a thread below, then tap an open circle to place it. Fill the right threads and weave the verse.',
-    available:['cinderella','stepmother','house','broom'],
-    boxes:[
-      {required:['cinderella','house'], text:"Cinderella is home, and the chore list is long."},
-      {required:['cinderella','broom'], text:"She lifts the old broom from its corner."},
-      {required:['cinderella','house','broom'], text:"Cinderella sweeps the house from corner to corner.", state:{who:'cinderella', label:'At Home'}}
-    ],
-    ending:"Cinderella finishes her chores, but her stepfamily continues to treat her unfairly."
+  {
+    title: 'Bab 1: Di Rumah',
+    objective: "Bantu Cinderella mengemas rumah.",
+    available: ['cinderella', 'ibu_tiri', 'rumah', 'penyapu'],
+    boxes: [
+      { required: ['cinderella', 'rumah'], text: "Cinderella berada di rumah.", hint1: "Siapakah watak utama kita dan di manakah dia berada?" },
+      { required: ['cinderella', 'penyapu'], text: "Cinderella mengambil penyapu.", hint1: "Cinderella mahu menyapu. Apakah alat yang dia perlukan?" },
+      { required: ['cinderella', 'rumah', 'penyapu'], text: "Cinderella menyapu habuk di rumah menggunakan penyapu.", hint1: "Siapa yang menyapu, di mana, dan guna apa?" }
+    ]
   },
-  { title:'The Royal Invitation', objective:"Cinderella must learn about the royal ball.",
-    mechanicName:'Sequence', mechanicDesc:'Order matters now. A verse woven early can open — or close — the door for the next one.',
-    available:['cinderella','stepmother','stepsister','prince','house','castle','royal_invitation'],
-    boxes:[
-      {required:['prince','castle'], text:"In the castle halls, the Prince declares a royal ball."},
-      {required:['royal_invitation','house'], text:"A royal invitation arrives at the door."},
-      {required:['cinderella','royal_invitation'], text:"Cinderella reads the invitation, her eyes wide with hope.", state:{who:'cinderella', label:'Hopeful'}},
-      {required:['cinderella','stepmother'], text:"Cinderella gathers her courage and asks to attend."},
-      {required:['stepmother','cinderella'], text:"The Stepmother refuses, coldly.", state:{who:'cinderella', label:'Forbidden'}},
-      {required:['cinderella','house'], text:"Cinderella remains behind, alone with her chores."}
-    ],
-    ending:"The invitation came — but for Cinderella, the door stayed shut."
+  {
+    title: 'Bab 2: Jemputan ke Istana',
+    objective: "Cinderella mendapat berita tentang majlis tari-menari.",
+    available: ['cinderella', 'ibu_tiri', 'kakak_tiri', 'putera', 'rumah', 'istana', 'surat'],
+    boxes: [
+      { required: ['putera', 'istana'], text: "Putera mengumumkan majlis tari-menari di istana.", hint1: "Siapa yang tinggal di istana dan membuat majlis?" },
+      { required: ['surat', 'rumah'], text: "Surat jemputan sampai di rumah Cinderella.", hint1: "Apakah yang dihantar ke rumah Cinderella?" },
+      { required: ['cinderella', 'surat'], text: "Cinderella membaca surat jemputan itu.", hint1: "Siapa yang sangat gembira membaca surat itu?" },
+      { required: ['cinderella', 'ibu_tiri'], text: "Cinderella meminta izin daripada Ibu Tiri.", hint1: "Cinderella mesti minta izin siapa untuk pergi?" },
+      { required: ['ibu_tiri', 'cinderella'], text: "Ibu Tiri tidak membenarkan Cinderella pergi.", hint1: "Siapa yang marah dan menghalang Cinderella?" }
+    ]
   },
-  { title:'A Little Magic', objective:"Prepare Cinderella for the royal ball.",
-    mechanicName:'Transformation', mechanicDesc:'Some threads do not just combine — they change shape entirely once the magic is woven.',
-    available:['cinderella','fairy_godmother','house','garden','pumpkin','magical_dress','glass_slipper'],
-    boxes:[
-      {required:['cinderella','garden'], text:"Cinderella steps out into the moonlit garden."},
-      {required:['cinderella','fairy_godmother'], text:"A shimmer of light — the Fairy Godmother appears."},
-      {required:['fairy_godmother','cinderella'], text:"Magic gathers softly in the air around them."},
-      {required:['pumpkin','fairy_godmother'], text:"With a wave, the pumpkin becomes a glittering carriage.", transform:{from:'pumpkin', to:'carriage'}},
-      {required:['magical_dress','cinderella'], text:"Cinderella is wrapped in a gown spun from starlight.", state:{who:'cinderella', label:'Transformed'}},
-      {required:['glass_slipper','cinderella'], text:"Glass slippers settle perfectly onto her feet."}
-    ],
-    ending:"Cinderella is ready for the ball. The Fairy Godmother warns her: the magic will not last forever."
+  {
+    title: 'Bab 3: Bantuan Pari-pari',
+    objective: "Sediakan Cinderella untuk pergi ke majlis.",
+    available: ['cinderella', 'pari_pari', 'rumah', 'taman', 'labu', 'baju', 'kasut'],
+    boxes: [
+      { required: ['cinderella', 'taman'], text: "Cinderella menangis sendirian di taman.", hint1: "Di manakah Cinderella menangis di luar rumah?" },
+      { required: ['pari_pari', 'cinderella'], text: "Pari-pari datang untuk membantu Cinderella.", hint1: "Siapa yang datang membawa magik untuk bantu Cinderella?" },
+      { required: ['pari_pari', 'labu'], text: "Pari-pari menukar labu menjadi kereta kuda yang cantik.", hint1: "Pari-pari guna magik pada sayur apa?" },
+      { required: ['pari_pari', 'baju'], text: "Pari-pari memberikan baju yang bersinar untuk dipakai.", hint1: "Apakah pakaian cantik yang diberikan oleh Pari-pari?" },
+      { required: ['pari_pari', 'kasut'], text: "Pari-pari memberikan sepasang kasut kaca yang sangat cantik.", hint1: "Apakah benda berkaca yang diberikan untuk kaki Cinderella?" }
+    ]
   },
-  { title:'The Royal Ball', objective:"Make the Prince meet the mysterious girl at the ball.",
-    mechanicName:'Relationships', mechanicDesc:'Characters now carry a bond between them. Watch the bond shift as their story unfolds.',
-    available:['cinderella','prince','fairy_godmother','castle','ballroom','glass_slipper','clock'],
-    boxes:[
-      {required:['cinderella','ballroom'], text:"Cinderella arrives at the ballroom, breathless.", state:{who:'cinderella', label:'At Ball'}},
-      {required:['prince','ballroom'], text:"The Prince notices a stranger across the room.", state:{who:'prince', label:'Meets Cinderella'}},
-      {required:['prince','cinderella'], text:"Their eyes meet.", relationship:'Curious'},
-      {required:['prince','cinderella','ballroom'], text:"They dance beneath the chandeliers.", relationship:'Interested'},
-      {required:['cinderella','prince'], text:"Something new is growing between them."},
-      {required:['clock','ballroom'], text:"Somewhere, a clock begins to strike."}
-    ],
-    ending:"The ballroom glows golden — but somewhere close by, midnight is drawing near."
+  {
+    title: 'Bab 4: Majlis Tari-Menari',
+    objective: "Putera berjumpa dengan gadis misteri di majlis.",
+    available: ['cinderella', 'putera', 'istana', 'dewan', 'kasut', 'jam'],
+    boxes: [
+      { required: ['cinderella', 'dewan'], text: "Cinderella tiba di dewan tari yang sangat cantik.", hint1: "Cinderella masuk ke ruang mana di istana?" },
+      { required: ['putera', 'cinderella'], text: "Putera melihat Cinderella dan terus jatuh hati.", hint1: "Siapa yang terpesona melihat Cinderella?" },
+      { required: ['putera', 'cinderella', 'dewan'], text: "Mereka berdua menari dengan gembira di dalam dewan.", hint1: "Siapa yang menari bersama di dewan itu?" },
+      { required: ['jam', 'dewan'], text: "Tiba-tiba, jam besar di dewan berbunyi kuat.", hint1: "Apakah objek yang berdetik menunjukkan masa?" }
+    ]
   },
-  { title:'Midnight', objective:"Cinderella must escape before midnight.",
-    mechanicName:'Time', mechanicDesc:'Timing decides everything now. Some verses can only be woven once the moment is truly right.',
-    available:['cinderella','prince','ballroom','castle','garden','clock','glass_slipper'],
-    boxes:[
-      {required:['cinderella','ballroom'], text:"Cinderella lingers at the ball a while longer."},
-      {required:['prince','cinderella'], text:"She and the Prince talk once more."},
-      {required:['clock','ballroom'], text:"Midnight arrives — the clock begins to toll."},
-      {required:['cinderella','castle'], text:"Cinderella runs, her heart pounding, through the castle halls.", state:{who:'cinderella', label:'Running Away'}},
-      {required:['glass_slipper','castle'], text:"A single glass slipper is left behind on the stone steps."},
-      {required:['prince','glass_slipper'], text:"The Prince kneels and picks up the slipper.", state:{who:'prince', label:'Searching for Her'}}
-    ],
-    ending:"The clock has struck twelve. All that remains of her is a single glass slipper."
+  {
+    title: 'Bab 5: Tengah Malam',
+    objective: "Cinderella mesti lari sebelum pukul 12 malam!",
+    available: ['cinderella', 'putera', 'dewan', 'istana', 'jam', 'kasut'],
+    boxes: [
+      { required: ['cinderella', 'jam'], text: "Cinderella terkejut mendengar jam berbunyi pukul 12.", hint1: "Siapa yang panik apabila mendengar bunyi jam?" },
+      { required: ['cinderella', 'istana'], text: "Cinderella berlari keluar dari istana dengan sangat laju.", hint1: "Cinderella berlari keluar dari bangunan mana?" },
+      { required: ['kasut', 'istana'], text: "Sebelah kasut kaca tercicir di tangga istana.", hint1: "Apakah yang tertinggal di lantai istana?" },
+      { required: ['putera', 'kasut'], text: "Putera menemui kasut kaca itu dan menyimpannya.", hint1: "Siapa yang mengutip kasut kaca itu?" }
+    ]
   },
-  { title:"The Slipper Fits", objective:"Help the Prince discover Cinderella's identity.",
-    mechanicName:'Everything, Together', mechanicDesc:'Every thread you have learned to weave now comes together for the final verse.',
-    available:['cinderella','prince','stepmother','stepsisters','house','kingdom','glass_slipper'],
-    boxes:[
-      {required:['prince','glass_slipper'], text:"The Prince vows to find the one this slipper belongs to."},
-      {required:['prince','kingdom'], text:"He searches from door to door across the kingdom."},
-      {required:['prince','house'], text:"At last, he arrives at a small, weathered house."},
-      {required:['stepsisters','glass_slipper'], text:"The stepsisters try — but the slipper will not fit."},
-      {required:['cinderella','glass_slipper'], text:"Cinderella tries — and the slipper fits perfectly.", state:{who:'cinderella', label:'Identified'}},
-      {required:['cinderella','prince'], text:"Her identity is revealed at last.", state:{who:'prince', label:'Finds Cinderella'}}
-    ],
-    ending:"THE STORY IS COMPLETE", isFinal:true
+  {
+    title: 'Bab 6: Kasut Kaca',
+    objective: "Cari pemilik sebenar kasut kaca itu.",
+    available: ['cinderella', 'putera', 'ibu_tiri', 'kakak_tiri', 'rumah', 'kasut'],
+    boxes: [
+      { required: ['putera', 'kasut'], text: "Putera berjanji akan mencari pemilik kasut kaca ini.", hint1: "Siapa yang membawa kasut kaca untuk dicuba?" },
+      { required: ['putera', 'rumah'], text: "Putera sampai di rumah Cinderella.", hint1: "Putera tiba di bangunan mana untuk mencari gadis itu?" },
+      { required: ['kakak_tiri', 'kasut'], text: "Kakak tiri cuba memakai kasut itu tetapi kakinya terlalu besar.", hint1: "Siapa yang mencuba kasut tetapi tidak muat?" },
+      { required: ['cinderella', 'kasut'], text: "Cinderella cuba kasut itu dan ia muat dengan sempurna!", hint1: "Siapa pemilik sebenar kasut itu?" },
+      { required: ['putera', 'cinderella'], text: "Putera dan Cinderella sangat gembira dan hidup bahagia selamanya.", hint1: "Siapa yang akhirnya hidup gembira bersama?" }
+    ]
   }
 ];
 
 /* ============================= STATE ============================= */
 let game = {
-  levelIndex:0,
-  unlocked:[true,false,false,false,false,false],
-  done:[false,false,false,false,false,false],
-  boxIndex:0,
-  placed:[null,null,null],
-  selected:null,
-  charStates:{},      // id -> array of achieved labels in order
-  relationship:null,  // current relationship label
-  verses:[]           // completed verse texts for current level
+  unlocked: [true, false, false, false, false, false],
+  done: [false, false, false, false, false, false],
+  currentLevel: 0,
+  currentBox: 0,
+  placedSlots: [],
+  hintLevel: 0,
+  storyLines: []
 };
 
-/* ============================= SCREENS ============================= */
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+/* ============================= NAVIGATION ============================= */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
-function goToMap(){ renderMap(); showScreen('screen-map'); }
 
-/* ============================= TITLE ORBIT ============================= */
-(function initOrbit(){
-  const el = document.getElementById('titleOrbit');
-  const glyphs = ['🏠','🏰','🎃','👗','👠','🕰️'];
-  const positions = [
-    {t:'8%', l:'10%'}, {t:'18%', l:'82%'}, {t:'72%', l:'6%'},
-    {t:'80%', l:'86%'}, {t:'45%', l:'2%'}, {t:'50%', l:'94%'}
-  ];
-  glyphs.forEach((g,i)=>{
-    const d = document.createElement('div');
-    d.textContent = g;
-    d.style.position='absolute';
-    d.style.top = positions[i].t; d.style.left = positions[i].l;
-    d.style.fontSize='22px'; d.style.opacity='0.16';
-    d.style.filter='blur(0.2px)';
-    el.appendChild(d);
-  });
-})();
+function goToMap() {
+  renderMap();
+  showScreen('screen-map');
+}
 
 /* ============================= MAP ============================= */
-function renderMap(){
-  const wrap = document.getElementById('mapNodes');
-  wrap.innerHTML = '';
-  LEVELS.forEach((lvl,i)=>{
-    const unlocked = game.unlocked[i];
-    const done = game.done[i];
+function renderMap() {
+  const mapGrid = document.getElementById('mapNodes');
+  mapGrid.innerHTML = '';
+  
+  LEVELS.forEach((lvl, i) => {
+    const isUnlocked = game.unlocked[i];
+    const isDone = game.done[i];
     const node = document.createElement('div');
-    node.className = 'map-node ' + (done?'done':(unlocked?'unlocked':'locked'));
+    node.className = `map-node ${isDone ? 'done' : (isUnlocked ? 'unlocked' : 'locked')}`;
+    
+    // Keyboard accessibility
+    if (isUnlocked) {
+      node.setAttribute('tabindex', '0');
+      node.setAttribute('role', 'button');
+      node.setAttribute('aria-label', `Main ${lvl.title}`);
+      node.onclick = () => startLevel(i);
+      node.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startLevel(i); } };
+    }
+    
     node.innerHTML = `
-      <button class="node-btn" ${unlocked?`onclick="startLevel(${i})"`:''}>
-        <div class="node-dot">${done?'✓':(unlocked?(i+1):'🔒')}</div>
-        <div class="node-label">${lvl.title}</div>
-        <div class="node-mech">${lvl.mechanicName}</div>
-      </button>`;
-    wrap.appendChild(node);
+      <div class="node-num">${isDone ? '✅' : (isUnlocked ? (i+1) : '🔒')}</div>
+      <div class="node-title">${lvl.title}</div>
+    `;
+    mapGrid.appendChild(node);
   });
 }
 
-/* ============================= LEVEL SETUP ============================= */
-function startLevel(i){
-  game.levelIndex = i;
-  game.boxIndex = 0;
-  game.placed = [null,null,null];
-  game.selected = null;
-  game.verses = [];
-  renderLevelChrome();
-  renderTracker();
-  renderPalette();
-  renderActiveBox();
-  renderVerses();
+/* ============================= LEVEL LOGIC ============================= */
+function startLevel(index) {
+  game.currentLevel = index;
+  game.currentBox = 0;
+  game.storyLines = [];
+  prepareBox();
   showScreen('screen-level');
 }
 
-function currentLevel(){ return LEVELS[game.levelIndex]; }
-function currentBox(){ return currentLevel().boxes[game.boxIndex]; }
-
-function renderLevelChrome(){
-  const lvl = currentLevel();
-  document.getElementById('lvlEyebrow').textContent = 'Chapter ' + (game.levelIndex+1) + ' · ' + lvl.mechanicName;
-  document.getElementById('lvlName').textContent = lvl.title;
+function prepareBox() {
+  const lvl = LEVELS[game.currentLevel];
+  const box = lvl.boxes[game.currentBox];
+  
+  game.hintLevel = 0;
+  game.placedSlots = Array(box.required.length).fill(null);
+  
+  // Update Chrome
+  document.getElementById('levelProgress').textContent = `Bab ${game.currentLevel + 1} daripada ${LEVELS.length}`;
+  document.getElementById('lvlTitle').textContent = lvl.title;
   document.getElementById('lvlObjective').textContent = lvl.objective;
-  const dots = document.getElementById('progressDots');
-  dots.innerHTML = '';
-  lvl.boxes.forEach((b,idx)=>{
-    const s = document.createElement('span');
-    if(idx < game.boxIndex) s.classList.add('done');
-    else if(idx === game.boxIndex) s.classList.add('current');
-    dots.appendChild(s);
-  });
-}
-
-/* ============================= TRACKER ============================= */
-function pushCharState(who, label){
-  if(!game.charStates[who]) game.charStates[who] = [];
-  const arr = game.charStates[who];
-  if(arr[arr.length-1] !== label) arr.push(label);
-}
-
-function renderTracker(){
-  const el = document.getElementById('trackerPanel');
-  el.innerHTML = '';
-  const h = document.createElement('h3'); h.textContent = 'Threads of Fate';
-  el.appendChild(h);
-
-  const names = {cinderella:'Cinderella', prince:'Prince'};
-  let any = false;
-  Object.keys(names).forEach(who=>{
-    const arr = game.charStates[who];
-    if(!arr || !arr.length) return;
-    any = true;
-    const block = document.createElement('div'); block.className='tracker-block';
-    const nm = document.createElement('div'); nm.className='tracker-name'; nm.textContent = names[who];
-    block.appendChild(nm);
-    const trail = document.createElement('div'); trail.className='chip-trail';
-    arr.forEach((lab,i)=>{
-      const c = document.createElement('span');
-      c.className = 'chip' + (i===arr.length-1?' current':'');
-      c.textContent = lab;
-      trail.appendChild(c);
-    });
-    block.appendChild(trail);
-    el.appendChild(block);
-  });
-
-  if(game.relationship){
-    any = true;
-    const block = document.createElement('div'); block.className='tracker-block';
-    const nm = document.createElement('div'); nm.className='tracker-name'; nm.textContent = 'Cinderella & Prince';
-    block.appendChild(nm);
-    const trail = document.createElement('div'); trail.className='chip-trail';
-    const c = document.createElement('span'); c.className='chip current'; c.textContent = game.relationship;
-    trail.appendChild(c);
-    block.appendChild(trail);
-    el.appendChild(block);
-  }
-
-  if(!any){
-    const p = document.createElement('div'); p.className='tracker-name';
-    p.style.fontStyle='italic'; p.textContent = 'No threads have shifted yet — weave a verse to begin.';
-    el.appendChild(p);
-  }
-
-  const note = document.createElement('div'); note.className='mech-note';
-  note.innerHTML = `<b>${currentLevel().mechanicName}</b>${currentLevel().mechanicDesc}`;
-  el.appendChild(note);
-}
-
-/* ============================= PALETTE ============================= */
-function badgeHTML(id){
-  const e = ELEMENTS[id];
-  if(e.category==='character'){
-    return `<div class="p-badge character">${e.initial}</div>`;
-  } else if(e.category==='place'){
-    return `<div class="p-badge place"><span></span>${e.icon}</div>`;
-  } else {
-    return `<div class="p-badge object"><span>${e.icon}</span></div>`;
-  }
-}
-
-function renderPalette(){
-  const el = document.getElementById('palette');
-  el.innerHTML = '';
-  const cats = [['character','Characters'],['place','Places'],['object','Objects']];
-  const lvl = currentLevel();
-  const placedIds = game.placed.filter(Boolean);
-
-  cats.forEach(([cat,label])=>{
-    const ids = lvl.available.filter(id=>ELEMENTS[id].category===cat && !placedIds.includes(id));
-    const row = document.createElement('div'); row.className='palette-row';
-    const lab = document.createElement('div'); lab.className='palette-label'; lab.textContent = label;
-    row.appendChild(lab);
-    const cardsWrap = document.createElement('div'); cardsWrap.className='palette-cards';
-    if(ids.length===0){
-      const empty = document.createElement('div'); empty.className='palette-empty'; empty.textContent = 'all placed';
-      cardsWrap.appendChild(empty);
-    }
-    ids.forEach(id=>{
-      const e = ELEMENTS[id];
-      const c = document.createElement('div');
-      c.className = 'p-card' + (game.selected===id?' selected':'');
-      c.onclick = ()=>selectElement(id);
-      c.innerHTML = badgeHTML(id) + `<div class="p-name">${e.name}</div>`;
-      cardsWrap.appendChild(c);
-    });
-    row.appendChild(cardsWrap);
-    el.appendChild(row);
-  });
-}
-
-function selectElement(id){
-  game.selected = (game.selected===id) ? null : id;
-  renderPalette();
-}
-
-/* ============================= SLOTS ============================= */
-function renderActiveBox(){
-  renderLevelChrome();
+  document.getElementById('questionProgress').textContent = `Soalan ${game.currentBox + 1} daripada ${lvl.boxes.length}`;
+  
+  sembunyiMaklumBalas();
   renderSlots();
-  setFeedback('', '');
-  document.getElementById('loomCard').classList.remove('shake','success');
+  renderPalette();
+  renderStory();
+  checkReadyToSubmit();
 }
 
-function renderSlots(){
-  const row = document.getElementById('slotsRow');
-  row.innerHTML = '';
-  game.placed.forEach((id,i)=>{
+/* ============================= RENDER UI ============================= */
+function renderSlots() {
+  const area = document.getElementById('slotsArea');
+  area.innerHTML = '';
+  
+  game.placedSlots.forEach((cardId, index) => {
     const slot = document.createElement('div');
-    slot.className = 'slot' + (id?' filled':'');
-    slot.onclick = ()=> id ? removeFromSlot(i) : placeInSlot(i);
-    if(id){
-      const e = ELEMENTS[id];
-      const iconHTML = e.category==='character' ? e.initial : e.icon;
-      slot.innerHTML = `<div class="slot-icon">${iconHTML}</div><div class="slot-name">${e.name}</div>`;
+    slot.className = `slot ${cardId ? 'filled' : ''}`;
+    slot.setAttribute('tabindex', '0');
+    slot.setAttribute('role', 'button');
+    slot.setAttribute('aria-label', cardId ? `Keluarkan ${ELEMENTS[cardId].name}` : `Ruang kosong ${index+1}`);
+    
+    slot.onclick = () => keluarkanKad(index);
+    slot.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); keluarkanKad(index); } };
+    
+    if (cardId) {
+      const el = ELEMENTS[cardId];
+      slot.innerHTML = `
+        <div class="card-icon" style="font-size: 36px; margin-bottom: 5px;">${el.icon}</div>
+        <div class="card-name">${el.name}</div>
+      `;
     } else {
-      slot.innerHTML = `<div class="slot-empty-label">Empty</div>`;
+      slot.innerHTML = `<div class="slot-empty-text">Kosong</div>`;
     }
-    row.appendChild(slot);
+    
+    area.appendChild(slot);
   });
-  const filledCount = game.placed.filter(Boolean).length;
-  document.getElementById('weaveBtn').disabled = filledCount===0;
-  const lit = filledCount>=2;
-  document.querySelectorAll('.thread-svg path').forEach(p=>p.classList.toggle('lit', false));
 }
 
-function placeInSlot(i){
-  if(!game.selected) return;
-  if(game.placed.includes(game.selected)) return;
-  game.placed[i] = game.selected;
-  game.selected = null;
-  renderPalette();
-  renderSlots();
-}
-function removeFromSlot(i){
-  game.placed[i] = null;
-  renderPalette();
-  renderSlots();
-}
-function clearSlots(){
-  game.placed = [null,null,null];
-  game.selected = null;
-  renderPalette();
-  renderSlots();
-  setFeedback('', '');
-}
-
-function setFeedback(text, cls){
-  const f = document.getElementById('feedback');
-  f.textContent = text;
-  f.className = 'feedback' + (cls ? ' '+cls : ' empty');
-}
-
-/* ============================= WEAVE LOGIC ============================= */
-function sameSet(a,b){
-  const A = a.slice().sort();
-  const B = b.slice().sort();
-  return A.length===B.length && A.every((v,i)=>v===B[i]);
-}
-
-function weave(){
-  const filled = game.placed.filter(Boolean);
-  if(filled.length===0) return;
-  const box = currentBox();
-  const card = document.getElementById('loomCard');
-
-  if(sameSet(filled, box.required)){
-    card.classList.remove('shake'); card.classList.add('success');
-    document.querySelectorAll('.thread-svg path').forEach(p=>p.classList.add('lit'));
-    setFeedback('The thread catches — the story moves forward.', 'ok');
-
-    if(box.state) pushCharState(box.state.who, box.state.label);
-    if(box.relationship) game.relationship = box.relationship;
-    game.verses.push({text:box.text, transform:box.transform||null});
-
-    setTimeout(()=>{
-      advanceBox();
-    }, 950);
-  } else {
-    card.classList.add('shake');
-    setFeedback('Nothing happens… try a different thread.', 'no');
-    setTimeout(()=>{
-      card.classList.remove('shake');
-      clearSlots();
-    }, 700);
-  }
-}
-
-function advanceBox(){
-  game.boxIndex++;
-  game.placed = [null,null,null];
-  renderTracker();
-  renderVerses();
-  renderPalette();
-
-  if(game.boxIndex >= currentLevel().boxes.length){
-    finishLevel();
-  } else {
-    renderActiveBox();
-  }
-}
-
-function renderVerses(){
-  const el = document.getElementById('verseList');
-  el.innerHTML = '';
-  if(game.verses.length===0){
-    el.innerHTML = '<div class="verse-empty">Your first verse has not been woven yet.</div>';
-    return;
-  }
-  game.verses.forEach((v,i)=>{
-    const item = document.createElement('div'); item.className='verse-item';
-    let extra = '';
-    if(v.transform){
-      const fromE = ELEMENTS[v.transform.from], toE = ELEMENTS[v.transform.to];
-      extra = `<div class="transform-tag">${fromE.icon} → ${toE.icon} ${toE.name}</div>`;
-    }
-    item.innerHTML = `<div class="vnum">${i+1}</div><div><p>${v.text}</p>${extra}</div>`;
-    el.appendChild(item);
+function renderPalette() {
+  const area = document.getElementById('paletteArea');
+  area.innerHTML = '';
+  
+  const lvl = LEVELS[game.currentLevel];
+  const categories = [
+    { id: 'watak', name: 'Watak' },
+    { id: 'tempat', name: 'Tempat' },
+    { id: 'objek', name: 'Objek' }
+  ];
+  
+  categories.forEach(cat => {
+    const ids = lvl.available.filter(id => ELEMENTS[id].cat === cat.id && !game.placedSlots.includes(id));
+    if (ids.length === 0) return;
+    
+    const catDiv = document.createElement('div');
+    catDiv.className = 'palette-category';
+    catDiv.innerHTML = `<div class="category-title">${cat.name}</div>`;
+    
+    const grid = document.createElement('div');
+    grid.className = 'cards-grid';
+    
+    ids.forEach(id => {
+      const el = ELEMENTS[id];
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.id = `card-${id}`;
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `Pilih ${el.name}`);
+      
+      card.onclick = () => pilihKad(id);
+      card.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pilihKad(id); } };
+      
+      card.innerHTML = `
+        <div class="card-icon">${el.icon}</div>
+        <div class="card-name">${el.name}</div>
+      `;
+      grid.appendChild(card);
+    });
+    
+    catDiv.appendChild(grid);
+    area.appendChild(catDiv);
   });
-  el.scrollTop = el.scrollHeight;
 }
 
-/* ============================= LEVEL COMPLETE ============================= */
-function finishLevel(){
-  game.done[game.levelIndex] = true;
-  const isFinal = currentLevel().isFinal;
-  if(!isFinal && game.levelIndex+1 < game.unlocked.length){
-    game.unlocked[game.levelIndex+1] = true;
+function renderStory() {
+  const list = document.getElementById('storyList');
+  list.innerHTML = '';
+  if (game.storyLines.length === 0) {
+    list.innerHTML = '<li style="color: #AAA; list-style: none;">Belum ada ayat yang dibina.</li>';
+  } else {
+    game.storyLines.forEach(line => {
+      const li = document.createElement('li');
+      li.textContent = line;
+      list.appendChild(li);
+    });
   }
-  if(isFinal){
+}
+
+/* ============================= INTERACTIONS ============================= */
+function pilihKad(id) {
+  const emptyIndex = game.placedSlots.findIndex(s => s === null);
+  if (emptyIndex !== -1) {
+    game.placedSlots[emptyIndex] = id;
+    renderSlots();
+    renderPalette();
+    checkReadyToSubmit();
+    sembunyiMaklumBalas();
+  } else {
+    tunjukMaklumBalas("Ruang sudah penuh! Keluarkan kad jika mahu menukar.", "hint");
+  }
+}
+
+function keluarkanKad(index) {
+  if (game.placedSlots[index]) {
+    game.placedSlots[index] = null;
+    renderSlots();
+    renderPalette();
+    checkReadyToSubmit();
+    sembunyiMaklumBalas();
+  }
+}
+
+function kosongkanRuang() {
+  game.placedSlots = Array(game.placedSlots.length).fill(null);
+  renderSlots();
+  renderPalette();
+  checkReadyToSubmit();
+  sembunyiMaklumBalas();
+}
+
+function checkReadyToSubmit() {
+  const isFull = !game.placedSlots.includes(null);
+  document.getElementById('btnSemak').disabled = !isFull;
+}
+
+/* ============================= GAMEPLAY LOGIC ============================= */
+function sameSet(arr1, arr2) {
+  const a = [...arr1].sort();
+  const b = [...arr2].sort();
+  return a.length === b.length && a.every((val, index) => val === b[index]);
+}
+
+function semakJawapan() {
+  const box = LEVELS[game.currentLevel].boxes[game.currentBox];
+  const isCorrect = sameSet(game.placedSlots, box.required);
+  
+  if (isCorrect) {
+    game.storyLines.push(box.text);
+    document.getElementById('modalCorrectText').textContent = box.text;
+    document.getElementById('modalCorrect').classList.add('active');
+  } else {
+    game.hintLevel++;
+    berikanHint(true);
+  }
+}
+
+function soalanSeterusnya() {
+  document.getElementById('modalCorrect').classList.remove('active');
+  const lvl = LEVELS[game.currentLevel];
+  game.currentBox++;
+  
+  if (game.currentBox >= lvl.boxes.length) {
+    levelSelesai();
+  } else {
+    prepareBox();
+  }
+}
+
+function levelSelesai() {
+  game.done[game.currentLevel] = true;
+  if (game.currentLevel + 1 < LEVELS.length) {
+    game.unlocked[game.currentLevel + 1] = true;
+    goToMap();
+  } else {
     showScreen('screen-final');
-    return;
   }
-  const ov = document.getElementById('levelOverlay');
-  document.getElementById('ovEyebrow').textContent = 'Chapter ' + (game.levelIndex+1) + ' Complete';
-  document.getElementById('ovTitle').textContent = currentLevel().title;
-  document.getElementById('ovText').textContent = currentLevel().ending;
-  const actions = document.getElementById('ovActions');
-  actions.innerHTML = '';
-  const nextBtn = document.createElement('button');
-  nextBtn.className = 'btn-primary';
-  nextBtn.textContent = 'Continue the Tale';
-  nextBtn.onclick = ()=>{ ov.classList.remove('active'); startLevel(game.levelIndex+1); };
-  const mapBtn = document.createElement('button');
-  mapBtn.className = 'btn-ghost';
-  mapBtn.textContent = 'Back to the Loom';
-  mapBtn.onclick = ()=>{ ov.classList.remove('active'); goToMap(); };
-  actions.appendChild(nextBtn);
-  actions.appendChild(mapBtn);
-  ov.classList.add('active');
 }
 
-/* ============================= RESET ============================= */
-function resetGame(){
+/* ============================= FEEDBACK & HINTS ============================= */
+function tunjukMaklumBalas(mesej, jenis) {
+  const fb = document.getElementById('feedbackBox');
+  fb.textContent = mesej;
+  fb.className = `feedback-box show ${jenis}`;
+}
+
+function sembunyiMaklumBalas() {
+  document.getElementById('feedbackBox').className = 'feedback-box';
+}
+
+function tunjukHint(dariButang) {
+  if (dariButang) game.hintLevel++;
+  berikanHint(false);
+}
+
+function berikanHint(dariSalah) {
+  const box = LEVELS[game.currentLevel].boxes[game.currentBox];
+  const intro = dariSalah ? "Belum tepat. " : "💡 Hint: ";
+  
+  if (game.hintLevel === 1) {
+    tunjukMaklumBalas(intro + "Cuba fikir: " + box.hint1, dariSalah ? "error" : "hint");
+  } else if (game.hintLevel === 2) {
+    const namaKad = box.required.map(id => ELEMENTS[id].name).join(" dan ");
+    tunjukMaklumBalas(intro + "Pilih kad " + namaKad + ".", dariSalah ? "error" : "hint");
+  } else {
+    tunjukMaklumBalas(intro + "Mari cuba bersama! Pilih kad yang bercahaya di bawah.", dariSalah ? "error" : "hint");
+    box.required.forEach(id => {
+      const el = document.getElementById(`card-${id}`);
+      if (el) el.classList.add('highlight');
+    });
+  }
+}
+
+function ulangArahan() {
+  const objective = document.getElementById('lvlObjective').textContent;
+  alert("Matlamat: " + objective + "
+
+Arahan: Pilih kad yang betul, letakkan di ruang kosong, dan tekan Semak Jawapan.");
+}
+
+function resetSemua() {
   game = {
-    levelIndex:0,
-    unlocked:[true,false,false,false,false,false],
-    done:[false,false,false,false,false,false],
-    boxIndex:0,
-    placed:[null,null,null],
-    selected:null,
-    charStates:{},
-    relationship:null,
-    verses:[]
+    unlocked: [true, false, false, false, false, false],
+    done: [false, false, false, false, false, false],
+    currentLevel: 0,
+    currentBox: 0,
+    placedSlots: [],
+    hintLevel: 0,
+    storyLines: []
   };
   showScreen('screen-title');
 }
