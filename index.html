@@ -3,26 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minda Inklusif AI — Special Needs Learning Portal</title>
+  <title>MINDA INKLUSIF AI — Special Needs Learning Portal</title>
   
-  <!-- Clean, Accessible Sans-Serif Google Fonts -->
+  <!-- Inter & Fredoka Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
-       LIQUID GLASS DESIGN SYSTEM & ACCESSIBILITY STYLES
+       DASHBOARD DESIGN SYSTEM & VARIABLES
        ========================================================================== */
     :root {
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.25);
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      --glass-bg: rgba(15, 23, 42, 0.55);
+      --glass-card: rgba(255, 255, 255, 0.05);
+      --glass-card-hover: rgba(255, 255, 255, 0.09);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --glass-border-focus: rgba(56, 189, 248, 0.4);
+      --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       --text-main: #f8fafc;
+      --text-sub: #94a3b8;
       --accent-teal: #0d9488;
-      --accent-glow: rgba(13, 148, 136, 0.6);
-      --primary-font: 'Nunito', 'Segoe UI', sans-serif;
-      --heading-font: 'Fredoka', 'Segoe UI', sans-serif;
+      --accent-blue: #0284c7;
+      --accent-glow: rgba(14, 165, 233, 0.4);
+      --primary-font: 'Inter', system-ui, sans-serif;
+      --heading-font: 'Fredoka', cursive, sans-serif;
     }
 
     * {
@@ -32,17 +37,17 @@
       font-family: var(--primary-font);
     }
 
-    /* BACKGROUND CAROUSEL STYLES WITH SMOOTH CROSS-FADE */
     body {
       min-height: 100vh;
-      background-color: #0f172a;
+      background-color: #0b132b;
       color: var(--text-main);
-      padding: 20px;
+      padding: 12px;
       position: relative;
       overflow-x: hidden;
+      font-size: 14px;
     }
 
-    /* Dual Layer Cross-Fade Setup for Background Images */
+    /* Background Carousel Layers */
     .bg-layer {
       position: fixed;
       top: 0;
@@ -53,26 +58,59 @@
       background-size: cover;
       background-repeat: no-repeat;
       z-index: -2;
-      transition: opacity 1.5s ease-in-out;
+      transition: opacity 1.2s ease-in-out;
       opacity: 0;
+      filter: brightness(0.7) contrast(1.05);
     }
 
     .bg-layer.active {
       opacity: 1;
     }
 
-    /* ==========================================================================
-       ANIMATED COLOR-CHANGING WAVE CONTAINER
-       ========================================================================== */
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.4), rgba(11, 19, 43, 0.85));
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* High Contrast Accessibility Mode */
+    body.high-contrast {
+      background: #000000 !important;
+      color: #ffff00 !important;
+    }
+
+    body.high-contrast .app-container,
+    body.high-contrast .glass-card,
+    body.high-contrast .segmented-control,
+    body.high-contrast .a11y-popover {
+      background: #000000 !important;
+      border: 2px solid #ffff00 !important;
+      color: #ffff00 !important;
+      box-shadow: none !important;
+    }
+
+    body.high-contrast button,
+    body.high-contrast input {
+      background: #000000 !important;
+      color: #ffff00 !important;
+      border: 1px solid #ffff00 !important;
+    }
+
+    /* Wave Background Overlay */
     .wave-container {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 220px;
+      height: 180px;
       z-index: -1;
       pointer-events: none;
-      display: none; /* Controlled by toggle button */
+      display: none;
       overflow: hidden;
     }
 
@@ -87,15 +125,12 @@
       width: 200%;
       height: 100%;
       background-repeat: repeat-x;
-      transform-origin: center bottom;
     }
 
-    /* Multi-Hue Gradient Color Animation */
     @keyframes colorShift {
       0% { fill: #06b6d4; }
-      25% { fill: #3b82f6; }
-      50% { fill: #a855f7; }
-      75% { fill: #ec4899; }
+      33% { fill: #3b82f6; }
+      66% { fill: #a855f7; }
       100% { fill: #06b6d4; }
     }
 
@@ -103,148 +138,399 @@
       animation: colorShift 12s infinite ease-in-out alternate;
     }
 
-    .wave1 {
-      animation: waveAnim1 10s linear infinite;
-      opacity: 0.6;
-    }
-
-    .wave2 {
-      animation: waveAnim2 15s linear infinite;
-      opacity: 0.4;
-      bottom: 10px;
-    }
+    .wave1 { animation: waveAnim1 12s linear infinite; opacity: 0.35; }
+    .wave2 { animation: waveAnim2 18s linear infinite; opacity: 0.2; bottom: 8px; }
 
     @keyframes waveAnim1 {
-      0% { transform: translateX(0) translateZ(0) scaleY(1); }
-      50% { transform: translateX(-25%) translateZ(0) scaleY(1.15); }
-      100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     @keyframes waveAnim2 {
-      0% { transform: translateX(0) translateZ(0) scaleY(1); }
-      50% { transform: translateX(-25%) translateZ(0) scaleY(0.85); }
-      100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
-    /* Container Glass Card */
+    /* ==========================================================================
+       MAIN APPLICATION CONTAINER
+       ========================================================================== */
     .app-container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
-      border-radius: 20px;
+      border-radius: 16px;
       box-shadow: var(--glass-shadow);
-      padding: 20px 25px;
-      transition: opacity 0.8s ease-in-out;
-    }
-
-    .app-container.idle-transparent {
-      opacity: 0.15;
-    }
-
-    /* ==========================================================================
-       HEADER & MAIN TITLE
-       ========================================================================== */
-    .header-section {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .image-heading {
-      font-family: var(--heading-font);
-      font-size: 2.3rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 4px;
-      display: inline-block;
-      
-      background: linear-gradient(90deg, #ff4e50, #f9d423, #22c55e, #06b6d4, #3b82f6, #a855f7, #ff4e50);
-      background-size: 300% 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: rainbowWave 6s linear infinite;
-      
-      transition: transform 0.3s ease, filter 0.3s ease;
-      cursor: pointer;
-    }
-
-    @keyframes rainbowWave {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 300% 50%; }
-    }
-
-    .image-heading:hover {
-      transform: scale(1.04) translateY(-2px);
-      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: opacity 0.5s ease;
     }
 
     /* ==========================================================================
-       VIBRANT 3D CLAY TEXTURE SECTION HEADINGS
+       1. COMPACT APPLICATION HEADER
        ========================================================================== */
-    .section-title {
-      font-family: var(--heading-font);
-      font-size: 1.5rem;
-      font-weight: 800;
-      margin: 15px 0 10px 0;
-      display: inline-block;
-      letter-spacing: 0.5px;
-      
-      background: linear-gradient(180deg, #ffffff 0%, #38bdf8 45%, #0284c7 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      
-      filter: drop-shadow(0px 2px 0px #0369a1)
-              drop-shadow(0px 3px 0px #075985)
-              drop-shadow(0px 4px 1px rgba(0, 0, 0, 0.4));
-      
-      transition: transform 0.3s ease, filter 0.3s ease;
-      cursor: pointer;
-    }
-
-    .section-title:hover {
-      transform: scale(1.03) translateY(-2px);
-      filter: drop-shadow(0 0 12px var(--accent-glow));
-    }
-
-    h3 {
-      font-family: var(--heading-font);
-      font-size: 1.1rem;
-      transition: transform 0.3s ease;
-    }
-
-    /* ==========================================================================
-       INTERACTIVE BUTTONS
-       ========================================================================== */
-    .interactive-btn {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #ffffff;
-      padding: 8px 14px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      border-radius: 10px;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-      outline: none;
-      display: inline-flex;
+    .app-header {
+      display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .brand-title {
+      font-family: var(--heading-font);
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+
+    .brand-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    /* Accessibility Dropdown Popover */
+    .a11y-control-wrapper {
+      position: relative;
+    }
+
+    .a11y-trigger-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .a11y-trigger-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .a11y-popover {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 210px;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: all 0.2s ease;
+    }
+
+    .a11y-popover.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .a11y-option-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 6px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .a11y-option-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* ==========================================================================
+       2. MAIN DASHBOARD WORKSPACE (2-COLUMN LAYOUT)
+       ========================================================================== */
+    .dashboard-workspace {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .glass-card {
+      background: var(--glass-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .card-title {
+      font-family: var(--heading-font);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
       gap: 6px;
     }
 
-    .interactive-btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      background: rgba(255, 255, 255, 0.28);
-      box-shadow: 0 0 12px var(--accent-glow);
-      border-color: #ffffff;
+    .card-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-sub);
     }
 
-    .interactive-btn:active {
-      transform: scale(0.97);
+    /* ==========================================================================
+       3 & 4. I-THINK MIND MAPS & ACTIVE WORKSPACE
+       ========================================================================== */
+    .segmented-control {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 3px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+    }
+
+    .segment-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      padding: 6px 0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .segment-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .segment-btn.active {
+      background: var(--accent-blue);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+    }
+
+    /* Active Mind Map Canvas Area */
+    .mindmap-workspace {
+      flex: 1;
+      min-height: 250px;
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+
+    .mindmap-node-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .node-root {
+      background: linear-gradient(135deg, #0284c7, #0d9488);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .node-branches {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .node-child {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .node-child:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .mindmap-workspace img {
+      max-width: 100%;
+      max-height: 230px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    /* ==========================================================================
+       5. FRIENDLY AI ASSISTANT CHATBOX
+       ========================================================================== */
+    .ai-chat-card {
+      justify-content: space-between;
+    }
+
+    .chat-messages {
+      flex: 1;
+      min-height: 150px;
+      max-height: 180px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+    }
+
+    .chat-msg {
+      max-width: 90%;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      white-space: pre-line;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-msg.ai {
+      background: rgba(13, 148, 136, 0.25);
+      border: 1px solid rgba(13, 148, 136, 0.4);
+      align-self: flex-start;
+      color: #f1f5f9;
+    }
+
+    .chat-msg.user {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      align-self: flex-end;
+      color: #ffffff;
+    }
+
+    /* Quick Action Buttons */
+    .quick-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .quick-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-main);
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .quick-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--accent-blue);
+    }
+
+    /* Chat Input Bar */
+    .chat-input-area {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 6px 10px;
+      color: #ffffff;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .chat-input:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 6px var(--accent-glow);
+    }
+
+    .action-icon-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .action-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
     }
 
     .recording-active {
@@ -254,159 +540,114 @@
     }
 
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-      70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+      70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
       100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
     }
 
     /* ==========================================================================
-       FEATURE SECTIONS LAYOUT
+       6. LEARNING MATERIALS HORIZONTAL DASHBOARD CARDS
        ========================================================================== */
-    .grid-2 {
+    .learning-materials-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .materials-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-top: 10px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
     }
 
-    @media (max-width: 850px) {
-      .grid-2 { grid-template-columns: 1fr; }
-    }
-
-    .glass-card {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 14px;
-      padding: 14px 16px;
-      backdrop-filter: blur(8px);
+    .material-card {
+      background: var(--glass-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 10px 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-    }
-
-    /* 8 I-THINK MIND MAP MODULE */
-    .ithink-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 6px;
-      margin-bottom: 10px;
+      transition: transform 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
     }
 
-    .ithink-btn {
-      padding: 6px 4px;
-      font-size: 0.75rem;
-      text-align: center;
+    .material-card:hover {
+      transform: translateY(-2px);
+      background: var(--glass-card-hover);
+      border-color: rgba(255, 255, 255, 0.28);
     }
 
-    .mindmap-canvas {
-      width: 100%;
-      height: 180px;
-      background: rgba(15, 23, 42, 0.35);
-      border: 2px dashed rgba(255, 255, 255, 0.25);
-      border-radius: 10px;
+    .material-info h4 {
+      font-family: var(--heading-font);
+      font-size: 0.9rem;
+      color: #f8fafc;
       display: flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      padding: 8px;
+      gap: 5px;
     }
 
-    .mindmap-canvas img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      border-radius: 6px;
+    .material-info p {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      margin-top: 2px;
     }
 
-    .map-node {
-      background: rgba(13, 148, 136, 0.7);
-      border: 2px solid #ffffff;
-      padding: 8px 14px;
-      border-radius: 16px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-
-    /* ACCESSIBLE AI ASSISTANT CHATBOX */
-    .chat-box {
-      display: flex;
-      flex-direction: column;
-      height: 250px;
-    }
-
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding-right: 4px;
-      margin-bottom: 10px;
-    }
-
-    .chat-msg {
-      max-width: 88%;
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 0.82rem;
-      line-height: 1.4;
-      white-space: pre-line;
-    }
-
-    .chat-msg.ai {
-      background: rgba(13, 148, 136, 0.35);
-      border: 1px solid rgba(13, 148, 136, 0.5);
+    .material-action {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #38bdf8;
       align-self: flex-start;
-    }
-
-    .chat-msg.user {
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      align-self: flex-end;
-    }
-
-    .chat-input-area {
       display: flex;
-      gap: 6px;
+      align-items: center;
+      gap: 3px;
     }
 
-    .chat-input {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 10px;
-      padding: 6px 12px;
-      color: #fff;
-      font-size: 0.85rem;
-      outline: none;
+    /* ==========================================================================
+       12. RESPONSIVE DASHBOARD LAYOUT
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .dashboard-workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .materials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
-    .chat-input:focus {
-      border-color: var(--accent-teal);
-      box-shadow: 0 0 8px var(--accent-glow);
-    }
+    @media (max-width: 550px) {
+      .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
 
-    .accessibility-bar {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 10px;
-      padding: 8px;
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 10px;
+      .a11y-control-wrapper {
+        align-self: flex-end;
+      }
+
+      .segmented-control {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .materials-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Dual Layer Background Elements for Smooth Fading -->
+  <!-- Background Cross-Fade Layers -->
   <div class="bg-layer active" id="bg1"></div>
   <div class="bg-layer" id="bg2"></div>
+  <div class="bg-overlay"></div>
 
-  <!-- Color-Changing Wave Animation Container -->
+  <!-- Animated Wave Background Layer -->
   <div class="wave-container" id="waveContainer">
     <svg class="wave wave1" viewBox="0 0 1200 120" preserveAspectRatio="none">
       <path d="M0,0 C150,90 350,-40 500,40 C650,120 900,10 1200,40 L1200,120 L0,120 Z"></path>
@@ -417,152 +658,229 @@
   </div>
 
   <div class="app-container" id="mainContainer">
-    <!-- Main Heading Section (Upper Middle) -->
-    <div class="header-section">
-      <h1 class="image-heading">Minda Inklusif AI</h1>
-      <p style="opacity: 0.85; font-weight: 600; font-size: 0.95rem;">Empowering Special Needs Education with Visual Mind Mapping & AI Support</p>
+    
+    <!-- 1. COMPACT HEADER -->
+    <header class="app-header">
+      <div class="header-brand">
+        <h1 class="brand-title">MINDA INKLUSIF AI</h1>
+        <span class="brand-subtitle">Visual Mind Mapping & AI Support</span>
+      </div>
+
+      <!-- Accessibility Control Popover Trigger -->
+      <div class="a11y-control-wrapper">
+        <button class="a11y-trigger-btn" onclick="toggleA11yPopover()" aria-label="Accessibility Settings">
+          ♿ Accessibility ▾
+        </button>
+        <div class="a11y-popover" id="a11yPopover">
+          <button class="a11y-option-btn" onclick="toggleSpeech()">🔊 Text-to-Speech</button>
+          <button class="a11y-option-btn" onclick="adjustFontSize(1)">🔤 Increase Text Size</button>
+          <button class="a11y-option-btn" onclick="adjustFontSize(-1)">🔤 Decrease Text Size</button>
+          <button class="a11y-option-btn" onclick="toggleAnimatedBg()">🌊 Animated Background</button>
+          <button class="a11y-option-btn" onclick="toggleContrast()">🎨 High Contrast</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. MAIN DASHBOARD WORKSPACE -->
+    <main class="dashboard-workspace">
       
-      <!-- Accessibility & Assistive Tools Bar -->
-      <div class="accessibility-bar">
-        <button class="interactive-btn" onclick="toggleSpeech()">🔊 Text-to-Speech</button>
-        <button class="interactive-btn" onclick="adjustFontSize(1)">A+ Text Size</button>
-        <button class="interactive-btn" onclick="adjustFontSize(-1)">A- Text Size</button>
-        <button class="interactive-btn" onclick="toggleAnimatedBg()">🌊 Animated Background</button>
-      </div>
-    </div>
+      <!-- LEFT COLUMN: i-Think Mind Maps (60%) -->
+      <section class="glass-card">
+        <div class="card-header">
+          <h2 class="card-title">🧠 i-Think Mind Maps</h2>
+          <p class="card-subtitle">Select a map to start learning</p>
+        </div>
 
-    <!-- MAIN MENU GRID (COMPACT BOXES) -->
-    <div class="grid-2">
-      <!-- LEFT COLUMN: 8 I-THINK MIND MAP MODULE -->
-      <div class="glass-card">
-        <div>
-          <h2 class="section-title">i-Think Mind Maps</h2>
-          <p style="font-size: 0.8rem; opacity: 0.85; margin-bottom: 8px;">Select a map to view format:</p>
-          
-          <div class="ithink-grid">
-            <button class="interactive-btn ithink-btn" onclick="renderMap('Circle')">Circle</button>
-            <button class="interactive-btn ithink-btn" onclick="renderMap('Bubble')">Bubble</button>
-            <button class="interactive-btn ithink-btn" onclick="renderMap('Double Bubble')">D-Bubble</button>
-            <button class="interactive-btn ithink-btn" onclick="renderMap('Tree')">Tree</button>
-            <button class="interactive-btn ithink-btn" onclick="renderMap('Brace')">Brace</button>
-            <button class="interactive-btn ithink-btn" onclick="renderMap('Flow')">Flow</button>
-            <button class="interactive-btn ithink-btn" onclick="renderMap('Multi-Flow')">M-Flow</button>
-            <button class="interactive-btn ithink-btn" onclick="renderMap('Bridge')">Bridge</button>
+        <!-- 3. Segmented Control Selection -->
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div class="segmented-control">
+            <button class="segment-btn active" onclick="selectMap('Circle', this)">Circle</button>
+            <button class="segment-btn" onclick="selectMap('Bubble', this)">Bubble</button>
+            <button class="segment-btn" onclick="selectMap('Double Bubble', this)">D-Bubble</button>
+            <button class="segment-btn" onclick="selectMap('Tree', this)">Tree</button>
+          </div>
+          <div class="segmented-control">
+            <button class="segment-btn" onclick="selectMap('Brace', this)">Brace</button>
+            <button class="segment-btn" onclick="selectMap('Flow', this)">Flow</button>
+            <button class="segment-btn" onclick="selectMap('Multi-Flow', this)">M-Flow</button>
+            <button class="segment-btn" onclick="selectMap('Bridge', this)">Bridge</button>
           </div>
         </div>
 
-        <div class="mindmap-canvas" id="canvas">
-          <div class="map-node">Select a Map Above</div>
-        </div>
-      </div>
-
-      <!-- RIGHT COLUMN: SPECIAL NEEDS AI ASSISTANT -->
-      <div class="glass-card">
-        <div>
-          <h2 class="section-title">Friendly AI Assistant</h2>
-        </div>
-        <div class="chat-box">
-          <div class="chat-messages" id="chatMessages">
-            <div class="chat-msg ai">🌟 Hello! I am your Mind Map Helper! What topic are you learning today?</div>
-          </div>
-          <div class="chat-input-area">
-            <input type="text" class="chat-input" id="userInput" placeholder="Type or speak topic..." onkeypress="handleKey(event)">
-            <button class="interactive-btn" id="micBtn" onclick="toggleVoiceInput()" title="Start Voice Input" style="padding: 6px 10px;">🎙️</button>
-            <button class="interactive-btn" onclick="sendMessage()">Send</button>
+        <!-- 4. Active Interactive Workspace Area -->
+        <div class="mindmap-workspace" id="mindmapCanvas">
+          <!-- Initial Active Example Map -->
+          <div class="mindmap-node-tree">
+            <div class="node-root">🐱 Animals</div>
+            <div class="node-branches">
+              <div class="node-child">🐱 Cat (Pet)</div>
+              <div class="node-child">🐶 Dog (Pet)</div>
+              <div class="node-child">🐦 Bird (Fly)</div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <!-- LOWER SECTION: RESOURCE MENU CARDS -->
-    <h2 class="section-title" style="margin-top: 15px;">Learning Materials</h2>
-    <div class="grid-2" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+      <!-- RIGHT COLUMN: Friendly AI Assistant (40%) -->
+      <section class="glass-card ai-chat-card">
+        <div class="card-header">
+          <h2 class="card-title">🤖 Friendly AI Assistant</h2>
+          <p class="card-subtitle">Ask questions or request mind map ideas</p>
+        </div>
+
+        <!-- 5. Chat Messages Container -->
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-msg ai">👋 Hello! I'm your Mind Map Helper. What are you learning today?</div>
+        </div>
+
+        <!-- Quick Action Suggestion Buttons -->
+        <div class="quick-actions">
+          <button class="quick-btn" onclick="sendQuickAction('Explain a Topic')">✨ Explain a Topic</button>
+          <button class="quick-btn" onclick="sendQuickAction('Create Mind Map')">🧠 Create Mind Map</button>
+          <button class="quick-btn" onclick="sendQuickAction('Give Examples')">📚 Give Examples</button>
+        </div>
+
+        <!-- Input Bar -->
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" id="userInput" placeholder="Type a topic..." onkeypress="handleKey(event)">
+          <button class="action-icon-btn" id="micBtn" onclick="toggleVoiceInput()" title="Voice Input">🎙</button>
+          <button class="action-icon-btn" onclick="sendMessage()">Send</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 6. LEARNING MATERIALS DASHBOARD SECTION -->
+    <footer class="learning-materials-section">
+      <h2 class="card-title" style="font-size: 1rem;">📚 Learning Materials</h2>
       
-      <!-- CARD 1: VISUAL CARDS -->
-      <div class="glass-card">
-        <div>
-          <h3>🎨 Visual Symbols</h3>
-          <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 4px;">Picture-assisted cues for non-verbal learners.</p>
-        </div>
-        <button class="interactive-btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='cards.html'">Open Cards</button>
-      </div>
+      <div class="materials-grid">
+        <a href="cards.html" class="material-card">
+          <div class="material-info">
+            <h4>📖 Notes</h4>
+            <p>Learning notes & visual summaries.</p>
+          </div>
+          <span class="material-action">Explore →</span>
+        </a>
 
-      <!-- CARD 2: GAMES -->
-      <div class="glass-card">
-        <div>
-          <h3>🎮 Interactive Games</h3>
-          <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 4px;">Sequential & logic building games.</p>
-        </div>
-        <div style="display: flex; gap: 6px; margin-top: 10px;">
-          <button class="interactive-btn" style="flex: 1;" onclick="window.location.href='game.html'">📖 Story</button>
-          <button class="interactive-btn" style="flex: 1;" onclick="window.location.href='puzzle.html'">🧩 Puzzle</button>
-        </div>
-      </div>
+        <a href="audiobooks.html" class="material-card">
+          <div class="material-info">
+            <h4>🎥 Videos</h4>
+            <p>Educational video resources.</p>
+          </div>
+          <span class="material-action">Watch →</span>
+        </a>
 
-      <!-- CARD 3: AUDIO STORYBOOKS -->
-      <div class="glass-card">
-        <div>
-          <h3>🎧 Audio Storybooks</h3>
-          <p style="font-size: 0.8rem; opacity: 0.85; margin-top: 4px;">Auditory materials with text highlighting.</p>
-        </div>
-        <button class="interactive-btn" style="margin-top: 10px; width: 100%;" onclick="window.location.href='audiobooks.html'">Listen Now</button>
+        <a href="puzzle.html" class="material-card">
+          <div class="material-info">
+            <h4>📝 Quizzes</h4>
+            <p>Interactive learning quizzes.</p>
+          </div>
+          <span class="material-action">Start →</span>
+        </a>
+
+        <a href="game.html" class="material-card">
+          <div class="material-info">
+            <h4>🎮 Activities</h4>
+            <p>Interactive educational games.</p>
+          </div>
+          <span class="material-action">Play →</span>
+        </a>
       </div>
-    </div>
+    </footer>
 
   </div>
 
   <script>
     /* ==========================================================================
-       SMOOTH CROSS-FADING BACKGROUND CAROUSEL LOGIC
+       BACKGROUND ROTATION LOGIC
        ========================================================================== */
     const bgImages = [
       'assets/image/bg1.jpg',
-      'assets/image/bg 2.jpg',
-      'assets/image/bg 3.jpg',
+      'assets/image/bg2.jpg',
+      'assets/image/bg3.jpg',
       'assets/image/bg4.jpg',
-      'assets/image/bg5.jpg',
-      'assets/image/bg6.jpg'
+      'assets/image/bg5.jpg'
     ];
 
     let currentBgIndex = 0;
-    let activeLayerIndex = 1;
-
+    let activeLayer = 1;
     const layer1 = document.getElementById('bg1');
     const layer2 = document.getElementById('bg2');
 
-    // Initialize first background image
     layer1.style.backgroundImage = `url('${bgImages[0]}')`;
 
     function rotateBackground() {
       currentBgIndex = (currentBgIndex + 1) % bgImages.length;
-      const nextImageUrl = `url('${bgImages[currentBgIndex]}')`;
+      const nextImg = `url('${bgImages[currentBgIndex]}')`;
 
-      if (activeLayerIndex === 1) {
-        layer2.style.backgroundImage = nextImageUrl;
+      if (activeLayer === 1) {
+        layer2.style.backgroundImage = nextImg;
         layer2.classList.add('active');
         layer1.classList.remove('active');
-        activeLayerIndex = 2;
+        activeLayer = 2;
       } else {
-        layer1.style.backgroundImage = nextImageUrl;
+        layer1.style.backgroundImage = nextImg;
         layer1.classList.add('active');
         layer2.classList.remove('active');
-        activeLayerIndex = 1;
+        activeLayer = 1;
       }
     }
-
-    // Smoothly rotate image every 6 seconds
-    setInterval(rotateBackground, 6000);
+    setInterval(rotateBackground, 8000);
 
     /* ==========================================================================
-       ANIMATED BACKGROUND TOGGLE
+       ACCESSIBILITY POPOVER & CONTROLS
        ========================================================================== */
+    function toggleA11yPopover() {
+      document.getElementById('a11yPopover').classList.toggle('open');
+    }
+
+    // Close popover when clicking outside
+    document.addEventListener('click', (e) => {
+      const wrapper = document.querySelector('.a11y-control-wrapper');
+      if (wrapper && !wrapper.contains(e.target)) {
+        document.getElementById('a11yPopover').classList.remove('open');
+      }
+    });
+
     function toggleAnimatedBg() {
       document.body.classList.toggle('animated-bg-active');
     }
 
+    function toggleContrast() {
+      document.body.classList.toggle('high-contrast');
+    }
+
+    let sizeOffset = 0;
+    function adjustFontSize(delta) {
+      if ((sizeOffset <= -4 && delta < 0) || (sizeOffset >= 8 && delta > 0)) return;
+      sizeOffset += delta * 2;
+      document.body.style.fontSize = (14 + sizeOffset) + 'px';
+    }
+
+    function toggleSpeech() {
+      const text = "Welcome to MINDA INKLUSIF AI. Select a mind map or ask your AI helper for guidance.";
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
     /* ==========================================================================
-       I-THINK MAP RENDERER LOGIC
+       INTERACTIVE MIND MAP WORKSPACE & MAP RENDERING
        ========================================================================== */
+    const mapSampleData = {
+      'Circle': `<div class="mindmap-node-tree"><div class="node-root">⭕ Context: Solar System</div><div class="node-branches"><div class="node-child">Sun</div><div class="node-child">Planets</div><div class="node-child">Moons</div><div class="node-child">Stars</div></div></div>`,
+      'Bubble': `<div class="mindmap-node-tree"><div class="node-root">💭 Adjectives: Ocean</div><div class="node-branches"><div class="node-child">Deep</div><div class="node-child">Blue</div><div class="node-child">Vast</div><div class="node-child">Salty</div></div></div>`,
+      'Double Bubble': `<div class="mindmap-node-tree"><div class="node-root">⚖️ Compare: Apple vs Orange</div><div class="node-branches"><div class="node-child">Fruit (Same)</div><div class="node-child">Red Skin (Apple)</div><div class="node-child">Citrus (Orange)</div></div></div>`,
+      'Tree': `<div class="mindmap-node-tree"><div class="node-root">🐱 Animals</div><div class="node-branches"><div class="node-child">Cat (Pet)</div><div class="node-child">Dog (Pet)</div><div class="node-child">Bird (Fly)</div></div></div>`,
+      'Brace': `<div class="mindmap-node-tree"><div class="node-root">🧱 Whole: Computer</div><div class="node-branches"><div class="node-child">Monitor</div><div class="node-child">Keyboard</div><div class="node-child">CPU</div></div></div>`,
+      'Flow': `<div class="mindmap-node-tree"><div class="node-root">➡️ Order: Plant Growth</div><div class="node-branches"><div class="node-child">1. Seed</div><div class="node-child">2. Sprout</div><div class="node-child">3. Flower</div></div></div>`,
+      'Multi-Flow': `<div class="mindmap-node-tree"><div class="node-root">🔀 Cause/Effect: Rain</div><div class="node-branches"><div class="node-child">Clouds (Cause)</div><div class="node-child">Wet Ground (Effect)</div></div></div>`,
+      'Bridge': `<div class="mindmap-node-tree"><div class="node-root">🌉 Analogy: Wings to Bird</div><div class="node-branches"><div class="node-child">Fins to Fish</div><div class="node-child">Wheels to Car</div></div></div>`
+    };
+
     const mapImages = {
       'Circle': 'assets/image/pbulat.jpg',
       'Bubble': 'assets/image/pb.jpg',
@@ -574,19 +892,23 @@
       'Bridge': 'assets/image/pt.jpg'
     };
 
-    function renderMap(type) {
-      const canvas = document.getElementById('canvas');
-      const imgSrc = mapImages[type];
+    function selectMap(type, btnElement) {
+      // Update segmented control active states
+      document.querySelectorAll('.segment-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
 
-      if (imgSrc) {
-        canvas.innerHTML = `<img src="${imgSrc}" alt="${type} Map">`;
+      const canvas = document.getElementById('mindmapCanvas');
+      
+      // Use custom image if available, else render clean structural interactive preview
+      if (mapImages[type]) {
+        canvas.innerHTML = `<img src="${mapImages[type]}" alt="${type} Map" onerror="this.onerror=null; this.parentNode.innerHTML=mapSampleData['${type}'];">`;
       } else {
-        canvas.innerHTML = `<div class="map-node">Select an i-Think Map above</div>`;
+        canvas.innerHTML = mapSampleData[type] || mapSampleData['Tree'];
       }
     }
 
     /* ==========================================================================
-       FRIENDLY MIND MAP HELPER AI LOGIC
+       AI ASSISTANT CHAT LOGIC
        ========================================================================== */
     function sendMessage() {
       const input = document.getElementById('userInput');
@@ -595,86 +917,66 @@
 
       if (!text) return;
 
-      const userMsg = document.createElement('div');
-      userMsg.className = 'chat-msg user';
-      userMsg.innerText = text;
-      messages.appendChild(userMsg);
-
+      appendMessage(text, 'user');
       input.value = '';
-      messages.scrollTop = messages.scrollHeight;
 
       setTimeout(() => {
-        const aiMsg = document.createElement('div');
-        aiMsg.className = 'chat-msg ai';
-        aiMsg.innerText = generateMindMapHelperResponse(text);
-        messages.appendChild(aiMsg);
-        messages.scrollTop = messages.scrollHeight;
-      }, 600);
+        const response = generateAIResponse(text);
+        appendMessage(response, 'ai');
+      }, 500);
+    }
+
+    function sendQuickAction(actionText) {
+      appendMessage(actionText, 'user');
+      setTimeout(() => {
+        let reply = "";
+        if (actionText.includes("Explain")) reply = "💡 What topic would you like me to simplify for you today?";
+        else if (actionText.includes("Create")) reply = "🧠 Tell me your topic, and I'll suggest the best i-Think map structure!";
+        else reply = "📚 I can provide simple, clear examples! Name any object or topic.";
+        appendMessage(reply, 'ai');
+      }, 400);
+    }
+
+    function appendMessage(text, sender) {
+      const messages = document.getElementById('chatMessages');
+      const msg = document.createElement('div');
+      msg.className = `chat-msg ${sender}`;
+      msg.innerText = text;
+      messages.appendChild(msg);
+      messages.scrollTop = messages.scrollHeight;
     }
 
     function handleKey(e) {
       if (e.key === 'Enter') sendMessage();
     }
 
-    function generateMindMapHelperResponse(query) {
+    function generateAIResponse(query) {
       const q = query.toLowerCase();
-
-      if (q.includes('hello') || q.includes('hi') || q.includes('hey')) {
-        return "Hello there! 😊 What subject and topic did your teacher teach you today?";
-      }
-
-      if (q.includes('part') || q.includes('body') || q.includes('car') || q.includes('house') || q.includes('brace')) {
-        renderMap('Brace');
-        return `1. Best map: Brace Map\n2. Why: Shows smaller parts of one whole!\n3. Main parts: Whole object -> main sections -> sub-parts.`;
-      }
-
-      if (q.includes('group') || q.includes('sort') || q.includes('type') || q.includes('animal') || q.includes('tree')) {
-        renderMap('Tree');
-        return `1. Best map: Tree Map\n2. Why: Sorts things into categories!\n3. Main parts: Main title -> Category branches -> Examples.`;
-      }
-
-      if (q.includes('step') || q.includes('order') || q.includes('first') || (q.includes('flow') && !q.includes('multi'))) {
-        renderMap('Flow');
-        return `1. Best map: Flow Map\n2. Why: Shows step-by-step order with arrows!\n3. Main parts: Step 1 -> Step 2 -> Step 3.`;
-      }
-
-      if (q.includes('compare') || q.includes('same') || q.includes('difference') || q.includes('double')) {
-        renderMap('Double Bubble');
-        return `1. Best map: Double Bubble Map\n2. Why: Compares similarities and differences!`;
-      }
-
-      renderMap('Bubble');
-      return `1. Best map: Bubble Map\n2. Why: Great for describing something using adjectives!`;
+      if (q.includes('hello') || q.includes('hi')) return "Hello! 😊 Ready to build an exciting mind map together?";
+      if (q.includes('part') || q.includes('body') || q.includes('car')) return "1. Best map: Brace Map\n2. Why: Shows parts of a whole!\n3. Example: Whole -> Sections -> Sub-parts.";
+      if (q.includes('group') || q.includes('sort') || q.includes('animal')) return "1. Best map: Tree Map\n2. Why: Groups items into neat categories!";
+      if (q.includes('step') || q.includes('order')) return "1. Best map: Flow Map\n2. Why: Shows sequence step-by-step with arrows!";
+      return "That sounds like a great topic! Try using a Bubble Map to describe it, or a Tree Map to sort it.";
     }
 
-    /* ==========================================================================
-       VOICE RECORDING LOGIC
-       ========================================================================== */
+    /* Voice Recognition Support */
     let recognition = null;
     let isListening = false;
 
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognition = new SpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'en-US';
-
-      recognition.onresult = function(event) {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById('userInput').value = transcript;
+      recognition.onresult = (e) => {
+        document.getElementById('userInput').value = e.results[0][0].transcript;
         stopListening();
       };
-
       recognition.onerror = stopListening;
       recognition.onend = stopListening;
     }
 
     function toggleVoiceInput() {
-      if (!recognition) {
-        alert("Speech recognition is not supported in this browser.");
-        return;
-      }
+      if (!recognition) return alert("Speech recognition is not supported in this browser.");
+      const btn = document.getElementById('micBtn');
       if (isListening) {
         recognition.stop();
         stopListening();
@@ -682,72 +984,15 @@
         try {
           recognition.start();
           isListening = true;
-          const micBtn = document.getElementById('micBtn');
-          micBtn.classList.add('recording-active');
-          micBtn.innerText = '🔴 Listening...';
-        } catch (e) { console.error(e); }
+          btn.classList.add('recording-active');
+        } catch(e){}
       }
     }
 
     function stopListening() {
       isListening = false;
-      const micBtn = document.getElementById('micBtn');
-      if (micBtn) {
-        micBtn.classList.remove('recording-active');
-        micBtn.innerText = '🎙️';
-      }
+      document.getElementById('micBtn').classList.remove('recording-active');
     }
-
-    /* ==========================================================================
-       ACCESSIBILITY & TEXT SCALING
-       ========================================================================== */
-    let sizeOffset = 0;
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const elements = document.querySelectorAll('h1, h2, h3, p, button, input, div');
-      elements.forEach(el => {
-        const currentSize = parseFloat(window.getComputedStyle(el).fontSize);
-        el.dataset.originalSize = currentSize;
-      });
-    });
-
-    function adjustFontSize(delta) {
-      if ((sizeOffset <= -6 && delta < 0) || (sizeOffset >= 16 && delta > 0)) return;
-      sizeOffset += delta * 2;
-      
-      const elements = document.querySelectorAll('h1, h2, h3, p, button, input, div');
-      elements.forEach(el => {
-        let baseSize = parseFloat(el.dataset.originalSize) || parseFloat(window.getComputedStyle(el).fontSize);
-        el.dataset.originalSize = baseSize;
-        el.style.fontSize = (baseSize + sizeOffset) + 'px';
-      });
-    }
-
-    function toggleSpeech() {
-      const textToRead = "Welcome to Minda Inklusif AI. Select an i-Think map or chat with your AI assistant.";
-      if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(textToRead);
-        utterance.rate = 0.85;
-        window.speechSynthesis.speak(utterance);
-      }
-    }
-
-    /* IDLE TIMER DETECTOR */
-    let idleTimer;
-    function resetIdleTimer() {
-      const container = document.getElementById('mainContainer');
-      if (!container) return;
-      container.classList.remove('idle-transparent');
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => {
-        container.classList.add('idle-transparent');
-      }, 5 * 60 * 1000);
-    }
-
-    window.onload = resetIdleTimer;
-    window.onmousemove = resetIdleTimer;
-    window.onclick = resetIdleTimer;
-    window.onkeydown = resetIdleTimer;
   </script>
 </body>
 </html>
