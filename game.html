@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cinderella Story - Interactive Game</title>
+<!-- Google Fonts for Kids -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
   :root {
     --bg-color: #FFF0F5;
@@ -21,7 +26,10 @@
     --radius: 20px;
   }
   
-  * { box-sizing: border-box; font-family: 'Comic Sans MS', 'Nunito', 'Segoe UI', sans-serif; }
+  * { 
+    box-sizing: border-box; 
+    font-family: 'Fredoka', 'Comic Sans MS', 'Nunito', sans-serif; 
+  }
   
   body {
     margin: 0;
@@ -76,6 +84,94 @@
   .title-emoji { font-size: 80px; margin-bottom: 20px; }
   .title-desc { font-size: 20px; margin-bottom: 40px; color: var(--text-light); }
   
+  /* Story Reading Screen (New) */
+  #screen-story {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
+    min-height: 100vh;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .story-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 35px 25px;
+    box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
+    max-width: 750px;
+    width: 100%;
+    border: 4px solid #FFB6C1;
+    text-align: center;
+    margin: auto;
+  }
+
+  .story-chapter-badge {
+    background: #FF69B4;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .story-card {
+    background: #FFF9FA;
+    border: 3px dashed #FF82AB;
+    border-radius: 20px;
+    padding: 25px;
+    margin: 20px 0;
+    text-align: left;
+  }
+
+  .story-emoji-banner {
+    font-size: 60px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .story-text-content {
+    font-size: 22px;
+    line-height: 1.8;
+    color: #333;
+    letter-spacing: 0.5px;
+  }
+
+  .keyword-badge {
+    background: #FF69B4;
+    color: white;
+    padding: 3px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    margin: 0 2px;
+  }
+
+  .story-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-start-game {
+    background-color: var(--success);
+    font-size: 22px;
+    padding: 15px 35px;
+    animation: pulseButton 2s infinite;
+  }
+  .btn-start-game:hover { background-color: #28a745; }
+
+  @keyframes pulseButton {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(50, 205, 50, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(50, 205, 50, 0); }
+  }
+
   /* Map Screen */
   .map-grid {
     display: grid;
@@ -229,6 +325,9 @@
     .top-bar { flex-direction: column; gap: 10px; text-align: center; }
     .action-buttons { flex-direction: column; width: 100%; }
     .action-buttons button { width: 100%; }
+    .story-text-content { font-size: 18px; }
+    .story-actions { flex-direction: column; }
+    .story-actions button { width: 100%; }
   }
 </style>
 </head>
@@ -238,7 +337,6 @@
 <button onclick="window.location.href='index.html'" style="position: absolute; top: 15px; left: 15px; padding: 10px 20px; background-color: #ff4757; color: white; border: none; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;">
     ⬅ Exit
 </button>
-<!-- =========================== -->
 
 <div id="app">
 
@@ -247,7 +345,7 @@
     <div class="container" style="text-align: center; max-width: 600px; margin-top: 50px;">
       <div class="title-emoji">👸🏼🏰👠</div>
       <h1>Cinderella Story</h1>
-      <p class="title-desc">Let's learn to build sentences and complete the Cinderella story. Choose the correct characters, places, and objects to continue the story!</p>
+      <p class="title-desc">Read the story chapters and learn to build sentences! Choose the right characters, places, and objects to complete the adventure.</p>
       <button onclick="goToMap()" style="font-size: 22px; padding: 15px 40px;">Start Playing</button>
     </div>
   </section>
@@ -256,7 +354,7 @@
   <section class="screen" id="screen-map">
     <div class="container">
       <h2>Choose a Chapter</h2>
-      <p style="text-align: center; font-size: 18px;">Select a chapter to start building the story.</p>
+      <p style="text-align: center; font-size: 18px;">Select a chapter to read the story and start playing!</p>
       <div class="map-grid" id="mapNodes"></div>
       <div style="text-align: center; margin-top: 30px;">
         <button class="btn-secondary" onclick="showScreen('screen-title')">Back</button>
@@ -264,7 +362,27 @@
     </div>
   </section>
 
-  <!-- PLAY SCREEN -->
+  <!-- STORY READING SCREEN (NEW BEFORE ACTIVITIES) -->
+  <section class="screen" id="screen-story">
+    <div class="story-container">
+      <div class="story-header">
+        <span class="story-chapter-badge" id="storyChapterBadge">Chapter 1</span>
+        <h2 id="storyChapterTitle" style="color: #FF1493; margin-top: 5px;">At Home</h2>
+      </div>
+      <div class="story-card">
+        <div class="story-emoji-banner" id="storyEmojiBanner">🏠🧹👱‍♀️</div>
+        <div class="story-text-content" id="storyTextContent">
+          <!-- Story content loaded dynamically -->
+        </div>
+      </div>
+      <div class="story-actions">
+        <button class="btn-secondary" onclick="goToMap()">⬅ Back to Map</button>
+        <button class="btn-start-game" onclick="startLevelGameplay()">🎮 Let's Play Activity!</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAY SCREEN (ACTIVITIES) -->
   <section class="screen" id="screen-level">
     <div class="container" style="max-width: 900px;">
       
@@ -353,6 +471,8 @@ const ELEMENTS = {
 const LEVELS = [
   {
     title: 'Chapter 1: At Home',
+    emojis: '🏠 🧹 👱‍♀️',
+    storyText: "Once upon a time, a kind girl named <span class='keyword-badge'>👱‍♀️ Cinderella</span> lived in a quiet <span class='keyword-badge'>🏠 House</span>. She worked hard every single day. One morning, she picked up her trusty <span class='keyword-badge'>🧹 Broom</span> to sweep all the dust in the <span class='keyword-badge'>🏠 House</span> until it sparkled!",
     objective: "Help Cinderella clean the house.",
     available: ['cinderella', 'ibu_tiri', 'rumah', 'penyapu'],
     boxes: [
@@ -363,6 +483,8 @@ const LEVELS = [
   },
   {
     title: 'Chapter 2: Invitation to the Palace',
+    emojis: '✉️ 🏰 🦹‍♀️',
+    storyText: "Far away in the royal <span class='keyword-badge'>🏰 Palace</span>, the handsome <span class='keyword-badge'>🤴 Prince</span> decided to hold a grand ball. Soon, an <span class='keyword-badge'>✉️ Invitation Letter</span> arrived at Cinderella's <span class='keyword-badge'>🏠 House</span>. <span class='keyword-badge'>👱‍♀️ Cinderella</span> was so excited, but her mean <span class='keyword-badge'>🦹‍♀️ Stepmother</span> refused to let her go!",
     objective: "Cinderella receives news about the royal ball.",
     available: ['cinderella', 'ibu_tiri', 'kakak_tiri', 'putera', 'rumah', 'istana', 'surat'],
     boxes: [
@@ -375,6 +497,8 @@ const LEVELS = [
   },
   {
     title: 'Chapter 3: The Fairy\'s Help',
+    emojis: '🧚‍♀️ 🎃 👠',
+    storyText: "Heartbroken, <span class='keyword-badge'>👱‍♀️ Cinderella</span> went to the <span class='keyword-badge'>🌳 Garden</span> to cry. Suddenly, a magical <span class='keyword-badge'>🧚‍♀️ Fairy</span> appeared! The <span class='keyword-badge'>🧚‍♀️ Fairy</span> turned a round <span class='keyword-badge'>🎃 Pumpkin</span> into a carriage, gave her a glowing <span class='keyword-badge'>👗 Beautiful Dress</span>, and placed sparkling <span class='keyword-badge'>👠 Glass Slippers</span> on her feet.",
     objective: "Prepare Cinderella to go to the ball.",
     available: ['cinderella', 'pari_pari', 'rumah', 'taman', 'labu', 'baju', 'kasut'],
     boxes: [
@@ -387,6 +511,8 @@ const LEVELS = [
   },
   {
     title: 'Chapter 4: The Royal Ball',
+    emojis: '✨ 🤴 🕰️',
+    storyText: "When <span class='keyword-badge'>👱‍♀️ Cinderella</span> arrived at the palace, she entered the breathtaking <span class='keyword-badge'>✨ Ballroom</span>. The <span class='keyword-badge'>🤴 Prince</span> saw <span class='keyword-badge'>👱‍♀️ Cinderella</span> and fell in love instantly. They danced happily together in the <span class='keyword-badge'>✨ Ballroom</span> until the giant <span class='keyword-badge'>🕰️ Clock</span> rang loudly!",
     objective: "The Prince meets the mysterious girl at the ball.",
     available: ['cinderella', 'putera', 'istana', 'dewan', 'kasut', 'jam'],
     boxes: [
@@ -398,6 +524,8 @@ const LEVELS = [
   },
   {
     title: 'Chapter 5: Midnight',
+    emojis: '🕰️ 🏃‍♀️ 👠',
+    storyText: "Tick-tock! <span class='keyword-badge'>👱‍♀️ Cinderella</span> panicked as the <span class='keyword-badge'>🕰️ Clock</span> struck 12. She ran out of the <span class='keyword-badge'>🏰 Palace</span> as fast as she could. In her rush, one <span class='keyword-badge'>👠 Glass Slipper</span> slipped off on the <span class='keyword-badge'>🏰 Palace</span> stairs. The <span class='keyword-badge'>🤴 Prince</span> picked up the <span class='keyword-badge'>👠 Glass Slipper</span> and saved it.",
     objective: "Cinderella must run before 12 midnight!",
     available: ['cinderella', 'putera', 'dewan', 'istana', 'jam', 'kasut'],
     boxes: [
@@ -409,6 +537,8 @@ const LEVELS = [
   },
   {
     title: 'Chapter 6: The Glass Slipper',
+    emojis: '👠 👯‍♀️ 💖',
+    storyText: "The <span class='keyword-badge'>🤴 Prince</span> promised to find the owner of the <span class='keyword-badge'>👠 Glass Slipper</span>. He arrived at Cinderella's <span class='keyword-badge'>🏠 House</span>. The <span class='keyword-badge'>👯‍♀️ Stepsister</span> tried to wear the <span class='keyword-badge'>👠 Glass Slipper</span>, but it didn't fit. <span class='keyword-badge'>👱‍♀️ Cinderella</span> tried it on and it fit perfectly! <span class='keyword-badge'>👱‍♀️ Cinderella</span> and the <span class='keyword-badge'>🤴 Prince</span> lived happily ever after.",
     objective: "Find the true owner of the glass slipper.",
     available: ['cinderella', 'putera', 'ibu_tiri', 'kakak_tiri', 'rumah', 'kasut'],
     boxes: [
@@ -444,6 +574,23 @@ function goToMap() {
   showScreen('screen-map');
 }
 
+/* ============================= STORY READING ============================= */
+function openStoryPage(index) {
+  game.currentLevel = index;
+  const lvl = LEVELS[index];
+  
+  document.getElementById('storyChapterBadge').textContent = `Chapter ${index + 1} of ${LEVELS.length}`;
+  document.getElementById('storyChapterTitle').textContent = lvl.title;
+  document.getElementById('storyEmojiBanner').textContent = lvl.emojis;
+  document.getElementById('storyTextContent').innerHTML = lvl.storyText;
+  
+  showScreen('screen-story');
+}
+
+function startLevelGameplay() {
+  startLevel(game.currentLevel);
+}
+
 /* ============================= MAP ============================= */
 function renderMap() {
   const mapGrid = document.getElementById('mapNodes');
@@ -455,13 +602,12 @@ function renderMap() {
     const node = document.createElement('div');
     node.className = `map-node ${isDone ? 'done' : (isUnlocked ? 'unlocked' : 'locked')}`;
     
-    // Keyboard accessibility
     if (isUnlocked) {
       node.setAttribute('tabindex', '0');
       node.setAttribute('role', 'button');
-      node.setAttribute('aria-label', `Play ${lvl.title}`);
-      node.onclick = () => startLevel(i);
-      node.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startLevel(i); } };
+      node.setAttribute('aria-label', `Read and Play ${lvl.title}`);
+      node.onclick = () => openStoryPage(i);
+      node.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openStoryPage(i); } };
     }
     
     node.innerHTML = `
@@ -488,7 +634,6 @@ function prepareBox() {
   game.hintLevel = 0;
   game.placedSlots = Array(box.required.length).fill(null);
   
-  // Update UI
   document.getElementById('levelProgress').textContent = `Chapter ${game.currentLevel + 1} of ${LEVELS.length}`;
   document.getElementById('lvlTitle').textContent = lvl.title;
   document.getElementById('lvlObjective').textContent = lvl.objective;
