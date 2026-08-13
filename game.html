@@ -1,343 +1,831 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Storyteller Game — Minda Inklusif AI</title>
-  
-  <!-- Clean, Accessible Sans-Serif Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loom of Tales — Cinderella's Thread</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+SC:wght@600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night: #1a1330;
+    --night-2: #211a3a;
+    --panel: #241c3f;
+    --panel-2: #2c2350;
+    --gold: #c9a24b;
+    --gold-bright: #e8c874;
+    --rose: #d17ba0;
+    --blue: #6f8fc2;
+    --parchment: #f2e9d8;
+    --lavender: #b3a4d1;
+    --lavender-dim: #7a6d99;
+    --line: rgba(201,162,75,0.28);
+    --shadow: 0 12px 34px rgba(0,0,0,0.45);
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    min-height:100%;
+    background:
+      radial-gradient(ellipse at 20% -10%, rgba(209,123,160,0.14), transparent 55%),
+      radial-gradient(ellipse at 90% 10%, rgba(111,143,194,0.12), transparent 50%),
+      linear-gradient(180deg, var(--night) 0%, #150f28 100%);
+    color:var(--parchment);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Cormorant Garamond', serif;}
+  .smallcaps{font-family:'Cormorant SC', serif; letter-spacing:0.14em; text-transform:uppercase;}
+  #app{min-height:100vh; display:flex; flex-direction:column;}
+  .screen{display:none; flex:1; flex-direction:column;}
+  .screen.active{display:flex;}
+  a,button{font-family:inherit;}
+  button{cursor:pointer; border:none; background:none; color:inherit;}
+  ::selection{background:var(--gold); color:#211a3a;}
 
-  <style>
-    /* ==========================================================================
-       LIQUID GLASS DESIGN SYSTEM & ACCESSIBILITY STYLES
-       ========================================================================== */
-    :root {
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.25);
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-      --text-main: #f8fafc;
-      --accent-teal: #0d9488;
-      --accent-glow: rgba(13, 148, 136, 0.6);
-      --primary-font: 'Nunito', 'Segoe UI', sans-serif;
-      --heading-font: 'Fredoka', 'Segoe UI', sans-serif;
-    }
+  /* ---------- decorative thread rule ---------- */
+  .thread-rule{
+    width:180px; height:14px; margin:0 auto; position:relative;
+  }
+  .thread-rule svg{width:100%; height:100%; display:block;}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: var(--primary-font);
-    }
+  /* ---------- TITLE SCREEN ---------- */
+  #screen-title{align-items:center; justify-content:center; text-align:center; padding:32px 20px; position:relative;}
+  .title-frame{max-width:640px; position:relative; z-index:2;}
+  .title-eyebrow{color:var(--gold); font-size:13px; margin-bottom:10px; opacity:0.85;}
+  .title-main{font-size:clamp(40px,7vw,72px); font-weight:600; line-height:1.02; margin:0 0 6px;
+    background:linear-gradient(180deg, var(--parchment) 0%, var(--gold-bright) 120%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .title-sub{font-style:italic; color:var(--lavender); font-size:19px; margin:2px 0 26px;}
+  .title-desc{color:var(--lavender); font-size:15px; line-height:1.6; max-width:480px; margin:0 auto 30px;}
+  .btn-primary{
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    color:#241a3d; padding:14px 34px; border-radius:999px; font-weight:700; font-size:15px;
+    letter-spacing:0.03em; box-shadow:0 8px 24px rgba(201,162,75,0.35);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 28px rgba(201,162,75,0.45);}
+  .btn-ghost{
+    color:var(--lavender); border:1px solid var(--line); padding:10px 22px; border-radius:999px;
+    font-size:13px; letter-spacing:0.04em; transition:all .18s ease;
+  }
+  .btn-ghost:hover{color:var(--parchment); border-color:var(--gold);}
+  .title-loom-orbit{position:absolute; inset:0; z-index:1; pointer-events:none;}
 
-    /* BACKGROUND IMAGE: BG1 ONLY */
-    body {
-      min-height: 100vh;
-      background: url('assets/image/bg1.jpg') center/cover no-repeat fixed;
-      color: var(--text-main);
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
+  /* ---------- MAP SCREEN ---------- */
+  #screen-map{align-items:center; padding:50px 20px 40px;}
+  .map-head{text-align:center; margin-bottom:6px;}
+  .map-head .title-eyebrow{margin-bottom:4px;}
+  .map-head h1{font-size:34px; margin:0 0 30px; font-weight:600;}
+  .map-path{position:relative; width:100%; max-width:920px; padding:20px 10px 10px;}
+  .map-path svg.thread-line{position:absolute; left:0; top:0; width:100%; height:100%; z-index:0;}
+  .map-nodes{position:relative; z-index:1; display:flex; justify-content:space-between; flex-wrap:wrap; gap:26px 10px;}
+  .map-node{width:150px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px;}
+  .node-dot{
+    width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700;
+    background:radial-gradient(circle at 32% 28%, var(--panel-2), var(--panel));
+    border:2px solid var(--line); color:var(--lavender-dim);
+    transition:all .2s ease; position:relative;
+  }
+  .map-node.unlocked .node-dot{border-color:var(--gold); color:var(--gold-bright); box-shadow:0 0 0 5px rgba(201,162,75,0.08);}
+  .map-node.done .node-dot{background:linear-gradient(180deg, var(--gold-bright), var(--gold)); color:#241a3d; border-color:var(--gold-bright);}
+  .map-node.locked{opacity:0.45;}
+  .map-node button.node-btn{display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .map-node.locked button.node-btn{cursor:default;}
+  .node-btn:hover .node-dot{transform:translateY(-3px);}
+  .map-node.locked .node-btn:hover .node-dot{transform:none;}
+  .node-label{font-size:13px; color:var(--parchment); line-height:1.3;}
+  .node-mech{font-size:10.5px; color:var(--lavender-dim); letter-spacing:0.06em; text-transform:uppercase;}
+  .map-foot{margin-top:36px;}
 
-    /* High Contrast Mode Toggle Class */
-    body.high-contrast {
-      background: #000000 !important;
-      color: #ffff00 !important;
-    }
+  /* ---------- LEVEL PLAY SCREEN ---------- */
+  #screen-level{padding:0;}
+  .level-topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:16px 24px; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(36,28,63,0.9), rgba(36,28,63,0.5));
+    backdrop-filter:blur(6px);
+  }
+  .level-topbar .back-btn{font-size:20px; color:var(--lavender);}
+  .level-topbar .back-btn:hover{color:var(--gold-bright);}
+  .level-id{color:var(--gold); font-size:12px; letter-spacing:0.12em; margin-bottom:2px;}
+  .level-name{font-size:22px; font-weight:600; margin:0;}
+  .progress-dots{display:flex; gap:6px;}
+  .progress-dots span{width:9px; height:9px; border-radius:50%; background:var(--panel-2); border:1px solid var(--line); display:block; transition:all .2s;}
+  .progress-dots span.done{background:var(--gold-bright); border-color:var(--gold-bright);}
+  .progress-dots span.current{background:var(--rose); border-color:var(--rose); box-shadow:0 0 0 3px rgba(209,123,160,0.22);}
 
-    body.high-contrast .glass-card,
-    body.high-contrast .story-card,
-    body.high-contrast .slot {
-      background: #000000 !important;
-      border: 2px solid #ffff00 !important;
-      box-shadow: none !important;
-      color: #ffff00 !important;
-    }
+  .objective-ribbon{
+    margin:16px 24px 0; padding:11px 18px; border-radius:10px;
+    background:rgba(201,162,75,0.08); border:1px dashed var(--line);
+    font-style:italic; color:var(--lavender); font-size:14.5px;
+  }
+  .objective-ribbon b{color:var(--gold-bright); font-style:normal; font-family:'Cormorant SC',serif; letter-spacing:0.08em; text-transform:uppercase; font-size:11.5px; margin-right:8px;}
 
-    body.high-contrast .interactive-btn {
-      background: #000000 !important;
-      border: 2px solid #ffff00 !important;
-      color: #ffff00 !important;
-    }
+  .level-body{
+    display:grid; grid-template-columns:230px 1fr; gap:22px;
+    padding:20px 24px 40px; flex:1; align-items:start;
+  }
+  @media (max-width:880px){ .level-body{grid-template-columns:1fr;} .tracker{order:2;} .loom-area{order:1;} }
 
-    /* ==========================================================================
-       VIBRANT 3D CLAY TEXTURE SECTION HEADINGS
-       ========================================================================== */
-    .section-title {
-      font-family: var(--heading-font);
-      font-size: 2.1rem;
-      font-weight: 800;
-      margin: 0 0 15px 0;
-      display: inline-block;
-      letter-spacing: 0.5px;
-      
-      background: linear-gradient(180deg, #ffffff 0%, #38bdf8 45%, #0284c7 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      
-      filter: drop-shadow(0px 2px 0px #0369a1)
-              drop-shadow(0px 4px 0px #075985)
-              drop-shadow(0px 6px 1px rgba(0, 0, 0, 0.4));
-      
-      transition: transform 0.3s ease, filter 0.3s ease;
-      cursor: pointer;
-    }
+  /* tracker sidebar */
+  .tracker{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px; box-shadow:var(--shadow); position:sticky; top:16px;
+  }
+  .tracker h3{margin:0 0 12px; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); font-family:'Cormorant SC',serif;}
+  .tracker-block{margin-bottom:14px;}
+  .tracker-block:last-child{margin-bottom:0;}
+  .tracker-name{font-size:12.5px; color:var(--lavender-dim); margin-bottom:6px; letter-spacing:0.03em;}
+  .chip-trail{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{
+    font-size:11.5px; padding:4px 9px; border-radius:999px; border:1px solid var(--line);
+    color:var(--lavender-dim); background:rgba(255,255,255,0.02);
+  }
+  .chip.current{color:#241a3d; background:linear-gradient(180deg,var(--gold-bright),var(--gold)); border-color:var(--gold-bright); font-weight:600;}
+  .mech-note{margin-top:16px; padding-top:14px; border-top:1px solid var(--line); font-size:12.5px; color:var(--lavender-dim); line-height:1.5;}
+  .mech-note b{color:var(--rose); display:block; margin-bottom:4px; font-family:'Cormorant Garamond',serif; font-size:15px; font-style:italic;}
 
-    .section-title:hover {
-      transform: scale(1.03) translateY(-2px);
-      filter: drop-shadow(0 0 12px var(--accent-glow));
-    }
+  /* loom area */
+  .loom-area{display:flex; flex-direction:column; gap:22px;}
+  .loom-card{
+    background:radial-gradient(ellipse at 50% -20%, rgba(201,162,75,0.09), transparent 60%), var(--panel);
+    border:1px solid var(--line); border-radius:18px; padding:26px; box-shadow:var(--shadow);
+    position:relative; overflow:hidden;
+  }
+  .loom-card::before{
+    content:''; position:absolute; inset:8px; border:1px solid rgba(201,162,75,0.15); border-radius:12px; pointer-events:none;
+  }
+  .loom-slots-wrap{position:relative; display:flex; justify-content:center; padding:10px 0 18px;}
+  .thread-svg{position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none;}
+  .thread-svg path{fill:none; stroke:var(--line); stroke-width:2; stroke-dasharray:6 7; transition:all .5s ease;}
+  .thread-svg path.lit{stroke:var(--gold-bright); stroke-dasharray:0; filter:drop-shadow(0 0 5px rgba(232,200,116,0.7));}
+  .slots-row{display:flex; gap:34px; position:relative; z-index:1;}
+  .slot{
+    width:88px; height:88px; border-radius:50%; border:2px dashed var(--line);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:3px;
+    background:rgba(0,0,0,0.15); transition:all .2s ease; position:relative;
+  }
+  .slot.filled{border-style:solid; border-color:var(--gold); background:rgba(201,162,75,0.08); cursor:pointer;}
+  .slot.filled:hover{border-color:var(--gold-bright); transform:translateY(-2px);}
+  .slot .slot-empty-label{font-size:10px; color:var(--lavender-dim); letter-spacing:0.05em; text-transform:uppercase;}
+  .slot-icon{font-size:26px; line-height:1;}
+  .slot-name{font-size:9.5px; color:var(--parchment); text-align:center; padding:0 4px;}
+  .loom-card.shake .slots-row{animation:shake .42s ease;}
+  @keyframes shake{
+    10%,90%{transform:translateX(-2px)} 20%,80%{transform:translateX(3px)}
+    30%,50%,70%{transform:translateX(-5px)} 40%,60%{transform:translateX(5px)}
+  }
+  .loom-card.success .slot.filled{animation:glow .7s ease;}
+  @keyframes glow{
+    0%{box-shadow:0 0 0 0 rgba(232,200,116,0.6)} 60%{box-shadow:0 0 0 14px rgba(232,200,116,0)} 100%{box-shadow:0 0 0 0 rgba(232,200,116,0)}
+  }
 
-    /* ==========================================================================
-       INTERACTIVE BUTTONS (CLEAN TYPOGRAPHY)
-       ========================================================================== */
-    .interactive-btn {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #ffffff;
-      padding: 12px 20px;
-      font-size: 1rem;
-      font-weight: 700;
-      border-radius: 12px;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-      outline: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+  .weave-controls{display:flex; align-items:center; justify-content:center; gap:12px; margin-top:6px;}
+  .btn-weave{
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold)); color:#241a3d;
+    padding:11px 28px; border-radius:999px; font-weight:700; font-size:14px; letter-spacing:0.02em;
+    box-shadow:0 6px 18px rgba(201,162,75,0.3); transition:transform .15s, opacity .15s;
+  }
+  .btn-weave:disabled{opacity:0.35; cursor:default;}
+  .btn-weave:not(:disabled):hover{transform:translateY(-2px);}
+  .btn-clear{font-size:12.5px; color:var(--lavender-dim); text-decoration:underline; text-underline-offset:3px;}
+  .btn-clear:hover{color:var(--rose);}
 
-    .interactive-btn:hover {
-      transform: translateY(-2px) scale(1.04);
-      background: rgba(255, 255, 255, 0.28);
-      box-shadow: 0 0 15px var(--accent-glow);
-      border-color: #ffffff;
-    }
+  .feedback{min-height:26px; text-align:center; font-style:italic; font-size:14px; margin-top:12px; transition:opacity .25s;}
+  .feedback.ok{color:var(--gold-bright);}
+  .feedback.no{color:var(--rose);}
+  .feedback.empty{opacity:0;}
 
-    .interactive-btn:active {
-      transform: scale(0.97);
-    }
+  /* palette */
+  .palette{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow);}
+  .palette-row{margin-bottom:14px;}
+  .palette-row:last-child{margin-bottom:0;}
+  .palette-label{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--lavender-dim); margin-bottom:8px; font-family:'Cormorant SC',serif;}
+  .palette-cards{display:flex; flex-wrap:wrap; gap:10px;}
+  .p-card{
+    display:flex; align-items:center; gap:8px; padding:8px 12px 8px 8px; border-radius:999px;
+    border:1px solid var(--line); background:rgba(255,255,255,0.02); transition:all .16s ease;
+  }
+  .p-card:hover{border-color:var(--gold); transform:translateY(-1px);}
+  .p-card.selected{border-color:var(--gold-bright); background:rgba(201,162,75,0.14); box-shadow:0 0 0 3px rgba(201,162,75,0.12);}
+  .p-badge{width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;}
+  .p-badge.character{border-radius:50%; border:1.5px solid var(--gold); background:rgba(201,162,75,0.1); font-family:'Cormorant Garamond',serif; font-weight:700; color:var(--gold-bright);}
+  .p-badge.place{clip-path:polygon(50% 0%, 100% 38%, 100% 100%, 0% 100%, 0% 38%); background:rgba(111,143,194,0.16); border:1.5px solid var(--blue);}
+  .p-badge.object{transform:rotate(45deg); border:1.5px solid var(--rose); background:rgba(209,123,160,0.12);}
+  .p-badge.object span{transform:rotate(-45deg); display:block;}
+  .p-name{font-size:12.5px; color:var(--parchment);}
+  .palette-empty{font-size:12.5px; color:var(--lavender-dim); font-style:italic;}
 
-    .glass-card {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 16px;
-      padding: 20px;
-      backdrop-filter: blur(8px);
-    }
+  /* scroll of woven verses */
+  .scroll-panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow);}
+  .scroll-panel h3{margin:0 0 10px; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); font-family:'Cormorant SC',serif;}
+  .verse-list{display:flex; flex-direction:column; gap:10px; max-height:230px; overflow-y:auto; padding-right:4px;}
+  .verse-list::-webkit-scrollbar{width:6px;}
+  .verse-list::-webkit-scrollbar-thumb{background:var(--line); border-radius:3px;}
+  .verse-item{display:flex; gap:10px; align-items:flex-start; padding:9px 10px; border-radius:9px; background:rgba(255,255,255,0.02); border:1px solid transparent;}
+  .verse-item .vnum{font-family:'Cormorant Garamond',serif; color:var(--gold); font-weight:700; font-size:15px; width:18px; flex-shrink:0;}
+  .verse-item p{margin:0; font-size:13px; line-height:1.5; color:var(--lavender);}
+  .verse-empty{font-size:12.5px; color:var(--lavender-dim); font-style:italic;}
+  .transform-tag{display:inline-flex; align-items:center; gap:4px; font-size:11px; color:var(--gold-bright); margin-top:4px;}
 
-    /* ==========================================================================
-       STORYTELLER GAME BOARD
-       ========================================================================== */
-    .modal-content {
-      width: 100%;
-      max-width: 900px;
-      position: relative;
-    }
+  /* overlays */
+  .overlay{
+    position:fixed; inset:0; background:rgba(10,7,20,0.82); backdrop-filter:blur(4px);
+    display:none; align-items:center; justify-content:center; z-index:50; padding:20px;
+  }
+  .overlay.active{display:flex;}
+  .overlay-card{
+    max-width:520px; width:100%; background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    border:1px solid var(--gold); border-radius:18px; padding:38px 34px; text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.55); animation:pop .35s ease;
+  }
+  @keyframes pop{from{transform:scale(0.92); opacity:0;} to{transform:scale(1); opacity:1;}}
+  .overlay-card .title-eyebrow{margin-bottom:8px;}
+  .overlay-card h2{font-size:28px; margin:0 0 14px;}
+  .overlay-card p{color:var(--lavender); font-size:15px; line-height:1.6; margin:0 0 26px;}
+  .overlay-actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
 
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      background: rgba(239, 68, 68, 0.3);
-      border: 1px solid #ef4444;
-      color: #fff;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
+  /* final screen */
+  #screen-final{align-items:center; justify-content:center; text-align:center; padding:40px 20px;}
+  .final-frame{max-width:560px;}
+  .final-frame .title-main{font-size:clamp(32px,6vw,52px);}
+  .epilogue{color:var(--lavender); font-size:15.5px; line-height:1.75; margin:22px 0 30px;}
 
-    .sequence-board {
-      display: flex;
-      gap: 15px;
-      margin: 20px 0;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .slot {
-      width: 160px;
-      height: 180px;
-      background: rgba(0, 0, 0, 0.3);
-      border: 2px dashed rgba(255, 255, 255, 0.4);
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      position: relative;
-    }
-
-    .slot-num {
-      position: absolute;
-      top: 6px;
-      left: 10px;
-      font-weight: 800;
-      opacity: 0.5;
-      font-size: 0.85rem;
-    }
-
-    .cards-pool {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 15px;
-      min-height: 140px;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 16px;
-    }
-
-    .story-card {
-      width: 140px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .story-card:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 0 15px var(--accent-glow);
-    }
-
-    .story-card.selected {
-      border: 2px solid #38bdf8;
-      box-shadow: 0 0 15px #38bdf8;
-    }
-
-    .story-card-emoji {
-      font-size: 2.2rem;
-      margin-bottom: 5px;
-    }
-
-    .story-card-text {
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-
-    .feedback-box {
-      margin-top: 15px;
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: 800;
-      min-height: 30px;
-    }
-  </style>
+  .footer-note{text-align:center; font-size:11.5px; color:var(--lavender-dim); padding:18px; opacity:0.7;}
+</style>
 </head>
 <body>
+<div id="app">
 
-  <div class="glass-card modal-content">
-    <button class="interactive-btn" style="position: absolute; top: 15px; right: 20px;" onclick="window.location.href='index.html'">⬅ Back</button>
-    <h2 class="section-title">📖 Storyteller: Sequence Game</h2>
-    <p style="font-size: 0.95rem; opacity: 0.9;">Click a picture card below, then click a box to put the story steps in order!</p>
+  <!-- TITLE -->
+  <section class="screen active" id="screen-title">
+    <div class="title-loom-orbit" id="titleOrbit"></div>
+    <div class="title-frame">
+      <div class="title-eyebrow smallcaps">A Story Woven, Not Told</div>
+      <h1 class="title-main">Loom of Tales</h1>
+      <div class="title-sub">Cinderella's Thread</div>
+      <div class="thread-rule">
+        <svg viewBox="0 0 180 14"><path d="M0 7 Q45 0 90 7 T180 7" stroke="#c9a24b" stroke-width="1.5" fill="none" opacity="0.6"/></svg>
+      </div>
+      <p class="title-desc">You are not Cinderella. You are the one who weaves her story — choosing whom she meets, where she goes, and what she carries, thread by thread, verse by verse.</p>
+      <button class="btn-primary" onclick="goToMap()">Begin the Weave</button>
+    </div>
+  </section>
 
-    <!-- Target Slots -->
-    <div class="sequence-board">
-      <div class="slot" id="slot1" onclick="placeInSlot(1)">
-        <span class="slot-num">Step 1</span>
+  <!-- MAP -->
+  <section class="screen" id="screen-map">
+    <div class="map-head">
+      <div class="title-eyebrow smallcaps">The Loom</div>
+      <h1 class="display">Choose a Chapter</h1>
+    </div>
+    <div class="map-path">
+      <svg class="thread-line" viewBox="0 0 920 40" preserveAspectRatio="none"><path d="M40 20 C 220 -10, 340 50, 520 20 S 800 -10, 880 20" stroke="#c9a24b" stroke-width="1.5" fill="none" opacity="0.25" stroke-dasharray="3 8"/></svg>
+      <div class="map-nodes" id="mapNodes"></div>
+    </div>
+    <div class="map-foot"><button class="btn-ghost" onclick="showScreen('screen-title')">← Title</button></div>
+  </section>
+
+  <!-- LEVEL PLAY -->
+  <section class="screen" id="screen-level">
+    <div class="level-topbar">
+      <button class="back-btn" onclick="goToMap()" title="Back to the Loom">←</button>
+      <div style="flex:1; min-width:0;">
+        <div class="level-id smallcaps" id="lvlEyebrow">Chapter</div>
+        <h2 class="level-name display" id="lvlName">—</h2>
       </div>
-      <div class="slot" id="slot2" onclick="placeInSlot(2)">
-        <span class="slot-num">Step 2</span>
-      </div>
-      <div class="slot" id="slot3" onclick="placeInSlot(3)">
-        <span class="slot-num">Step 3</span>
+      <div class="progress-dots" id="progressDots"></div>
+    </div>
+    <div class="objective-ribbon"><b>Objective</b><span id="lvlObjective"></span></div>
+
+    <div class="level-body">
+      <aside class="tracker" id="trackerPanel"></aside>
+
+      <div class="loom-area">
+        <div class="loom-card" id="loomCard">
+          <div class="loom-slots-wrap">
+            <svg class="thread-svg" id="threadSvg" viewBox="0 0 320 90" preserveAspectRatio="xMidYMid meet">
+              <path id="threadPath1" d="M44,45 L160,45"/>
+              <path id="threadPath2" d="M160,45 L276,45"/>
+            </svg>
+            <div class="slots-row" id="slotsRow"></div>
+          </div>
+          <div class="weave-controls">
+            <button class="btn-weave" id="weaveBtn" onclick="weave()" disabled>Weave the Verse</button>
+            <button class="btn-clear" onclick="clearSlots()">clear</button>
+          </div>
+          <div class="feedback empty" id="feedback"></div>
+        </div>
+
+        <div class="palette" id="palette"></div>
+
+        <div class="scroll-panel">
+          <h3>The Storybook So Far</h3>
+          <div class="verse-list" id="verseList"></div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Draggable/Clickable Cards -->
-    <div class="cards-pool" id="cardsPool"></div>
-
-    <div class="feedback-box" id="gameFeedback"></div>
-
-    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
-      <button class="interactive-btn" onclick="checkStorySequence()">✨ Check Answer</button>
-      <button class="interactive-btn" onclick="resetStoryGame()">🔄 Reset Game</button>
+  <!-- FINAL -->
+  <section class="screen" id="screen-final">
+    <div class="final-frame">
+      <div class="title-eyebrow smallcaps">Every Thread, Woven</div>
+      <h1 class="title-main">The Story is Complete</h1>
+      <div class="thread-rule"><svg viewBox="0 0 180 14"><path d="M0 7 Q45 0 90 7 T180 7" stroke="#c9a24b" stroke-width="1.5" fill="none" opacity="0.6"/></svg></div>
+      <p class="epilogue">The slipper fit, and with it, the truth. The Prince took Cinderella's hand — not the ash-covered girl the world had overlooked, but the one who had been there all along. The kingdom would tell this story for a hundred years. Tonight, you were the one who told it first.</p>
+      <div class="overlay-actions">
+        <button class="btn-primary" onclick="resetGame()">Weave It Again</button>
+        <button class="btn-ghost" onclick="goToMap()">Return to the Loom</button>
+      </div>
     </div>
+  </section>
+
+</div>
+
+<!-- Level complete overlay -->
+<div class="overlay" id="levelOverlay">
+  <div class="overlay-card">
+    <div class="title-eyebrow smallcaps" id="ovEyebrow">Chapter Complete</div>
+    <h2 class="display" id="ovTitle">—</h2>
+    <p id="ovText"></p>
+    <div class="overlay-actions" id="ovActions"></div>
   </div>
+</div>
 
-  <script>
-    /* ==========================================================================
-       STORYTELLER GAME LOGIC
-       ========================================================================== */
-    const storyData = [
-      { id: 'step2', order: 2, emoji: '🌱', text: 'Water the Seed' },
-      { id: 'step1', order: 1, emoji: '🪴', text: 'Plant the Seed' },
-      { id: 'step3', order: 3, emoji: '🌻', text: 'Flower Grows' }
-    ];
+<script>
+/* ============================= DATA ============================= */
+const ELEMENTS = {
+  cinderella:{name:'Cinderella', category:'character', initial:'C'},
+  stepmother:{name:'Stepmother', category:'character', initial:'S'},
+  stepsister:{name:'Stepsister', category:'character', initial:'T'},
+  stepsisters:{name:'Stepsisters', category:'character', initial:'T'},
+  prince:{name:'Prince', category:'character', initial:'P'},
+  fairy_godmother:{name:'Fairy Godmother', category:'character', initial:'F'},
 
-    let selectedCard = null;
-    let slotContents = { 1: null, 2: null, 3: null };
+  house:{name:'House', category:'place', icon:'🏠'},
+  castle:{name:'Castle', category:'place', icon:'🏰'},
+  garden:{name:'Garden', category:'place', icon:'🌿'},
+  ballroom:{name:'Ballroom', category:'place', icon:'🕯️'},
+  kingdom:{name:'Kingdom', category:'place', icon:'🗺️'},
 
-    window.onload = resetStoryGame;
+  broom:{name:'Broom', category:'object', icon:'🧹'},
+  royal_invitation:{name:'Royal Invitation', category:'object', icon:'✉️'},
+  pumpkin:{name:'Pumpkin', category:'object', icon:'🎃'},
+  magical_dress:{name:'Magical Dress', category:'object', icon:'👗'},
+  glass_slipper:{name:'Glass Slipper', category:'object', icon:'👠'},
+  clock:{name:'Clock', category:'object', icon:'🕰️'},
+  carriage:{name:'Carriage', category:'object', icon:'🎠'}
+};
 
-    function resetStoryGame() {
-      selectedCard = null;
-      slotContents = { 1: null, 2: null, 3: null };
-      document.getElementById('gameFeedback').innerText = '';
-      
-      const pool = document.getElementById('cardsPool');
-      pool.innerHTML = '';
-      
-      storyData.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'story-card';
-        card.id = item.id;
-        card.setAttribute('data-order', item.order);
-        card.onclick = () => selectCard(card);
-        card.innerHTML = `<div class="story-card-emoji">${item.emoji}</div><div class="story-card-text">${item.text}</div>`;
-        pool.appendChild(card);
-      });
+const LEVELS = [
+  { title:'The Girl at Home', objective:"Help Cinderella finish her chores.",
+    mechanicName:'Basic Interaction', mechanicDesc:'Choose a thread below, then tap an open circle to place it. Fill the right threads and weave the verse.',
+    available:['cinderella','stepmother','house','broom'],
+    boxes:[
+      {required:['cinderella','house'], text:"Cinderella is home, and the chore list is long."},
+      {required:['cinderella','broom'], text:"She lifts the old broom from its corner."},
+      {required:['cinderella','house','broom'], text:"Cinderella sweeps the house from corner to corner.", state:{who:'cinderella', label:'At Home'}}
+    ],
+    ending:"Cinderella finishes her chores, but her stepfamily continues to treat her unfairly."
+  },
+  { title:'The Royal Invitation', objective:"Cinderella must learn about the royal ball.",
+    mechanicName:'Sequence', mechanicDesc:'Order matters now. A verse woven early can open — or close — the door for the next one.',
+    available:['cinderella','stepmother','stepsister','prince','house','castle','royal_invitation'],
+    boxes:[
+      {required:['prince','castle'], text:"In the castle halls, the Prince declares a royal ball."},
+      {required:['royal_invitation','house'], text:"A royal invitation arrives at the door."},
+      {required:['cinderella','royal_invitation'], text:"Cinderella reads the invitation, her eyes wide with hope.", state:{who:'cinderella', label:'Hopeful'}},
+      {required:['cinderella','stepmother'], text:"Cinderella gathers her courage and asks to attend."},
+      {required:['stepmother','cinderella'], text:"The Stepmother refuses, coldly.", state:{who:'cinderella', label:'Forbidden'}},
+      {required:['cinderella','house'], text:"Cinderella remains behind, alone with her chores."}
+    ],
+    ending:"The invitation came — but for Cinderella, the door stayed shut."
+  },
+  { title:'A Little Magic', objective:"Prepare Cinderella for the royal ball.",
+    mechanicName:'Transformation', mechanicDesc:'Some threads do not just combine — they change shape entirely once the magic is woven.',
+    available:['cinderella','fairy_godmother','house','garden','pumpkin','magical_dress','glass_slipper'],
+    boxes:[
+      {required:['cinderella','garden'], text:"Cinderella steps out into the moonlit garden."},
+      {required:['cinderella','fairy_godmother'], text:"A shimmer of light — the Fairy Godmother appears."},
+      {required:['fairy_godmother','cinderella'], text:"Magic gathers softly in the air around them."},
+      {required:['pumpkin','fairy_godmother'], text:"With a wave, the pumpkin becomes a glittering carriage.", transform:{from:'pumpkin', to:'carriage'}},
+      {required:['magical_dress','cinderella'], text:"Cinderella is wrapped in a gown spun from starlight.", state:{who:'cinderella', label:'Transformed'}},
+      {required:['glass_slipper','cinderella'], text:"Glass slippers settle perfectly onto her feet."}
+    ],
+    ending:"Cinderella is ready for the ball. The Fairy Godmother warns her: the magic will not last forever."
+  },
+  { title:'The Royal Ball', objective:"Make the Prince meet the mysterious girl at the ball.",
+    mechanicName:'Relationships', mechanicDesc:'Characters now carry a bond between them. Watch the bond shift as their story unfolds.',
+    available:['cinderella','prince','fairy_godmother','castle','ballroom','glass_slipper','clock'],
+    boxes:[
+      {required:['cinderella','ballroom'], text:"Cinderella arrives at the ballroom, breathless.", state:{who:'cinderella', label:'At Ball'}},
+      {required:['prince','ballroom'], text:"The Prince notices a stranger across the room.", state:{who:'prince', label:'Meets Cinderella'}},
+      {required:['prince','cinderella'], text:"Their eyes meet.", relationship:'Curious'},
+      {required:['prince','cinderella','ballroom'], text:"They dance beneath the chandeliers.", relationship:'Interested'},
+      {required:['cinderella','prince'], text:"Something new is growing between them."},
+      {required:['clock','ballroom'], text:"Somewhere, a clock begins to strike."}
+    ],
+    ending:"The ballroom glows golden — but somewhere close by, midnight is drawing near."
+  },
+  { title:'Midnight', objective:"Cinderella must escape before midnight.",
+    mechanicName:'Time', mechanicDesc:'Timing decides everything now. Some verses can only be woven once the moment is truly right.',
+    available:['cinderella','prince','ballroom','castle','garden','clock','glass_slipper'],
+    boxes:[
+      {required:['cinderella','ballroom'], text:"Cinderella lingers at the ball a while longer."},
+      {required:['prince','cinderella'], text:"She and the Prince talk once more."},
+      {required:['clock','ballroom'], text:"Midnight arrives — the clock begins to toll."},
+      {required:['cinderella','castle'], text:"Cinderella runs, her heart pounding, through the castle halls.", state:{who:'cinderella', label:'Running Away'}},
+      {required:['glass_slipper','castle'], text:"A single glass slipper is left behind on the stone steps."},
+      {required:['prince','glass_slipper'], text:"The Prince kneels and picks up the slipper.", state:{who:'prince', label:'Searching for Her'}}
+    ],
+    ending:"The clock has struck twelve. All that remains of her is a single glass slipper."
+  },
+  { title:"The Slipper Fits", objective:"Help the Prince discover Cinderella's identity.",
+    mechanicName:'Everything, Together', mechanicDesc:'Every thread you have learned to weave now comes together for the final verse.',
+    available:['cinderella','prince','stepmother','stepsisters','house','kingdom','glass_slipper'],
+    boxes:[
+      {required:['prince','glass_slipper'], text:"The Prince vows to find the one this slipper belongs to."},
+      {required:['prince','kingdom'], text:"He searches from door to door across the kingdom."},
+      {required:['prince','house'], text:"At last, he arrives at a small, weathered house."},
+      {required:['stepsisters','glass_slipper'], text:"The stepsisters try — but the slipper will not fit."},
+      {required:['cinderella','glass_slipper'], text:"Cinderella tries — and the slipper fits perfectly.", state:{who:'cinderella', label:'Identified'}},
+      {required:['cinderella','prince'], text:"Her identity is revealed at last.", state:{who:'prince', label:'Finds Cinderella'}}
+    ],
+    ending:"THE STORY IS COMPLETE", isFinal:true
+  }
+];
 
-      for (let i = 1; i <= 3; i++) {
-        const slot = document.getElementById(`slot${i}`);
-        slot.innerHTML = `<span class="slot-num">Step ${i}</span>`;
-      }
+/* ============================= STATE ============================= */
+let game = {
+  levelIndex:0,
+  unlocked:[true,false,false,false,false,false],
+  done:[false,false,false,false,false,false],
+  boxIndex:0,
+  placed:[null,null,null],
+  selected:null,
+  charStates:{},      // id -> array of achieved labels in order
+  relationship:null,  // current relationship label
+  verses:[]           // completed verse texts for current level
+};
+
+/* ============================= SCREENS ============================= */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goToMap(){ renderMap(); showScreen('screen-map'); }
+
+/* ============================= TITLE ORBIT ============================= */
+(function initOrbit(){
+  const el = document.getElementById('titleOrbit');
+  const glyphs = ['🏠','🏰','🎃','👗','👠','🕰️'];
+  const positions = [
+    {t:'8%', l:'10%'}, {t:'18%', l:'82%'}, {t:'72%', l:'6%'},
+    {t:'80%', l:'86%'}, {t:'45%', l:'2%'}, {t:'50%', l:'94%'}
+  ];
+  glyphs.forEach((g,i)=>{
+    const d = document.createElement('div');
+    d.textContent = g;
+    d.style.position='absolute';
+    d.style.top = positions[i].t; d.style.left = positions[i].l;
+    d.style.fontSize='22px'; d.style.opacity='0.16';
+    d.style.filter='blur(0.2px)';
+    el.appendChild(d);
+  });
+})();
+
+/* ============================= MAP ============================= */
+function renderMap(){
+  const wrap = document.getElementById('mapNodes');
+  wrap.innerHTML = '';
+  LEVELS.forEach((lvl,i)=>{
+    const unlocked = game.unlocked[i];
+    const done = game.done[i];
+    const node = document.createElement('div');
+    node.className = 'map-node ' + (done?'done':(unlocked?'unlocked':'locked'));
+    node.innerHTML = `
+      <button class="node-btn" ${unlocked?`onclick="startLevel(${i})"`:''}>
+        <div class="node-dot">${done?'✓':(unlocked?(i+1):'🔒')}</div>
+        <div class="node-label">${lvl.title}</div>
+        <div class="node-mech">${lvl.mechanicName}</div>
+      </button>`;
+    wrap.appendChild(node);
+  });
+}
+
+/* ============================= LEVEL SETUP ============================= */
+function startLevel(i){
+  game.levelIndex = i;
+  game.boxIndex = 0;
+  game.placed = [null,null,null];
+  game.selected = null;
+  game.verses = [];
+  renderLevelChrome();
+  renderTracker();
+  renderPalette();
+  renderActiveBox();
+  renderVerses();
+  showScreen('screen-level');
+}
+
+function currentLevel(){ return LEVELS[game.levelIndex]; }
+function currentBox(){ return currentLevel().boxes[game.boxIndex]; }
+
+function renderLevelChrome(){
+  const lvl = currentLevel();
+  document.getElementById('lvlEyebrow').textContent = 'Chapter ' + (game.levelIndex+1) + ' · ' + lvl.mechanicName;
+  document.getElementById('lvlName').textContent = lvl.title;
+  document.getElementById('lvlObjective').textContent = lvl.objective;
+  const dots = document.getElementById('progressDots');
+  dots.innerHTML = '';
+  lvl.boxes.forEach((b,idx)=>{
+    const s = document.createElement('span');
+    if(idx < game.boxIndex) s.classList.add('done');
+    else if(idx === game.boxIndex) s.classList.add('current');
+    dots.appendChild(s);
+  });
+}
+
+/* ============================= TRACKER ============================= */
+function pushCharState(who, label){
+  if(!game.charStates[who]) game.charStates[who] = [];
+  const arr = game.charStates[who];
+  if(arr[arr.length-1] !== label) arr.push(label);
+}
+
+function renderTracker(){
+  const el = document.getElementById('trackerPanel');
+  el.innerHTML = '';
+  const h = document.createElement('h3'); h.textContent = 'Threads of Fate';
+  el.appendChild(h);
+
+  const names = {cinderella:'Cinderella', prince:'Prince'};
+  let any = false;
+  Object.keys(names).forEach(who=>{
+    const arr = game.charStates[who];
+    if(!arr || !arr.length) return;
+    any = true;
+    const block = document.createElement('div'); block.className='tracker-block';
+    const nm = document.createElement('div'); nm.className='tracker-name'; nm.textContent = names[who];
+    block.appendChild(nm);
+    const trail = document.createElement('div'); trail.className='chip-trail';
+    arr.forEach((lab,i)=>{
+      const c = document.createElement('span');
+      c.className = 'chip' + (i===arr.length-1?' current':'');
+      c.textContent = lab;
+      trail.appendChild(c);
+    });
+    block.appendChild(trail);
+    el.appendChild(block);
+  });
+
+  if(game.relationship){
+    any = true;
+    const block = document.createElement('div'); block.className='tracker-block';
+    const nm = document.createElement('div'); nm.className='tracker-name'; nm.textContent = 'Cinderella & Prince';
+    block.appendChild(nm);
+    const trail = document.createElement('div'); trail.className='chip-trail';
+    const c = document.createElement('span'); c.className='chip current'; c.textContent = game.relationship;
+    trail.appendChild(c);
+    block.appendChild(trail);
+    el.appendChild(block);
+  }
+
+  if(!any){
+    const p = document.createElement('div'); p.className='tracker-name';
+    p.style.fontStyle='italic'; p.textContent = 'No threads have shifted yet — weave a verse to begin.';
+    el.appendChild(p);
+  }
+
+  const note = document.createElement('div'); note.className='mech-note';
+  note.innerHTML = `<b>${currentLevel().mechanicName}</b>${currentLevel().mechanicDesc}`;
+  el.appendChild(note);
+}
+
+/* ============================= PALETTE ============================= */
+function badgeHTML(id){
+  const e = ELEMENTS[id];
+  if(e.category==='character'){
+    return `<div class="p-badge character">${e.initial}</div>`;
+  } else if(e.category==='place'){
+    return `<div class="p-badge place"><span></span>${e.icon}</div>`;
+  } else {
+    return `<div class="p-badge object"><span>${e.icon}</span></div>`;
+  }
+}
+
+function renderPalette(){
+  const el = document.getElementById('palette');
+  el.innerHTML = '';
+  const cats = [['character','Characters'],['place','Places'],['object','Objects']];
+  const lvl = currentLevel();
+  const placedIds = game.placed.filter(Boolean);
+
+  cats.forEach(([cat,label])=>{
+    const ids = lvl.available.filter(id=>ELEMENTS[id].category===cat && !placedIds.includes(id));
+    const row = document.createElement('div'); row.className='palette-row';
+    const lab = document.createElement('div'); lab.className='palette-label'; lab.textContent = label;
+    row.appendChild(lab);
+    const cardsWrap = document.createElement('div'); cardsWrap.className='palette-cards';
+    if(ids.length===0){
+      const empty = document.createElement('div'); empty.className='palette-empty'; empty.textContent = 'all placed';
+      cardsWrap.appendChild(empty);
     }
+    ids.forEach(id=>{
+      const e = ELEMENTS[id];
+      const c = document.createElement('div');
+      c.className = 'p-card' + (game.selected===id?' selected':'');
+      c.onclick = ()=>selectElement(id);
+      c.innerHTML = badgeHTML(id) + `<div class="p-name">${e.name}</div>`;
+      cardsWrap.appendChild(c);
+    });
+    row.appendChild(cardsWrap);
+    el.appendChild(row);
+  });
+}
 
-    function selectCard(card) {
-      document.querySelectorAll('.story-card').forEach(c => c.classList.remove('selected'));
-      selectedCard = card;
-      card.classList.add('selected');
+function selectElement(id){
+  game.selected = (game.selected===id) ? null : id;
+  renderPalette();
+}
+
+/* ============================= SLOTS ============================= */
+function renderActiveBox(){
+  renderLevelChrome();
+  renderSlots();
+  setFeedback('', '');
+  document.getElementById('loomCard').classList.remove('shake','success');
+}
+
+function renderSlots(){
+  const row = document.getElementById('slotsRow');
+  row.innerHTML = '';
+  game.placed.forEach((id,i)=>{
+    const slot = document.createElement('div');
+    slot.className = 'slot' + (id?' filled':'');
+    slot.onclick = ()=> id ? removeFromSlot(i) : placeInSlot(i);
+    if(id){
+      const e = ELEMENTS[id];
+      const iconHTML = e.category==='character' ? e.initial : e.icon;
+      slot.innerHTML = `<div class="slot-icon">${iconHTML}</div><div class="slot-name">${e.name}</div>`;
+    } else {
+      slot.innerHTML = `<div class="slot-empty-label">Empty</div>`;
     }
+    row.appendChild(slot);
+  });
+  const filledCount = game.placed.filter(Boolean).length;
+  document.getElementById('weaveBtn').disabled = filledCount===0;
+  const lit = filledCount>=2;
+  document.querySelectorAll('.thread-svg path').forEach(p=>p.classList.toggle('lit', false));
+}
 
-    function placeInSlot(slotNum) {
-      if (!selectedCard) return;
+function placeInSlot(i){
+  if(!game.selected) return;
+  if(game.placed.includes(game.selected)) return;
+  game.placed[i] = game.selected;
+  game.selected = null;
+  renderPalette();
+  renderSlots();
+}
+function removeFromSlot(i){
+  game.placed[i] = null;
+  renderPalette();
+  renderSlots();
+}
+function clearSlots(){
+  game.placed = [null,null,null];
+  game.selected = null;
+  renderPalette();
+  renderSlots();
+  setFeedback('', '');
+}
 
-      const slot = document.getElementById(`slot${slotNum}`);
-      slot.innerHTML = `<span class="slot-num">Step ${slotNum}</span>`;
-      slot.appendChild(selectedCard);
-      
-      selectedCard.classList.remove('selected');
-      slotContents[slotNum] = selectedCard.getAttribute('data-order');
-      selectedCard = null;
+function setFeedback(text, cls){
+  const f = document.getElementById('feedback');
+  f.textContent = text;
+  f.className = 'feedback' + (cls ? ' '+cls : ' empty');
+}
+
+/* ============================= WEAVE LOGIC ============================= */
+function sameSet(a,b){
+  const A = a.slice().sort();
+  const B = b.slice().sort();
+  return A.length===B.length && A.every((v,i)=>v===B[i]);
+}
+
+function weave(){
+  const filled = game.placed.filter(Boolean);
+  if(filled.length===0) return;
+  const box = currentBox();
+  const card = document.getElementById('loomCard');
+
+  if(sameSet(filled, box.required)){
+    card.classList.remove('shake'); card.classList.add('success');
+    document.querySelectorAll('.thread-svg path').forEach(p=>p.classList.add('lit'));
+    setFeedback('The thread catches — the story moves forward.', 'ok');
+
+    if(box.state) pushCharState(box.state.who, box.state.label);
+    if(box.relationship) game.relationship = box.relationship;
+    game.verses.push({text:box.text, transform:box.transform||null});
+
+    setTimeout(()=>{
+      advanceBox();
+    }, 950);
+  } else {
+    card.classList.add('shake');
+    setFeedback('Nothing happens… try a different thread.', 'no');
+    setTimeout(()=>{
+      card.classList.remove('shake');
+      clearSlots();
+    }, 700);
+  }
+}
+
+function advanceBox(){
+  game.boxIndex++;
+  game.placed = [null,null,null];
+  renderTracker();
+  renderVerses();
+  renderPalette();
+
+  if(game.boxIndex >= currentLevel().boxes.length){
+    finishLevel();
+  } else {
+    renderActiveBox();
+  }
+}
+
+function renderVerses(){
+  const el = document.getElementById('verseList');
+  el.innerHTML = '';
+  if(game.verses.length===0){
+    el.innerHTML = '<div class="verse-empty">Your first verse has not been woven yet.</div>';
+    return;
+  }
+  game.verses.forEach((v,i)=>{
+    const item = document.createElement('div'); item.className='verse-item';
+    let extra = '';
+    if(v.transform){
+      const fromE = ELEMENTS[v.transform.from], toE = ELEMENTS[v.transform.to];
+      extra = `<div class="transform-tag">${fromE.icon} → ${toE.icon} ${toE.name}</div>`;
     }
+    item.innerHTML = `<div class="vnum">${i+1}</div><div><p>${v.text}</p>${extra}</div>`;
+    el.appendChild(item);
+  });
+  el.scrollTop = el.scrollHeight;
+}
 
-    function checkStorySequence() {
-      const feedback = document.getElementById('gameFeedback');
-      if (slotContents[1] == '1' && slotContents[2] == '2' && slotContents[3] == '3') {
-        feedback.style.color = '#4ade80';
-        feedback.innerText = '🎉 Wonderful job! The story sequence is correct!';
-      } else {
-        feedback.style.color = '#f87171';
-        feedback.innerText = '❌ Try again! Put the steps from first to last.';
-      }
-    }
-  </script>
+/* ============================= LEVEL COMPLETE ============================= */
+function finishLevel(){
+  game.done[game.levelIndex] = true;
+  const isFinal = currentLevel().isFinal;
+  if(!isFinal && game.levelIndex+1 < game.unlocked.length){
+    game.unlocked[game.levelIndex+1] = true;
+  }
+  if(isFinal){
+    showScreen('screen-final');
+    return;
+  }
+  const ov = document.getElementById('levelOverlay');
+  document.getElementById('ovEyebrow').textContent = 'Chapter ' + (game.levelIndex+1) + ' Complete';
+  document.getElementById('ovTitle').textContent = currentLevel().title;
+  document.getElementById('ovText').textContent = currentLevel().ending;
+  const actions = document.getElementById('ovActions');
+  actions.innerHTML = '';
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'btn-primary';
+  nextBtn.textContent = 'Continue the Tale';
+  nextBtn.onclick = ()=>{ ov.classList.remove('active'); startLevel(game.levelIndex+1); };
+  const mapBtn = document.createElement('button');
+  mapBtn.className = 'btn-ghost';
+  mapBtn.textContent = 'Back to the Loom';
+  mapBtn.onclick = ()=>{ ov.classList.remove('active'); goToMap(); };
+  actions.appendChild(nextBtn);
+  actions.appendChild(mapBtn);
+  ov.classList.add('active');
+}
+
+/* ============================= RESET ============================= */
+function resetGame(){
+  game = {
+    levelIndex:0,
+    unlocked:[true,false,false,false,false,false],
+    done:[false,false,false,false,false,false],
+    boxIndex:0,
+    placed:[null,null,null],
+    selected:null,
+    charStates:{},
+    relationship:null,
+    verses:[]
+  };
+  showScreen('screen-title');
+}
+</script>
 </body>
 </html>
