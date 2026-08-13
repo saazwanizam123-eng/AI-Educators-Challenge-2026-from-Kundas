@@ -8,19 +8,21 @@
   <!-- Clean, Accessible Sans-Serif Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
        LIQUID GLASS DESIGN SYSTEM & ACCESSIBILITY STYLES
        ========================================================================== */
     :root {
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.25);
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      --glass-bg: rgba(15, 23, 42, 0.55);
+      --glass-card-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.22);
+      --glass-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.37);
       --text-main: #f8fafc;
       --accent-teal: #0d9488;
-      --accent-glow: rgba(13, 148, 136, 0.6);
+      --accent-sky: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.5);
       --primary-font: 'Nunito', 'Segoe UI', sans-serif;
       --heading-font: 'Fredoka', 'Segoe UI', sans-serif;
     }
@@ -32,12 +34,18 @@
       font-family: var(--primary-font);
     }
 
-    /* BACKGROUND IMAGE WITH OVERLAY */
+    /* BACKGROUND WITH MULTI-LAYER FALLBACK & ATMOSPHERIC GLOW */
     body {
       min-height: 100vh;
-      background: linear-gradient(rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.55)), url('assets/image/bg1.jpg') center/cover no-repeat fixed;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(168, 85, 247, 0.25) 0%, transparent 40%),
+        linear-gradient(rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.78)),
+        url('assets/image/bg1.jpg') center/cover no-repeat fixed,
+        url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat fixed,
+        linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
       color: var(--text-main);
-      padding: 20px;
+      padding: 24px 20px;
       transition: background 0.3s ease, color 0.3s ease;
     }
 
@@ -50,9 +58,10 @@
     body.high-contrast .app-container,
     body.high-contrast .glass-card,
     body.high-contrast .story-card,
-    body.high-contrast .slot {
+    body.high-contrast .slot,
+    body.high-contrast .modal-content {
       background: #000000 !important;
-      border: 2px solid #ffff00 !important;
+      border: 3px solid #ffff00 !important;
       box-shadow: none !important;
       color: #ffff00 !important;
     }
@@ -63,22 +72,22 @@
       color: #ffff00 !important;
     }
 
-    /* Container Glass Card */
+    /* App Container Glass Card */
     .app-container {
       max-width: 1200px;
       margin: 0 auto;
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
-      border-radius: 24px;
+      border-radius: 28px;
       box-shadow: var(--glass-shadow);
-      padding: 30px;
+      padding: 32px;
       transition: opacity 0.8s ease-in-out;
     }
 
     .app-container.idle-transparent {
-      opacity: 0.15;
+      opacity: 0.2;
     }
 
     /* ==========================================================================
@@ -86,11 +95,11 @@
        ========================================================================== */
     .image-heading {
       font-family: var(--heading-font);
-      font-size: 2.8rem;
+      font-size: 3rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 20px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
       display: inline-block;
       
       background: linear-gradient(90deg, #ff4e50, #f9d423, #22c55e, #06b6d4, #3b82f6, #a855f7, #ff4e50);
@@ -98,7 +107,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: rainbowWave 6s linear infinite;
-      
       transition: transform 0.3s ease, filter 0.3s ease;
       cursor: pointer;
     }
@@ -109,8 +117,8 @@
     }
 
     .image-heading:hover {
-      transform: scale(1.04) translateY(-2px);
-      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+      transform: scale(1.03) translateY(-2px);
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
     }
 
     /* ==========================================================================
@@ -118,9 +126,9 @@
        ========================================================================== */
     .section-title {
       font-family: var(--heading-font);
-      font-size: 2.1rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      margin: 30px 0 15px 0;
+      margin: 30px 0 16px 0;
       display: inline-block;
       letter-spacing: 0.5px;
       
@@ -130,37 +138,38 @@
       
       filter: drop-shadow(0px 2px 0px #0369a1)
               drop-shadow(0px 4px 0px #075985)
-              drop-shadow(0px 6px 1px rgba(0, 0, 0, 0.4));
+              drop-shadow(0px 6px 2px rgba(0, 0, 0, 0.4));
       
       transition: transform 0.3s ease, filter 0.3s ease;
       cursor: pointer;
     }
 
     .section-title:hover {
-      transform: scale(1.03) translateY(-2px);
-      filter: drop-shadow(0 0 12px var(--accent-glow));
+      transform: scale(1.02) translateY(-2px);
+      filter: drop-shadow(0 0 15px var(--accent-glow));
     }
 
     h3 {
       font-family: var(--heading-font);
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       transition: transform 0.3s ease;
     }
 
     /* ==========================================================================
-       INTERACTIVE BUTTONS (CLEAN TYPOGRAPHY)
+       INTERACTIVE BUTTONS & CONTROLS
        ========================================================================== */
     .interactive-btn {
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.3);
       color: #ffffff;
-      padding: 12px 20px;
+      padding: 12px 22px;
       font-size: 1rem;
-      font-weight: 700;
-      border-radius: 12px;
+      font-weight: 800;
+      border-radius: 14px;
       cursor: pointer;
-      backdrop-filter: blur(6px);
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       outline: none;
       display: inline-flex;
       align-items: center;
@@ -169,25 +178,34 @@
     }
 
     .interactive-btn:hover {
-      transform: translateY(-2px) scale(1.04);
-      background: rgba(255, 255, 255, 0.28);
-      box-shadow: 0 0 15px var(--accent-glow);
-      border-color: #ffffff;
+      transform: translateY(-3px) scale(1.03);
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.35);
+      border-color: rgba(255, 255, 255, 0.8);
     }
 
     .interactive-btn:active {
-      transform: scale(0.97);
+      transform: scale(0.96) translateY(0);
+    }
+
+    .interactive-btn.primary-btn {
+      background: linear-gradient(135deg, #0284c7, #0d9488);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .interactive-btn.primary-btn:hover {
+      background: linear-gradient(135deg, #0369a1, #0f766e);
     }
 
     .recording-active {
-      background: rgba(239, 68, 68, 0.8) !important;
+      background: rgba(239, 68, 68, 0.85) !important;
       border-color: #f87171 !important;
       animation: pulse 1.5s infinite;
     }
 
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-      70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+      70% { box-shadow: 0 0 0 14px rgba(239, 68, 68, 0); }
       100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
     }
 
@@ -206,11 +224,12 @@
     }
 
     .glass-card {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 16px;
-      padding: 20px;
-      backdrop-filter: blur(8px);
+      background: var(--glass-card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
 
     /* ==========================================================================
@@ -219,44 +238,47 @@
     .ithink-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 20px;
     }
 
     .ithink-btn {
-      padding: 10px;
+      padding: 10px 12px;
       font-size: 0.88rem;
       text-align: center;
+      border-radius: 12px;
     }
 
     .mindmap-canvas {
       width: 100%;
       height: 280px;
-      background: rgba(15, 23, 42, 0.35);
+      background: rgba(15, 23, 42, 0.45);
       border: 2px dashed rgba(255, 255, 255, 0.25);
-      border-radius: 12px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
-      padding: 10px;
+      padding: 12px;
     }
 
     .mindmap-canvas img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
-      border-radius: 8px;
+      border-radius: 10px;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
     }
 
     .map-node {
       background: rgba(13, 148, 136, 0.7);
       border: 2px solid #ffffff;
-      padding: 10px 18px;
-      border-radius: 20px;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      padding: 12px 22px;
+      border-radius: 25px;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      letter-spacing: 0.5px;
     }
 
     /* ==========================================================================
@@ -273,30 +295,33 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding-right: 5px;
+      gap: 12px;
+      padding-right: 6px;
       margin-bottom: 15px;
     }
 
     .chat-msg {
-      max-width: 85%;
-      padding: 12px 16px;
-      border-radius: 14px;
+      max-width: 88%;
+      padding: 14px 18px;
+      border-radius: 16px;
       font-size: 0.95rem;
-      line-height: 1.5;
+      line-height: 1.55;
       white-space: pre-line;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
     .chat-msg.ai {
       background: rgba(13, 148, 136, 0.35);
-      border: 1px solid rgba(13, 148, 136, 0.5);
+      border: 1px solid rgba(20, 184, 166, 0.5);
       align-self: flex-start;
+      border-bottom-left-radius: 4px;
     }
 
     .chat-msg.user {
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(56, 189, 248, 0.25);
+      border: 1px solid rgba(56, 189, 248, 0.5);
       align-self: flex-end;
+      border-bottom-right-radius: 4px;
     }
 
     .chat-input-area {
@@ -306,32 +331,36 @@
 
     .chat-input {
       flex: 1;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.35);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 12px;
-      padding: 10px 15px;
+      border-radius: 14px;
+      padding: 12px 18px;
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       outline: none;
+      transition: all 0.2s ease;
     }
 
     .chat-input:focus {
-      border-color: var(--accent-teal);
-      box-shadow: 0 0 8px var(--accent-glow);
+      border-color: var(--accent-sky);
+      box-shadow: 0 0 12px var(--accent-glow);
+      background: rgba(0, 0, 0, 0.5);
     }
 
     .accessibility-bar {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 20px;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 12px;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.22);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* ==========================================================================
-       STORYTELLER GAME MODAL & BOARD
+       POLISHED STORYTELLER GAME MODAL & BOARD
        ========================================================================== */
     .modal-overlay {
       display: none;
@@ -340,117 +369,214 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       z-index: 1000;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .modal-content {
       width: 100%;
-      max-width: 900px;
+      max-width: 920px;
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 2px solid rgba(56, 189, 248, 0.35);
+      border-radius: 28px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.2);
+      padding: 32px;
     }
 
     .close-btn {
       position: absolute;
-      top: 15px;
+      top: 20px;
       right: 20px;
-      background: rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.25);
       border: 1px solid #ef4444;
       color: #fff;
       border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      font-size: 1.2rem;
+      width: 40px;
+      height: 40px;
+      font-size: 1.3rem;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
     }
 
+    .close-btn:hover {
+      background: #ef4444;
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    /* SEQUENCE SLOTS DESIGN */
     .sequence-board {
-      display: flex;
-      gap: 15px;
-      margin: 20px 0;
-      justify-content: center;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 700px) {
+      .sequence-board { grid-template-columns: 1fr; }
     }
 
     .slot {
-      width: 160px;
-      height: 180px;
-      background: rgba(0, 0, 0, 0.3);
-      border: 2px dashed rgba(255, 255, 255, 0.4);
-      border-radius: 16px;
+      min-height: 190px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 2px dashed rgba(56, 189, 248, 0.4);
+      border-radius: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 10px;
+      padding: 14px;
       position: relative;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
     }
 
-    .slot-num {
+    .slot.drag-over {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.15);
+      transform: scale(1.02);
+    }
+
+    .slot-num-badge {
       position: absolute;
-      top: 6px;
-      left: 10px;
+      top: 10px;
+      left: 12px;
+      background: rgba(56, 189, 248, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      color: #38bdf8;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.78rem;
       font-weight: 800;
-      opacity: 0.5;
-      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
+    .slot-placeholder-text {
+      opacity: 0.4;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    /* CARDS POOL & 3D CLAYMORTHIC CARDS */
     .cards-pool {
       display: flex;
-      gap: 15px;
+      gap: 18px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 15px;
-      min-height: 140px;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 16px;
+      margin-top: 20px;
+      min-height: 160px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
     }
 
     .story-card {
-      width: 140px;
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 12px;
-      padding: 10px;
+      width: 150px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.05));
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 18px;
+      padding: 16px 12px;
       text-align: center;
-      cursor: pointer;
+      cursor: grab;
       user-select: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      position: relative;
     }
 
     .story-card:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 0 15px var(--accent-glow);
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(56, 189, 248, 0.35);
+      border-color: #38bdf8;
+    }
+
+    .story-card:active {
+      cursor: grabbing;
+      transform: scale(0.98);
     }
 
     .story-card.selected {
       border: 2px solid #38bdf8;
-      box-shadow: 0 0 15px #38bdf8;
+      box-shadow: 0 0 20px #38bdf8, 0 10px 20px rgba(0, 0, 0, 0.4);
+      animation: bounceCard 0.4s ease;
+    }
+
+    @keyframes bounceCard {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
     }
 
     .story-card-emoji {
-      font-size: 2.2rem;
-      margin-bottom: 5px;
+      font-size: 3rem;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
     }
 
     .story-card-text {
-      font-size: 0.85rem;
-      font-weight: 700;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
     }
 
     .feedback-box {
-      margin-top: 15px;
+      margin-top: 20px;
+      padding: 12px 20px;
+      border-radius: 14px;
       text-align: center;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
-      min-height: 30px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .feedback-success {
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid #22c55e;
+      color: #4ade80;
+      animation: popSuccess 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .feedback-error {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+      color: #f87171;
+      animation: shakeError 0.4s ease;
+    }
+
+    @keyframes popSuccess {
+      0% { transform: scale(0.9); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shakeError {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
     }
   </style>
 </head>
@@ -459,10 +585,10 @@
   <div class="app-container" id="mainContainer">
     <!-- Main Heading -->
     <h1 class="image-heading">Minda Inklusif AI</h1>
-    <p style="margin-top: -10px; opacity: 0.85; font-weight: 600;">Empowering Special Needs Education with Visual Mind Mapping & AI Support</p>
+    <p style="margin-top: -8px; opacity: 0.9; font-weight: 700; font-size: 1.05rem;">Empowering Special Needs Education with Visual Mind Mapping & AI Support</p>
 
     <!-- Accessibility & Assistive Tools -->
-    <div class="accessibility-bar" style="margin-top: 15px;">
+    <div class="accessibility-bar">
       <button class="interactive-btn" onclick="toggleSpeech()">🔊 Text-to-Speech</button>
       <button class="interactive-btn" onclick="adjustFontSize(1)">A+ Text Size</button>
       <button class="interactive-btn" onclick="adjustFontSize(-1)">A- Text Size</button>
@@ -473,7 +599,7 @@
       <!-- LEFT COLUMN: 8 I-THINK MIND MAP MODULE -->
       <div class="glass-card">
         <h2 class="section-title">i-Think Mind Maps</h2>
-        <p style="font-size: 0.88rem; opacity: 0.85; margin-bottom: 12px;">Select an i-Think map to structure learning visually:</p>
+        <p style="font-size: 0.9rem; opacity: 0.88; margin-bottom: 14px; font-weight: 600;">Select an i-Think map to structure learning visually:</p>
         
         <div class="ithink-grid">
           <button class="interactive-btn ithink-btn" onclick="renderMap('Circle')">Circle Map</button>
@@ -503,7 +629,7 @@ What subject and topic did your teacher teach you today? Tell me what you want t
           <div class="chat-input-area">
             <input type="text" class="chat-input" id="userInput" placeholder="Type or speak your topic..." onkeypress="handleKey(event)">
             <button class="interactive-btn" id="micBtn" onclick="toggleVoiceInput()" title="Start Voice Input" style="padding: 12px 16px;">🎙️</button>
-            <button class="interactive-btn" onclick="sendMessage()">Send</button>
+            <button class="interactive-btn primary-btn" onclick="sendMessage()">Send</button>
           </div>
         </div>
       </div>
@@ -511,63 +637,68 @@ What subject and topic did your teacher teach you today? Tell me what you want t
 
     <!-- LOWER SECTION: EXPANDABLE SPECIAL NEEDS RESOURCES -->
     <h2 class="section-title">Learning Materials</h2>
-    <div class="grid-2" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+    <div class="grid-2" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
       
       <!-- CARD 1: VISUAL CARDS -->
       <div class="glass-card">
         <h3>🎨 Visual Symbol Cards</h3>
-        <p style="font-size: 0.88rem; opacity: 0.85; margin-top: 5px;">Picture-assisted learning cues designed for non-verbal or low-literacy students.</p>
-        <button class="interactive-btn" style="margin-top: 15px;" onclick="window.location.href='cards.html'">Open Cards</button>
+        <p style="font-size: 0.9rem; opacity: 0.85; margin-top: 6px; line-height: 1.4;">Picture-assisted learning cues designed for non-verbal or low-literacy students.</p>
+        <button class="interactive-btn primary-btn" style="margin-top: 16px; width: 100%;" onclick="window.location.href='cards.html'">Open Cards</button>
       </div>
 
       <!-- CARD 2: GAMES (WITH STORYTELLER & PUZZLE OPTIONS) -->
       <div class="glass-card">
         <h3>🎮 Interactive Games</h3>
-        <p style="font-size: 0.88rem; opacity: 0.85; margin-top: 5px;">Fun educational games designed to build sequential thinking and logic skills.</p>
-        <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
-          <button class="interactive-btn" onclick="openStorytellerGame()">📖 Storyteller</button>
-          <button class="interactive-btn" onclick="window.location.href='puzzle.html'">🧩 Puzzle</button>
+        <p style="font-size: 0.9rem; opacity: 0.85; margin-top: 6px; line-height: 1.4;">Fun educational games designed to build sequential thinking and logic skills.</p>
+        <div style="display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;">
+          <button class="interactive-btn primary-btn" style="flex: 1;" onclick="openStorytellerGame()">📖 Storyteller</button>
+          <button class="interactive-btn" style="flex: 1;" onclick="window.location.href='puzzle.html'">🧩 Puzzle</button>
         </div>
       </div>
 
       <!-- CARD 3: AUDIO STORYBOOKS -->
       <div class="glass-card">
         <h3>🎧 Audio Storybooks</h3>
-        <p style="font-size: 0.88rem; opacity: 0.85; margin-top: 5px;">Multi-sensory auditory reading materials with synchronized text highlighting.</p>
-        <button class="interactive-btn" style="margin-top: 15px;" onclick="window.location.href='audiobooks.html'">Listen Now</button>
+        <p style="font-size: 0.9rem; opacity: 0.85; margin-top: 6px; line-height: 1.4;">Multi-sensory auditory reading materials with synchronized text highlighting.</p>
+        <button class="interactive-btn primary-btn" style="margin-top: 16px; width: 100%;" onclick="window.location.href='audiobooks.html'">Listen Now</button>
       </div>
     </div>
 
   </div>
 
-  <!-- STORYTELLER GAME MODAL -->
+  <!-- POLISHED STORYTELLER GAME MODAL -->
   <div class="modal-overlay" id="storyModal">
-    <div class="glass-card modal-content">
+    <div class="modal-content">
       <button class="close-btn" onclick="closeStorytellerGame()">✕</button>
-      <h2 class="section-title" style="margin-top: 0;">📖 Storyteller: Sequence Game</h2>
-      <p style="font-size: 0.95rem; opacity: 0.9;">Click a picture card below, then click a box to put the story steps in order!</p>
+      <h2 class="section-title" style="margin-top: 0; font-size: 2.3rem;">📖 Storyteller: Sequence Game</h2>
+      <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 10px; font-weight: 700; color: #38bdf8;">
+        Click or drag a picture card below into the numbered boxes to put the story in order!
+      </p>
 
       <!-- Target Slots -->
       <div class="sequence-board">
-        <div class="slot" id="slot1" onclick="placeInSlot(1)">
-          <span class="slot-num">Step 1</span>
+        <div class="slot" id="slot1" onclick="placeInSlot(1)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 1)">
+          <span class="slot-num-badge">Step 1</span>
+          <span class="slot-placeholder-text">Drop Card Here</span>
         </div>
-        <div class="slot" id="slot2" onclick="placeInSlot(2)">
-          <span class="slot-num">Step 2</span>
+        <div class="slot" id="slot2" onclick="placeInSlot(2)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 2)">
+          <span class="slot-num-badge">Step 2</span>
+          <span class="slot-placeholder-text">Drop Card Here</span>
         </div>
-        <div class="slot" id="slot3" onclick="placeInSlot(3)">
-          <span class="slot-num">Step 3</span>
+        <div class="slot" id="slot3" onclick="placeInSlot(3)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 3)">
+          <span class="slot-num-badge">Step 3</span>
+          <span class="slot-placeholder-text">Drop Card Here</span>
         </div>
       </div>
 
       <!-- Draggable/Clickable Cards -->
-      <div class="cards-pool" id="cardsPool"></div>
+      <div class="cards-pool" id="cardsPool" ondragover="handleDragOver(event)" ondrop="handleDropToPool(event)"></div>
 
       <div class="feedback-box" id="gameFeedback"></div>
 
-      <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
-        <button class="interactive-btn" onclick="checkStorySequence()">✨ Check Answer</button>
-        <button class="interactive-btn" onclick="resetStoryGame()">🔄 Reset Game</button>
+      <div style="display: flex; justify-content: center; gap: 16px; margin-top: 20px;">
+        <button class="interactive-btn primary-btn" style="font-size: 1.05rem; padding: 14px 28px;" onclick="checkStorySequence()">✨ Check Answer</button>
+        <button class="interactive-btn" style="font-size: 1.05rem; padding: 14px 28px;" onclick="resetStoryGame()">🔄 Reset Game</button>
       </div>
     </div>
   </div>
@@ -592,7 +723,7 @@ What subject and topic did your teacher teach you today? Tell me what you want t
       const imgSrc = mapImages[type];
 
       if (imgSrc) {
-        canvas.innerHTML = `<img src="${imgSrc}" alt="${type} Map">`;
+        canvas.innerHTML = `<img src="${imgSrc}" alt="${type} Map" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\\'map-node\\'>${type} Map Selected</div>';">`;
       } else {
         canvas.innerHTML = `<div class="map-node">Select an i-Think Map above</div>`;
       }
@@ -622,7 +753,7 @@ What subject and topic did your teacher teach you today? Tell me what you want t
         aiMsg.innerText = generateMindMapHelperResponse(text);
         messages.appendChild(aiMsg);
         messages.scrollTop = messages.scrollHeight;
-      }, 600);
+      }, 500);
     }
 
     function handleKey(e) {
@@ -725,7 +856,7 @@ What subject and topic did your teacher teach you today? Tell me what you want t
     });
 
     function adjustFontSize(delta) {
-      if ((sizeOffset <= -6 && delta < 0) || (sizeOffset >= 16 && delta > 0)) return;
+      if ((sizeOffset <= -6 && delta < 0) || (sizeOffset >= 14 && delta > 0)) return;
       sizeOffset += delta * 2;
       
       const elements = document.querySelectorAll('h1, h2, h3, p, button, input, div');
@@ -750,7 +881,7 @@ What subject and topic did your teacher teach you today? Tell me what you want t
     }
 
     /* ==========================================================================
-       STORYTELLER GAME LOGIC
+       ENHANCED STORYTELLER GAME LOGIC (CLICK + DRAG & DROP SUPPORT)
        ========================================================================== */
     const storyData = [
       { id: 'step2', order: 2, emoji: '🌱', text: 'Water the Seed' },
@@ -773,25 +904,46 @@ What subject and topic did your teacher teach you today? Tell me what you want t
     function resetStoryGame() {
       selectedCard = null;
       slotContents = { 1: null, 2: null, 3: null };
-      document.getElementById('gameFeedback').innerText = '';
+      
+      const feedback = document.getElementById('gameFeedback');
+      feedback.innerText = '';
+      feedback.className = 'feedback-box';
       
       const pool = document.getElementById('cardsPool');
       pool.innerHTML = '';
       
-      storyData.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'story-card';
-        card.id = item.id;
-        card.setAttribute('data-order', item.order);
-        card.onclick = () => selectCard(card);
-        card.innerHTML = `<div class="story-card-emoji">${item.emoji}</div><div class="story-card-text">${item.text}</div>`;
+      // Shuffle & create cards
+      const shuffled = [...storyData].sort(() => Math.random() - 0.5);
+      
+      shuffled.forEach(item => {
+        const card = createStoryCard(item);
         pool.appendChild(card);
       });
 
       for (let i = 1; i <= 3; i++) {
-        const slot = document.getElementById(`slot${i}`);
-        slot.innerHTML = `<span class="slot-num">Step ${i}</span>`;
+        clearSlotUI(i);
       }
+    }
+
+    function createStoryCard(item) {
+      const card = document.createElement('div');
+      card.className = 'story-card';
+      card.id = item.id;
+      card.setAttribute('draggable', 'true');
+      card.setAttribute('data-order', item.order);
+      
+      card.onclick = (e) => {
+        e.stopPropagation();
+        selectCard(card);
+      };
+
+      card.ondragstart = (e) => {
+        e.dataTransfer.setData('text/plain', item.id);
+        selectCard(card);
+      };
+
+      card.innerHTML = `<div class="story-card-emoji">${item.emoji}</div><div class="story-card-text">${item.text}</div>`;
+      return card;
     }
 
     function selectCard(card) {
@@ -804,7 +956,14 @@ What subject and topic did your teacher teach you today? Tell me what you want t
       if (!selectedCard) return;
 
       const slot = document.getElementById(`slot${slotNum}`);
-      slot.innerHTML = `<span class="slot-num">Step ${slotNum}</span>`;
+      
+      // If slot already has a card, return old card to pool
+      if (slotContents[slotNum]) {
+        const oldCard = slot.querySelector('.story-card');
+        if (oldCard) document.getElementById('cardsPool').appendChild(oldCard);
+      }
+
+      slot.innerHTML = `<span class="slot-num-badge">Step ${slotNum}</span>`;
       slot.appendChild(selectedCard);
       
       selectedCard.classList.remove('selected');
@@ -812,14 +971,66 @@ What subject and topic did your teacher teach you today? Tell me what you want t
       selectedCard = null;
     }
 
+    function clearSlotUI(slotNum) {
+      const slot = document.getElementById(`slot${slotNum}`);
+      slot.innerHTML = `
+        <span class="slot-num-badge">Step ${slotNum}</span>
+        <span class="slot-placeholder-text">Drop Card Here</span>
+      `;
+      slotContents[slotNum] = null;
+    }
+
+    /* Drag and Drop Handlers */
+    function handleDragOver(e) {
+      e.preventDefault();
+      if (e.currentTarget.classList.contains('slot')) {
+        e.currentTarget.classList.add('drag-over');
+      }
+    }
+
+    function handleDragLeave(e) {
+      if (e.currentTarget.classList.contains('slot')) {
+        e.currentTarget.classList.remove('drag-over');
+      }
+    }
+
+    function handleDrop(e, slotNum) {
+      e.preventDefault();
+      const slot = document.getElementById(`slot${slotNum}`);
+      slot.classList.remove('drag-over');
+      
+      const cardId = e.dataTransfer.getData('text/plain');
+      const card = document.getElementById(cardId);
+      if (card) {
+        selectedCard = card;
+        placeInSlot(slotNum);
+      }
+    }
+
+    function handleDropToPool(e) {
+      e.preventDefault();
+      const cardId = e.dataTransfer.getData('text/plain');
+      const card = document.getElementById(cardId);
+      if (card) {
+        // Clear card from any slot
+        for (let i = 1; i <= 3; i++) {
+          if (slotContents[i] == card.getAttribute('data-order')) {
+            clearSlotUI(i);
+          }
+        }
+        document.getElementById('cardsPool').appendChild(card);
+      }
+    }
+
     function checkStorySequence() {
       const feedback = document.getElementById('gameFeedback');
+      
       if (slotContents[1] == '1' && slotContents[2] == '2' && slotContents[3] == '3') {
-        feedback.style.color = '#4ade80';
-        feedback.innerText = '🎉 Wonderful job! The story sequence is correct!';
+        feedback.className = 'feedback-box feedback-success';
+        feedback.innerText = '🎉 Fantastic job! You put the story steps in the right order!';
       } else {
-        feedback.style.color = '#f87171';
-        feedback.innerText = '❌ Try again! Put the steps from first to last.';
+        feedback.className = 'feedback-box feedback-error';
+        feedback.innerText = '❌ Not quite right! Try rearranging the steps from first to last.';
       }
     }
 
