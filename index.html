@@ -302,27 +302,6 @@
       border: 1px solid rgba(56, 189, 248, 0.6);
     }
 
-    /* Volume Slider Control styling */
-    .a11y-volume-control {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 10px 8px 10px;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 6px;
-      margin-top: -2px;
-    }
-
-    .a11y-volume-control.show {
-      display: flex;
-    }
-
-    .a11y-volume-control input[type="range"] {
-      width: 100%;
-      cursor: pointer;
-      accent-color: #38bdf8;
-    }
-
     /* ==========================================================================
        2. MAIN DASHBOARD WORKSPACE (2-COLUMN LAYOUT)
        ========================================================================== */
@@ -705,11 +684,6 @@
 </head>
 <body>
 
-  <!-- Hidden Background Audio Player -->
- <audio id="bgMusicAudio" loop preload="auto">
-  <source src="background-music.mp3" type="audio/mpeg">
-</audio>
-
   <!-- Background Cross-Fade Layers -->
   <div class="bg-layer active" id="bg1"></div>
   <div class="bg-layer" id="bg2"></div>
@@ -771,15 +745,6 @@
           <button class="a11y-option-btn" onclick="toggleContrast()">
             <i class="fa-solid fa-circle-half-stroke"></i> High Contrast
           </button>
-
-          <!-- NEW BACKGROUND SOUND TOGGLE & VOLUME SLIDER (POSITIONED BELOW HIGH CONTRAST) -->
-          <button class="a11y-option-btn" id="bgAudioBtn" onclick="toggleBackgroundAudio()">
-            <i class="fa-solid fa-music"></i> Background Sound: OFF
-          </button>
-          <div class="a11y-volume-control" id="bgVolumeWrapper">
-            <i class="fa-solid fa-sliders" style="font-size: 0.75rem; color: var(--text-sub);"></i>
-            <input type="range" id="bgVolumeSlider" min="0" max="1" step="0.05" value="0.2" oninput="setBgVolume(this.value)">
-          </div>
         </div>
       </div>
     </header>
@@ -960,37 +925,6 @@
         ttsBtn.classList.remove('active-tts');
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       }
-    }
-
-    /* Background Audio Controls */
-    let isBgAudioPlaying = false;
-    const bgAudioEl = document.getElementById('bgMusicAudio');
-    const bgAudioBtn = document.getElementById('bgAudioBtn');
-    const bgVolWrapper = document.getElementById('bgVolumeWrapper');
-
-    bgAudioEl.volume = 0.2; // Set soft background volume (20%)
-
-    function toggleBackgroundAudio() {
-      if (!isBgAudioPlaying) {
-        bgAudioEl.play().then(() => {
-          isBgAudioPlaying = true;
-          bgAudioBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Background Sound: ON';
-          bgAudioBtn.classList.add('active-tts');
-          bgVolWrapper.classList.add('show');
-        }).catch(err => {
-          console.error("Audio Playback Error:", err);
-        });
-      } else {
-        bgAudioEl.pause();
-        isBgAudioPlaying = false;
-        bgAudioBtn.innerHTML = '<i class="fa-solid fa-music"></i> Background Sound: OFF';
-        bgAudioBtn.classList.remove('active-tts');
-        bgVolWrapper.classList.remove('show');
-      }
-    }
-
-    function setBgVolume(val) {
-      bgAudioEl.volume = parseFloat(val);
     }
 
     // Dynamic Speech Event Listeners for Hover & Click on Interactive Elements
