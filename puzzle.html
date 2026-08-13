@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Quizzes — MINDA INKLUSIF AI</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2338bdf8'/><stop offset='100%' stop-color='%23c084fc'/></linearGradient></defs><rect width='100' height='100' rx='24' fill='%230f172a'/><circle cx='50' cy='50' r='35' fill='none' stroke='url(%23g)' stroke-width='8'/><path d='M35 40a15 15 0 0 1 30 0c0 10-15 15-15 25' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/><circle cx='50' cy='80' r='5' fill='%2338bdf8'/></svg>">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --glass-bg: rgba(15, 23, 42, 0.25);
+      --glass-card: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-green: #22c55e;
+      --heading-font: 'Fredoka', cursive, sans-serif;
+      --dyslexia-font: 'Lexend', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--dyslexia-font); }
+    body { min-height: 100vh; background: #0b132b; color: var(--text-main); padding: 16px; }
+
+    .bg-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.4), rgba(11, 19, 43, 0.85));
+      z-index: -1; pointer-events: none;
+    }
+
+    .app-container {
+      max-width: 900px; margin: 0 auto;
+      background: var(--glass-bg); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: 16px;
+      padding: 20px; display: flex; flex-direction: column; gap: 18px;
+    }
+
+    .nav-header {
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 12px;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border);
+      color: var(--text-main); padding: 8px 14px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 600; text-decoration: none;
+      display: flex; align-items: center; gap: 8px; transition: background 0.2s;
+    }
+    .back-btn:hover { background: rgba(255, 255, 255, 0.18); }
+
+    .page-title { font-family: var(--heading-font); font-size: 1.5rem; color: var(--accent-blue); display: flex; align-items: center; gap: 10px; }
+
+    /* Score & Progress Tracker */
+    .quiz-tracker {
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border);
+      padding: 10px 16px; border-radius: 10px; font-weight: 600;
+    }
+
+    .score-badge { color: #facc15; font-size: 1rem; }
+
+    /* Quiz Workspace Card */
+    .quiz-card {
+      background: var(--glass-card); border: 1px solid var(--glass-border);
+      border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 16px;
+    }
+
+    .question-box { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .question-text { font-size: 1.1rem; color: #fff; line-height: 1.5; }
+
+    .tts-prompt-btn {
+      background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);
+      color: var(--accent-blue); width: 36px; height: 36px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Interactive Syllable Builder Area */
+    .syllable-dropzone {
+      min-height: 50px; background: rgba(0, 0, 0, 0.3); border: 2px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+    }
+
+    .syllable-chip {
+      background: var(--accent-blue); color: #0f172a; font-weight: 700;
+      padding: 8px 16px; border-radius: 20px; font-size: 1rem; cursor: pointer;
+      user-select: none; transition: transform 0.15s;
+    }
+    .syllable-chip:hover { transform: scale(1.05); }
+
+    .chip-options { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+
+    /* Multiple Choice Options */
+    .mc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 600px) { .mc-grid { grid-template-columns: 1fr; } }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border);
+      color: #fff; padding: 14px; border-radius: 10px; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .option-btn:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--accent-blue); }
+
+    /* Feedback Overlay Toast */
+    .feedback-toast {
+      padding: 10px; border-radius: 8px; text-align: center; font-weight: 700;
+      font-size: 0.95rem; display: none;
+    }
+    .toast-correct { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #4ade80; }
+    .toast-wrong { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #f87171; }
+
+    .btn-next {
+      background: linear-gradient(135deg, #0284c7, #0d9488);
+      color: #fff; border: none; padding: 10px 18px; border-radius: 8px;
+      font-weight: 600; cursor: pointer; align-self: flex-end; display: flex; align-items: center; gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-overlay"></div>
+
+  <div class="app-container">
+    <header class="nav-header">
+      <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+      <h1 class="page-title"><i class="fa-solid fa-puzzle-piece"></i> Dyslexia Interactive Quizzes</h1>
+      <div></div>
+    </header>
+
+    <!-- Quiz Tracker -->
+    <div class="quiz-tracker">
+      <span id="questionCount">Question 1 of 3</span>
+      <span class="score-badge"><i class="fa-solid fa-star"></i> Score: <span id="scoreVal">0</span></span>
+    </div>
+
+    <!-- Dynamic Quiz Container -->
+    <main class="quiz-card" id="quizCard">
+      
+      <!-- Question Title -->
+      <div class="question-box">
+        <h2 class="question-text" id="qText">1. Bawa perkataan ini bersama: [sa] + [bun]</h2>
+        <button class="tts-prompt-btn" onclick="readQuestion()"><i class="fa-solid fa-volume-high"></i></button>
+      </div>
+
+      <!-- Syllable Assembly Area (Mode A) -->
+      <div id="syllableArea">
+        <p style="font-size: 0.8rem; color: var(--text-sub);">Tekan suku kata mengikut urutan yang betul:</p>
+        <div class="syllable-dropzone" id="dropzone" style="margin-top: 6px;"></div>
+        
+        <div class="chip-options" id="chipPool">
+          <button class="syllable-chip" onclick="selectChip(this, 'bun')">bun</button>
+          <button class="syllable-chip" onclick="selectChip(this, 'sa')">sa</button>
+        </div>
+      </div>
+
+      <!-- Multiple Choice Area (Mode B) -->
+      <div class="mc-grid" id="mcArea" style="display: none;">
+        <button class="option-btn" onclick="checkMC(this, false)"><span>A. 1/4 (Satu perempat)</span> <i class="fa-regular fa-circle"></i></button>
+        <button class="option-btn" onclick="checkMC(this, true)"><span>B. 1/2 (Satu perdua)</span> <i class="fa-regular fa-circle"></i></button>
+      </div>
+
+      <!-- Feedback Banner -->
+      <div class="feedback-toast" id="feedbackToast"></div>
+
+      <button class="btn-next" id="nextBtn" onclick="nextQuestion()" style="display: none;">
+        Next Question <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+    </main>
+  </div>
+
+  <script>
+    /* Quiz Data State */
+    const quizData = [
+      {
+        type: 'syllable',
+        text: '1. Cantumkan suku kata untuk membentuk perkataan: "sabun"',
+        target: 'sabun',
+        chips: ['bun', 'sa']
+      },
+      {
+        type: 'mc',
+        text: '2. Apakah jawapan bagi $$\\frac{1}{2}$$ daripada separuh kek?',
+        options: [
+          { label: 'A. Satu perempat (1/4)', correct: false },
+          { label: 'B. Satu perdua (1/2)', correct: true },
+          { label: 'C. Tiga perempat (3/4)', correct: false }
+        ]
+      },
+      {
+        type: 'mc',
+        text: '3. English Phonics: Which word rhymes with "CAT"?',
+        options: [
+          { label: 'A. DOG', correct: false },
+          { label: 'B. HAT', correct: true },
+          { label: 'C. PEN', correct: false }
+        ]
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let assembledSyllables = [];
+
+    // Synthesized Audio Feedback System
+    function playAudioTone(freq, duration) {
+      if (!('AudioContext' in window || 'webkitAudioContext' in window)) return;
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.value = freq;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      gain.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + duration);
+      osc.stop(ctx.currentTime + duration);
+    }
+
+    function loadQuestion() {
+      const q = quizData[currentQ];
+      document.getElementById('questionCount').innerText = `Question ${currentQ + 1} of ${quizData.length}`;
+      document.getElementById('qText').innerText = q.text;
+      document.getElementById('feedbackToast').style.display = 'none';
+      document.getElementById('nextBtn').style.display = 'none';
+      assembledSyllables = [];
+
+      if (q.type === 'syllable') {
+        document.getElementById('syllableArea').style.display = 'block';
+        document.getElementById('mcArea').style.display = 'none';
+        
+        document.getElementById('dropzone').innerHTML = '';
+        const pool = document.getElementById('chipPool');
+        pool.innerHTML = q.chips.map(c => `<button class="syllable-chip" onclick="selectChip(this, '${c}')">${c}</button>`).join('');
+      } else {
+        document.getElementById('syllableArea').style.display = 'none';
+        const mcArea = document.getElementById('mcArea');
+        mcArea.style.display = 'grid';
+        mcArea.innerHTML = q.options.map(opt => `
+          <button class="option-btn" onclick="checkMC(this, ${opt.correct})">
+            <span>${opt.label}</span> <i class="fa-regular fa-circle"></i>
+          </button>
+        `).join('');
+      }
+    }
+
+    function selectChip(btn, text) {
+      assembledSyllables.push(text);
+      btn.style.display = 'none';
+
+      const dropzone = document.getElementById('dropzone');
+      dropzone.innerHTML += `<span class="syllable-chip">${text}</span>`;
+
+      const target = quizData[currentQ].target;
+      const currentWord = assembledSyllables.join('');
+
+      if (currentWord.length >= target.length) {
+        if (currentWord === target) {
+          showFeedback(true, '🎉 Syabas! Perkataan betul!');
+        } else {
+          showFeedback(false, '❌ Cuba lagi! Tekan reset.');
+        }
+      }
+    }
+
+    function checkMC(btn, isCorrect) {
+      const allBtns = document.querySelectorAll('.option-btn');
+      allBtns.forEach(b => b.disabled = true);
+
+      if (isCorrect) {
+        btn.style.borderColor = '#22c55e';
+        btn.style.background = 'rgba(34, 197, 94, 0.2)';
+        showFeedback(true, '🎉 Great Job! Correct answer!');
+      } else {
+        btn.style.borderColor = '#ef4444';
+        btn.style.background = 'rgba(239, 68, 68, 0.2)';
+        showFeedback(false, '❌ Not quite! Keep going!');
+      }
+    }
+
+    function showFeedback(isCorrect, msg) {
+      const toast = document.getElementById('feedbackToast');
+      toast.style.display = 'block';
+      toast.innerText = msg;
+
+      if (isCorrect) {
+        toast.className = 'feedback-toast toast-correct';
+        playAudioTone(523.25, 0.3); // C5 Tone
+        score += 10;
+        document.getElementById('scoreVal').innerText = score;
+      } else {
+        toast.className = 'feedback-toast toast-wrong';
+        playAudioTone(220, 0.3); // A3 Low Tone
+      }
+
+      document.getElementById('nextBtn').style.display = 'flex';
+    }
+
+    function readQuestion() {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const text = document.getElementById('qText').innerText;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ < quizData.length) {
+        loadQuestion();
+      } else {
+        document.getElementById('quizCard').innerHTML = `
+          <div style="text-align: center; padding: 20px;">
+            <h2 style="font-family: var(--heading-font); color: #22c55e; font-size: 1.8rem;">🎉 Quiz Completed!</h2>
+            <p style="margin-top: 8px; color: #fff;">Your Final Score: <strong>${score} Points</strong></p>
+            <a href="index.html" class="btn-next" style="display: inline-flex; margin-top: 16px; text-decoration: none;">Return to Dashboard</a>
+          </div>
+        `;
+      }
+    }
+
+    // Initialize First Question
+    loadQuestion();
+  </script>
+</body>
+</html>
