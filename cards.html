@@ -204,6 +204,7 @@
     .badge-english { background: rgba(147, 51, 234, 0.3); color: #c084fc; border: 1px solid #9333ea; }
     .badge-science { background: rgba(13, 148, 136, 0.3); color: #2dd4bf; border: 1px solid #0d9488; }
     .badge-math { background: rgba(225, 29, 72, 0.3); color: #fb7185; border: 1px solid #e11d48; }
+    .badge-sejarah { background: rgba(245, 158, 11, 0.3); color: #fbbf24; border: 1px solid #f59e0b; }
 
     .tts-card-btn {
       background: rgba(255, 255, 255, 0.08);
@@ -314,6 +315,7 @@
         <button class="tag-btn" onclick="filterCategory('english', this)">English</button>
         <button class="tag-btn" onclick="filterCategory('science', this)">Science</button>
         <button class="tag-btn" onclick="filterCategory('math', this)">Mathematics</button>
+        <button class="tag-btn" onclick="filterCategory('sejarah', this)">Sejarah</button>
       </div>
     </div>
 
@@ -454,7 +456,7 @@
       </article>
 
 
-      <!-- ================= SCIENCE ================= -->
+      <!-- ================= SCIENCE (100% ENGLISH) ================= -->
 
       <!-- SCI 1: Life Cycles -->
       <article class="note-card" data-category="science">
@@ -462,14 +464,14 @@
           <span class="subject-badge badge-science">Science</span>
           <button class="tts-card-btn" onclick="readCard(this)" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
         </div>
-        <h2 class="note-title">Kitar Hidup (Life Cycles)</h2>
+        <h2 class="note-title">Life Cycles</h2>
         <ul class="note-bullets">
-          <li><strong>Peringkat 1 & 2:</strong> Telur 🥚 $\rightarrow$ Ulat beluncas (Caterpillar) 🐛.</li>
-          <li><strong>Peringkat 3:</strong> Kepompong (Pupa) 🪵.</li>
-          <li><strong>Peringkat 4:</strong> Rama-rama Dewasa (Butterfly) 🦋.</li>
+          <li><strong>Stage 1 & 2:</strong> Egg 🥚 $\rightarrow$ Caterpillar 🐛.</li>
+          <li><strong>Stage 3:</strong> Chrysalis / Pupa 🪵.</li>
+          <li><strong>Stage 4:</strong> Adult Butterfly 🦋.</li>
         </ul>
-        <button class="flip-btn" onclick="toggleHint(this)">💡 Petunjuk Pantas</button>
-        <p class="hint-text" style="display:none;">Kitar hidup berpusing semula dari dewasa ke telur!</p>
+        <button class="flip-btn" onclick="toggleHint(this)">💡 Quick Hint</button>
+        <p class="hint-text" style="display:none;">The life cycle repeats from adult back to egg!</p>
       </article>
 
       <!-- SCI 2: States of Matter -->
@@ -478,14 +480,14 @@
           <span class="subject-badge badge-science">Science</span>
           <button class="tts-card-btn" onclick="readCard(this)" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
         </div>
-        <h2 class="note-title">Keadaan Bahan (States of Matter)</h2>
+        <h2 class="note-title">States of Matter</h2>
         <ul class="note-bullets">
-          <li><strong>Pepejal (Solid):</strong> Bentuk tetap e.g., ais, batu, kayu 🧊.</li>
-          <li><strong>Cecair (Liquid):</strong> Mengikut bentuk bekas e.g., air, susu 🥛.</li>
-          <li><strong>Gas:</strong> Memenuhi ruang e.g., udara, stim 💨.</li>
+          <li><strong>Solid:</strong> Fixed shape e.g., ice, rock, wood 🧊.</li>
+          <li><strong>Liquid:</strong> Takes the shape of its container e.g., water, milk 🥛.</li>
+          <li><strong>Gas:</strong> Fills up open space e.g., air, steam 💨.</li>
         </ul>
-        <button class="flip-btn" onclick="toggleHint(this)">💡 Petunjuk Pantas</button>
-        <p class="hint-text" style="display:none;">Ais (Pepejal) cair menjadi Air (Cecair) dan mendidih jadi Stim (Gas).</p>
+        <button class="flip-btn" onclick="toggleHint(this)">💡 Quick Hint</button>
+        <p class="hint-text" style="display:none;">Ice (Solid) melts into Water (Liquid) and turns into Steam (Gas).</p>
       </article>
 
       <!-- SCI 3: The 5 Senses -->
@@ -494,14 +496,14 @@
           <span class="subject-badge badge-science">Science</span>
           <button class="tts-card-btn" onclick="readCard(this)" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
         </div>
-        <h2 class="note-title">5 Deria Manusia (The 5 Senses)</h2>
+        <h2 class="note-title">The 5 Senses</h2>
         <ul class="note-bullets">
-          <li><strong>Penglihatan & Pendengaran:</strong> Mata 👁️ (Sight) & Telinga 👂 (Hearing).</li>
-          <li><strong>Rasa & Bau:</strong> Lidah 👅 (Taste) & Hidung 👃 (Smell).</li>
-          <li><strong>Sentuhan:</strong> Kulit / Tangan ✋ (Touch).</li>
+          <li><strong>Sight & Hearing:</strong> Eyes 👁️ (Sight) & Ears 👂 (Hearing).</li>
+          <li><strong>Taste & Smell:</strong> Tongue 👅 (Taste) & Nose 👃 (Smell).</li>
+          <li><strong>Touch:</strong> Skin / Hands ✋ (Touch).</li>
         </ul>
-        <button class="flip-btn" onclick="toggleHint(this)">💡 Petunjuk Pantas</button>
-        <p class="hint-text" style="display:none;">Setiap organ deria menghantar isyarat ke otak kita.</p>
+        <button class="flip-btn" onclick="toggleHint(this)">💡 Quick Hint</button>
+        <p class="hint-text" style="display:none;">Each sense organ sends signals directly to our brain.</p>
       </article>
 
       <!-- SCI 4: Living vs. Non-Living -->
@@ -510,14 +512,14 @@
           <span class="subject-badge badge-science">Science</span>
           <button class="tts-card-btn" onclick="readCard(this)" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
         </div>
-        <h2 class="note-title">Benda Hidup vs. Bukan Hidup</h2>
+        <h2 class="note-title">Living vs. Non-Living Things</h2>
         <ul class="note-bullets">
-          <li><strong>Benda Hidup:</strong> Bernafas, membesar, makan & minum (Manusia, Haiwan, Pokok).</li>
-          <li><strong>Benda Bukan Hidup:</strong> Tidak bernafas atau membesar (Kereta, Batu, Kerusi).</li>
-          <li><strong>Ujian Ringkas:</strong> Adakah ia perlukan makanan dan air untuk hidup?</li>
+          <li><strong>Living Things:</strong> Breathe, grow, eat & drink (Humans, Animals, Plants).</li>
+          <li><strong>Non-Living Things:</strong> Do not breathe or grow (Cars, Rocks, Chairs).</li>
+          <li><strong>Quick Test:</strong> Does it need food and water to survive?</li>
         </ul>
-        <button class="flip-btn" onclick="toggleHint(this)">💡 Petunjuk Pantas</button>
-        <p class="hint-text" style="display:none;">Tumbuhan juga benda hidup kerana ia memerlukan air dan cahaya matahari!</p>
+        <button class="flip-btn" onclick="toggleHint(this)">💡 Quick Hint</button>
+        <p class="hint-text" style="display:none;">Plants are living things because they need water and sunlight to live!</p>
       </article>
 
 
@@ -549,7 +551,7 @@
         <ul class="note-bullets">
           <li><strong>Banknotes:</strong> RM1 / $1 (Blue 🔵), RM5 / $5 (Green 🟢), RM10 / $10 (Red 🔴).</li>
           <li><strong>Coins:</strong> 10 cents, 20 cents, 50 cents 🪙.</li>
-          <li><strong>Buying Example:</strong> Have $5 - Buy item ($2) = Change **$3**.</li>
+          <li><strong>Buying Example:</strong> Have $5 - Buy item ($2) = Change <strong>$3</strong>.</li>
         </ul>
         <button class="flip-btn" onclick="toggleHint(this)">💡 Quick Hint</button>
         <p class="hint-text" style="display:none;">Recognize currency by color for fast visual identification!</p>
@@ -563,9 +565,9 @@
         </div>
         <h2 class="note-title">Telling Time</h2>
         <ul class="note-bullets">
-          <li><strong>Short Hand:</strong> Points to the **Hour** 🕐.</li>
-          <li><strong>Long Hand:</strong> Points to the **Minutes**.</li>
-          <li><strong>Example:</strong> Short hand on 3, long hand on 12 = **3:00 o'clock**.</li>
+          <li><strong>Short Hand:</strong> Points to the <strong>Hour</strong> 🕐.</li>
+          <li><strong>Long Hand:</strong> Points to the <strong>Minutes</strong>.</li>
+          <li><strong>Example:</strong> Short hand on 3, long hand on 12 = <strong>3:00 o'clock</strong>.</li>
         </ul>
         <button class="flip-btn" onclick="toggleHint(this)">💡 Quick Hint</button>
         <p class="hint-text" style="display:none;">When the long hand points to 12, it always means "o'clock" or "00 minutes".</p>
@@ -580,11 +582,78 @@
         <h2 class="note-title">Visual Addition & Subtraction</h2>
         <ul class="note-bullets">
           <li><strong>Ten-Frame:</strong> Imagine a 10-grid box to count items quickly.</li>
-          <li><strong>Addition (+):</strong> Join two groups (e.g., 5 🔴 + 3 🔵 = **8**).</li>
-          <li><strong>Subtraction (-):</strong> Take away from a group (e.g., 7 🍎 - 2 🍎 = **5**).</li>
+          <li><strong>Addition (+):</strong> Join two groups (e.g., 5 🔴 + 3 🔵 = <strong>8</strong>).</li>
+          <li><strong>Subtraction (-):</strong> Take away from a group (e.g., 7 🍎 - 2 🍎 = <strong>5</strong>).</li>
         </ul>
         <button class="flip-btn" onclick="toggleHint(this)">💡 Quick Hint</button>
         <p class="hint-text" style="display:none;">Addition makes total numbers bigger; subtraction makes total numbers smaller.</p>
+      </article>
+
+
+      <!-- ================= SEJARAH (PRIMARY 1-6) ================= -->
+
+      <!-- SEJ 1: Sejarah Diri & Keluarga -->
+      <article class="note-card" data-category="sejarah">
+        <div class="card-top">
+          <span class="subject-badge badge-sejarah">Sejarah</span>
+          <button class="tts-card-btn" onclick="readCard(this)" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
+        </div>
+        <h2 class="note-title">Sejarah Diri & Keluarga</h2>
+        <ul class="note-bullets">
+          <li><strong>Identiti Diri:</strong> Sijil lahir mengandungi nama, tarikh lahir, dan nama ibu bapa 📄.</li>
+          <li><strong>Salasilah Keluarga:</strong> Terdiri daripada datuk, nenek, ibu, bapa, dan adik-beradik 👨‍👩‍👧‍👦.</li>
+          <li><strong>Peranan:</strong> Menghormati ahli keluarga untuk mewujudkan suasana harmoni.</li>
+        </ul>
+        <button class="flip-btn" onclick="toggleHint(this)">💡 Petunjuk Pantas</button>
+        <p class="hint-text" style="display:none;">Sijil lahir adalah dokumen pengenalan diri rasmi yang sangat penting!</p>
+      </article>
+
+      <!-- SEJ 2: Jalur Gemilang -->
+      <article class="note-card" data-category="sejarah">
+        <div class="card-top">
+          <span class="subject-badge badge-sejarah">Sejarah</span>
+          <button class="tts-card-btn" onclick="readCard(this)" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
+        </div>
+        <h2 class="note-title">Bendera Kebangsaan: Jalur Gemilang</h2>
+        <ul class="note-bullets">
+          <li><strong>Maksud Warna:</strong> <span class="s-red">Merah</span> (keberanian), <span class="s-blue">Biru</span> (perpaduan), <span class="s-green">Kuning</span> (kesetiaan raja).</li>
+          <li><strong>Lambang:</strong> Bulan sabit (Islam) & Bintang pecah 14 (13 negeri + Wilayah Persekutuan) 🇲🇾.</li>
+          <li><strong>Penghormatan:</strong> Berdiri tegak apabila Jalur Gemilang dinaikkan.</li>
+        </ul>
+        <button class="flip-btn" onclick="toggleHint(this)">💡 Petunjuk Pantas</button>
+        <p class="hint-text" style="display:none;">Kibarkan Jalur Gemilang dengan megah dan pastikan kain tidak menyentuh tanah!</p>
+      </article>
+
+      <!-- SEJ 3: Bunga Kebangsaan -->
+      <article class="note-card" data-category="sejarah">
+        <div class="card-top">
+          <span class="subject-badge badge-sejarah">Sejarah</span>
+          <button class="tts-card-btn" onclick="readCard(this)" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
+        </div>
+        <h2 class="note-title">Bunga Kebangsaan: Bunga Raya</h2>
+        <ul class="note-bullets">
+          <li><strong>Ciri Utama:</strong> Bunga berwarna merah dengan 5 kelopak 🌺.</li>
+          <li><strong>Rukun Negara:</strong> 5 kelopak melambangkan 5 prinsip Rukun Negara.</li>
+          <li><strong>Pengisytiharan:</strong> Diisytiharkan sebagai Bunga Kebangsaan pada tahun 1960.</li>
+        </ul>
+        <button class="flip-btn" onclick="toggleHint(this)">💡 Petunjuk Pantas</button>
+        <p class="hint-text" style="display:none;">Warna merah melambangkan keteguhan dan keberanian rakyat Malaysia!</p>
+      </article>
+
+      <!-- SEJ 4: Tokoh Terbilang Kesultanan Melayu Melaka -->
+      <article class="note-card" data-category="sejarah">
+        <div class="card-top">
+          <span class="subject-badge badge-sejarah">Sejarah</span>
+          <button class="tts-card-btn" onclick="readCard(this)" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
+        </div>
+        <h2 class="note-title">Tokoh Terbilang Kesultanan Melaka</h2>
+        <ul class="note-bullets">
+          <li><strong>Sultan:</strong> Pemerintah tertinggi dan lambang perpaduan 👑.</li>
+          <li><strong>Bendahara:</strong> Penasihat Sultan dan pengurus pentadbiran (e.g., Tun Perak).</li>
+          <li><strong>Laksamana:</strong> Ketua angkatan laut dan pengawal keselamatan (e.g., Hang Tuah) ⚔️.</li>
+        </ul>
+        <button class="flip-btn" onclick="toggleHint(this)">💡 Petunjuk Pantas</button>
+        <p class="hint-text" style="display:none;">Hang Tuah terkenal dengan ketangkasan dan kesetiaannya yang tidak berbelah bahagi!</p>
       </article>
 
     </main>
