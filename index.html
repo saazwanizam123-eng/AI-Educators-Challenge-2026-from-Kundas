@@ -32,40 +32,101 @@
       font-family: var(--primary-font);
     }
 
-    /* BACKGROUND CAROUSEL STYLES */
+    /* BACKGROUND CAROUSEL STYLES WITH SMOOTH CROSS-FADE */
     body {
       min-height: 100vh;
-      background-color: #0f172a; /* Dark fallback background */
+      background-color: #0f172a;
+      color: var(--text-main);
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Dual Layer Cross-Fade Setup for Background Images */
+    .bg-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: var(--text-main);
-      padding: 20px;
-      transition: background-image 1.2s ease-in-out, background 0.3s ease, color 0.3s ease;
+      z-index: -2;
+      transition: opacity 1.5s ease-in-out;
+      opacity: 0;
     }
 
-    /* High Contrast Mode Toggle Class */
-    body.high-contrast {
-      background: #000000 !important;
-      color: #ffff00 !important;
+    .bg-layer.active {
+      opacity: 1;
     }
 
-    body.high-contrast .app-container,
-    body.high-contrast .glass-card {
-      background: #000000 !important;
-      border: 2px solid #ffff00 !important;
-      box-shadow: none !important;
-      color: #ffff00 !important;
+    /* ==========================================================================
+       ANIMATED COLOR-CHANGING WAVE CONTAINER
+       ========================================================================== */
+    .wave-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 220px;
+      z-index: -1;
+      pointer-events: none;
+      display: none; /* Controlled by toggle button */
+      overflow: hidden;
     }
 
-    body.high-contrast .interactive-btn {
-      background: #000000 !important;
-      border: 2px solid #ffff00 !important;
-      color: #ffff00 !important;
+    body.animated-bg-active .wave-container {
+      display: block;
     }
 
-    /* Container Glass Card - More compact maximum width */
+    .wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background-repeat: repeat-x;
+      transform-origin: center bottom;
+    }
+
+    /* Multi-Hue Gradient Color Animation */
+    @keyframes colorShift {
+      0% { fill: #06b6d4; }
+      25% { fill: #3b82f6; }
+      50% { fill: #a855f7; }
+      75% { fill: #ec4899; }
+      100% { fill: #06b6d4; }
+    }
+
+    .wave path {
+      animation: colorShift 12s infinite ease-in-out alternate;
+    }
+
+    .wave1 {
+      animation: waveAnim1 10s linear infinite;
+      opacity: 0.6;
+    }
+
+    .wave2 {
+      animation: waveAnim2 15s linear infinite;
+      opacity: 0.4;
+      bottom: 10px;
+    }
+
+    @keyframes waveAnim1 {
+      0% { transform: translateX(0) translateZ(0) scaleY(1); }
+      50% { transform: translateX(-25%) translateZ(0) scaleY(1.15); }
+      100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+    }
+
+    @keyframes waveAnim2 {
+      0% { transform: translateX(0) translateZ(0) scaleY(1); }
+      50% { transform: translateX(-25%) translateZ(0) scaleY(0.85); }
+      100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+    }
+
+    /* Container Glass Card */
     .app-container {
       max-width: 1000px;
       margin: 0 auto;
@@ -84,7 +145,7 @@
     }
 
     /* ==========================================================================
-       HEADER & MAIN TITLE (UPPER MIDDLE ALIGNED)
+       HEADER & MAIN TITLE
        ========================================================================== */
     .header-section {
       text-align: center;
@@ -155,7 +216,7 @@
     }
 
     /* ==========================================================================
-       INTERACTIVE BUTTONS (CLEAN TYPOGRAPHY)
+       INTERACTIVE BUTTONS
        ========================================================================== */
     .interactive-btn {
       background: rgba(255, 255, 255, 0.12);
@@ -199,7 +260,7 @@
     }
 
     /* ==========================================================================
-       FEATURE SECTIONS LAYOUT (MENU CARD COMPACT DESIGN)
+       FEATURE SECTIONS LAYOUT
        ========================================================================== */
     .grid-2 {
       display: grid;
@@ -223,9 +284,7 @@
       justify-content: space-between;
     }
 
-    /* ==========================================================================
-       FEATURE 1: 8 I-THINK MIND MAP MODULE (COMPACT)
-       ========================================================================== */
+    /* 8 I-THINK MIND MAP MODULE */
     .ithink-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -270,9 +329,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
-    /* ==========================================================================
-       FEATURE 2: ACCESSIBLE AI ASSISTANT CHATBOX (COMPACT)
-       ========================================================================== */
+    /* ACCESSIBLE AI ASSISTANT CHATBOX */
     .chat-box {
       display: flex;
       flex-direction: column;
@@ -345,6 +402,20 @@
 </head>
 <body>
 
+  <!-- Dual Layer Background Elements for Smooth Fading -->
+  <div class="bg-layer active" id="bg1"></div>
+  <div class="bg-layer" id="bg2"></div>
+
+  <!-- Color-Changing Wave Animation Container -->
+  <div class="wave-container" id="waveContainer">
+    <svg class="wave wave1" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,0 C150,90 350,-40 500,40 C650,120 900,10 1200,40 L1200,120 L0,120 Z"></path>
+    </svg>
+    <svg class="wave wave2" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,30 C200,100 450,-20 600,50 C750,120 1000,0 1200,30 L1200,120 L0,120 Z"></path>
+    </svg>
+  </div>
+
   <div class="app-container" id="mainContainer">
     <!-- Main Heading Section (Upper Middle) -->
     <div class="header-section">
@@ -356,7 +427,7 @@
         <button class="interactive-btn" onclick="toggleSpeech()">🔊 Text-to-Speech</button>
         <button class="interactive-btn" onclick="adjustFontSize(1)">A+ Text Size</button>
         <button class="interactive-btn" onclick="adjustFontSize(-1)">A- Text Size</button>
-        <button class="interactive-btn" onclick="toggleContrast()">👁️ High Contrast</button>
+        <button class="interactive-btn" onclick="toggleAnimatedBg()">🌊 Animated Background</button>
       </div>
     </div>
 
@@ -442,27 +513,52 @@
 
   <script>
     /* ==========================================================================
-       BACKGROUND IMAGE CAROUSEL ROTATION LOGIC
+       SMOOTH CROSS-FADING BACKGROUND CAROUSEL LOGIC
        ========================================================================== */
     const bgImages = [
       'assets/image/bg1.jpg',
-      'assets/image/bg2.jpg',
-      'assets/image/bg3.jpg',
+      'assets/image/bg 2.jpg',
+      'assets/image/bg 3.jpg',
       'assets/image/bg4.jpg',
       'assets/image/bg5.jpg',
       'assets/image/bg6.jpg'
     ];
 
     let currentBgIndex = 0;
+    let activeLayerIndex = 1;
+
+    const layer1 = document.getElementById('bg1');
+    const layer2 = document.getElementById('bg2');
+
+    // Initialize first background image
+    layer1.style.backgroundImage = `url('${bgImages[0]}')`;
 
     function rotateBackground() {
       currentBgIndex = (currentBgIndex + 1) % bgImages.length;
-      document.body.style.backgroundImage = `url('${bgImages[currentBgIndex]}')`;
+      const nextImageUrl = `url('${bgImages[currentBgIndex]}')`;
+
+      if (activeLayerIndex === 1) {
+        layer2.style.backgroundImage = nextImageUrl;
+        layer2.classList.add('active');
+        layer1.classList.remove('active');
+        activeLayerIndex = 2;
+      } else {
+        layer1.style.backgroundImage = nextImageUrl;
+        layer1.classList.add('active');
+        layer2.classList.remove('active');
+        activeLayerIndex = 1;
+      }
     }
 
-    // Set initial background image and rotate every 6 seconds
-    document.body.style.backgroundImage = `url('${bgImages[0]}')`;
+    // Smoothly rotate image every 6 seconds
     setInterval(rotateBackground, 6000);
+
+    /* ==========================================================================
+       ANIMATED BACKGROUND TOGGLE
+       ========================================================================== */
+    function toggleAnimatedBg() {
+      document.body.classList.toggle('animated-bg-active');
+    }
 
     /* ==========================================================================
        I-THINK MAP RENDERER LOGIC
@@ -634,10 +730,6 @@
         utterance.rate = 0.85;
         window.speechSynthesis.speak(utterance);
       }
-    }
-
-    function toggleContrast() {
-      document.body.classList.toggle('high-contrast');
     }
 
     /* IDLE TIMER DETECTOR */
