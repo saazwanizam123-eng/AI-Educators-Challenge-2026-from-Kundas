@@ -1313,14 +1313,14 @@
     };
 
     const mapImages = {
-      'Circle': 'assets/image/pbulat.jpg',
-      'Bubble': 'assets/image/pb.jpg',
-      'Double Bubble': 'assets/image/pbb.jpg',
-      'Tree': 'assets/image/pp.jpg',
-      'Brace': 'assets/image/pd.jpg',
-      'Flow': 'assets/image/pa.jpg',
-      'Multi-Flow': 'assets/image/pba.jpg',
-      'Bridge': 'assets/image/pt.jpg'
+      'Circle': 'assets/image/circle.jpg',
+      'Bubble': 'assets/image/bubble.jpg',
+      'Double Bubble': 'assets/image/double_bubble.jpg',
+      'Tree': 'assets/image/tree.jpg',
+      'Brace': 'assets/image/brace.jpg',
+      'Flow': 'assets/image/flow.jpg',
+      'Multi-Flow': 'assets/image/multi_flow.jpg',
+      'Bridge': 'assets/image/bridge.jpg'
     };
 
     function selectMap(type, btnElement) {
@@ -1364,20 +1364,18 @@
       const msg = document.createElement('div');
       msg.className = `chat-msg ${sender}`;
 
-      // Support ASCII formatted code block rendering
       if (text.includes("```")) {
         let formatted = text.replace(/```([\s\S]*?)```/g, '<pre>$1</pre>');
-        msg.innerHTML = formatted.replace(/\n/g, '<br>');
+        msg.innerHTML = formatted.replace(/\r?\n/g, '<br>');
       } else {
-        msg.innerHTML = text.replace(/\n/g, '<br>');
+        msg.innerHTML = text.replace(/\r?\n/g, '<br>');
       }
 
       messages.appendChild(msg);
       messages.scrollTop = messages.scrollHeight;
 
       if (sender === 'ai' && ttsActive) {
-        // Strip code block backticks for cleaner speech
-        let cleanSpeech = text.replace(/```/g, '').replace(/[┌┐└┘├┤┼─│➔]/g, '');
+        let cleanSpeech = text.replace(/```/g, '').replace(/[┌┐└┘├┤┼─│➔]/g, '').replace(/<[^>]*>/g, '');
         speakText(cleanSpeech);
       }
     }
@@ -1386,19 +1384,14 @@
       if (e.key === 'Enter') sendMessage();
     }
 
-    /* 
-      SYSTEM PROMPT IMPLEMENTATION:
-      Rule Engine to determine map choice based on INTENT, not just topic name!
-    */
     function generateAIResponse(query) {
       const input = query.toLowerCase().trim();
 
-      // Greeting handling
       if (input === 'hi' || input === 'hello' || input === 'hey' || input === 'greetings') {
-        return "Hello and warm welcome! 😊 I am your AI Thinking Map Builder. Please provide any topic, keywords, or activity you want to learn today!";
+        return "Hello and warm welcome! 😊 I am your AI Thinking Map Builder. Please give me any topic, keywords, or step sequence you would like to explore!";
       }
 
-      // 1. FLOW MAP - Purpose: Steps, Sequences, Order, Chronology
+      // 1. FLOW MAP - Steps, Sequences, Order, Chronology
       if (
         input.includes('ablution') || input.includes('sequence') || input.includes('step') || 
         input.includes('process') || input.includes('method') || input.includes('first') || 
@@ -1406,118 +1399,118 @@
         input.includes('start') || input.includes('grow') || input.includes('cook') ||
         input.includes('seed') || input.includes('chronology')
       ) {
-        if (input.includes('ablution') || input.includes('wuduk')) {
-          return "Great job! To show the **ablution steps**, we want to demonstrate a **step-by-step sequence**. Therefore, the best choice is a **FLOW MAP**! 🌊\n" +
+        if (input.includes('ablution')) {
+          return "Great choice! To show the **ablution steps**, we want to demonstrate a **step-by-step sequence**. Therefore, the best choice is a **FLOW MAP**! 🌊<br><br>" +
             "```\n" +
             "[ Intention ] ➔ [ Wash Face ] ➔ [ Wash Arms to Elbows ]\n" +
             "                                      │\n" +
             "                                      ▼\n" +
             "[ Wash Feet ] ◄─ [ Wipe Ears ] ◄─ [ Wipe Head ]\n" +
-            "```\n" +
-            "💡 **Teacher's Tip:** Flow Maps help children remember ordered steps from start to finish with clear arrows!";
+            "```<br>" +
+            "💡 **Teacher's Tip:** Flow Maps help children remember ordered steps from start to finish with clear directional arrows!";
         }
 
-        return "Excellent! Because this information shows **steps, sequence, or a process**, I chose a **FLOW MAP**! ➔\n" +
+        return "Excellent! Because this information shows **steps, sequence, or a process**, I chose a **FLOW MAP**! ➔<br><br>" +
           "```\n" +
           "[ Start / Step 1 ] ➔ [ Step 2 ] ➔ [ Step 3 ] ➔ [ Finish ]\n" +
-          "```\n" +
+          "```<br>" +
           "💡 **Teacher's Tip:** Use Flow Maps whenever you want to organize things that happen in sequential order!";
       }
 
-      // 2. BRACE MAP - Purpose: Whole to Parts (Components/Parts)
+      // 2. BRACE MAP - Whole to Parts
       if (
         input.includes('part') || input.includes('component') || input.includes('member') || 
         input.includes('element') || input.includes('consist') || input.includes('root') || 
         input.includes('body') || input.includes('house') || input.includes('car') || input.includes('tree')
       ) {
         let topicName = input.includes('tree') ? 'Tree' : (input.includes('body') ? 'Body' : 'Object');
-        return `Awesome! Since this shows **physical parts** of a whole object, the most suitable map is a **BRACE MAP**! 🧩\n` +
+        return `Awesome! Since this shows **physical parts** of a whole object, the most suitable map is a **BRACE MAP**! 🧩<br><br>` +
           "```\n" +
           `               ┌─ Roots\n` +
           `Parts of ${topicName} ┼─ Trunk\n` +
           `               └─ Leaves & Flowers\n` +
-          "```\n" +
+          "```<br>" +
           "💡 **Teacher's Tip:** Brace Maps are used specifically when dividing a whole object into its smaller physical components!";
       }
 
-      // 3. BUBBLE MAP - Purpose: Adjectives, Qualities, Characteristics
+      // 3. BUBBLE MAP - Adjectives & Characteristics
       if (
         input.includes('feature') || input.includes('trait') || input.includes('characteristic') || 
         input.includes('quality') || input.includes('color') || input.includes('property') || 
         input.includes('tall') || input.includes('cute') || input.includes('cat')
       ) {
         let subject = input.includes('cat') ? 'CAT' : 'TOPIC';
-        return `Wonderful! To describe the **characteristics or qualities** of ${subject}, I choose a **BUBBLE MAP**! 💭\n` +
+        return `Wonderful! To describe the **characteristics or qualities** of ${subject}, I choose a **BUBBLE MAP**! 💭<br><br>` +
           "```\n" +
           "       ( Soft Fur )\n" +
           "            │\n" +
           "( 4 Legs ) ── [ " + subject + " ] ── ( Has Tail )\n" +
           "            │\n" +
           "       ( Can Meow )\n" +
-          "```\n" +
+          "```<br>" +
           "💡 **Teacher's Tip:** Bubble Maps focus on adjectives to describe the qualities or appearance of a subject!";
       }
 
-      // 4. TREE MAP - Purpose: Classification, Categories, Groups
+      // 4. TREE MAP - Classification & Categories
       if (
         input.includes('type') || input.includes('category') || input.includes('group') || 
         input.includes('classify') || input.includes('divide') || input.includes('land') || 
         input.includes('water') || input.includes('animal') || input.includes('types')
       ) {
-        return "Great! When information can be **classified or divided into categories**, the right map is a **TREE MAP**! 🌳\n" +
+        return "Great! When information can be **classified or divided into categories**, the right map is a **TREE MAP**! 🌳<br><br>" +
           "```\n" +
           "                       [ ANIMAL GROUPS ]\n" +
           "           ┌───────────────────┼───────────────────┐\n" +
           "    [ Land Animals ]    [ Water Animals ]   [ Air Animals ]\n" +
           "       • Cat               • Fish              • Bird\n" +
           "       • Cow               • Shrimp            • Bee\n" +
-          "```\n" +
+          "```<br>" +
           "💡 **Teacher's Tip:** Tree Maps make it easy to organize facts under subtopics and categories!";
       }
 
-      // 5. DOUBLE BUBBLE MAP - Purpose: Compare & Contrast
+      // 5. DOUBLE BUBBLE MAP - Compare & Contrast
       if (
         input.includes('compare') || input.includes('same') || input.includes('different') || 
         input.includes('similarity') || input.includes('difference') || input.includes('vs') || 
         input.includes('contrast')
       ) {
-        return "Very interesting! To **compare two things (find similarities and differences)**, the essential choice is a **DOUBLE BUBBLE MAP**! 👥\n" +
+        return "Very interesting! To **compare two things (find similarities and differences)**, the essential choice is a **DOUBLE BUBBLE MAP**! 👥<br><br>" +
           "```\n" +
           " ( Diff A ) ── [ Topic A ] ── ( Similarity ) ── [ Topic B ] ── ( Diff B )\n" +
-          "```\n" +
+          "```<br>" +
           "💡 **Teacher's Tip:** Circles in the middle show SIMILARITIES, while outer circles show differences!";
       }
 
-      // 6. MULTI-FLOW MAP - Purpose: Cause & Effect
+      // 6. MULTI-FLOW MAP - Cause & Effect
       if (
         input.includes('cause') || input.includes('effect') || input.includes('reason') || 
         input.includes('impact') || input.includes('result') || input.includes('why') || input.includes('because')
       ) {
-        return "Awesome! When analyzing the **causes and effects** of an event, the map to use is a **MULTI-FLOW MAP**! 🔀\n" +
+        return "Awesome! When analyzing the **causes and effects** of an event, the map to use is a **MULTI-FLOW MAP**! 🔀<br><br>" +
           "```\n" +
           "[ Cause 1 ] ➔ ┌──────────────────┐ ➔ [ Effect 1 ]\n" +
           "              │   MAIN EVENT   │\n" +
           "[ Cause 2 ] ➔ └──────────────────┘ ➔ [ Effect 2 ]\n" +
-          "```\n" +
-          "💡 **Teacher's Tip:** Left side shows causes, while the right side shows effects following the event!";
+          "```<br>" +
+          "💡 **Teacher's Tip:** The left side shows causes, while the right side shows effects resulting from the main event!";
       }
 
-      // 7. BRIDGE MAP - Purpose: Analogy, Relational Pairs
+      // 7. BRIDGE MAP - Analogy
       if (
         input.includes('analogy') || input.includes('relationship') || input.includes('same as') || 
         input.includes('like') || input.includes('pair')
       ) {
-        return "Very creative! To show an **analogous relationship between paired items**, I built a **BRIDGE MAP**! 🌉\n" +
+        return "Very creative! To show an **analogous relationship between paired items**, I built a **BRIDGE MAP**! 🌉<br><br>" +
           "```\n" +
           " Wing                 Fin\n" +
           "────────── (as) ──────────\n" +
           " Bird                 Fish\n" +
-          "```\n" +
-          "💡 **Teacher's Tip:** The relating factor here is 'movement organ' for the animal!";
+          "```<br>" +
+          "💡 **Teacher's Tip:** The relating factor here is 'movement organ' for each animal!";
       }
 
-      // 8. CIRCLE MAP - Default / Brainstorming / Definition / Facts
-      return "Great job! To share **general facts, basic information, or background knowledge** about this topic, I use a **CIRCLE MAP**! ⭕\n" +
+      // 8. CIRCLE MAP - Brainstorming / Definition
+      return "Great job! To share **general facts, basic information, or background knowledge** about this topic, I use a **CIRCLE MAP**! ⭕<br><br>" +
         "```\n" +
         "┌───────────────────────────────────────────────────────────┐\n" +
         "│  [Source: Textbook / Teacher]                            │\n" +
@@ -1529,7 +1522,7 @@
         "│              │   Fact 3      Fact 4        │              │\n" +
         "│              └─────────────────────────────┘              │\n" +
         "└───────────────────────────────────────────────────────────┘\n" +
-        "```\n" +
+        "```<br>" +
         "💡 **Teacher's Tip:** Circle Maps are perfect for brainstorming everything we know about a topic!";
     }
 
