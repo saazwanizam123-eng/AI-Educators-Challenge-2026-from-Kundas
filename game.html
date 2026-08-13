@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kisah Cinderella - Permainan Interaktif</title>
+<title>Cinderella Story - Interactive Game</title>
 <style>
   :root {
     --bg-color: #FFF0F5;
@@ -234,9 +234,9 @@
 </head>
 <body>
 
-<!-- BUTANG KELUAR KE MAIN PAGE -->
+<!-- EXIT TO MAIN PAGE BUTTON -->
 <button onclick="window.location.href='index.html'" style="position: absolute; top: 15px; left: 15px; padding: 10px 20px; background-color: #ff4757; color: white; border: none; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;">
-    ⬅ Keluar
+    ⬅ Exit
 </button>
 <!-- =========================== -->
 
@@ -246,20 +246,20 @@
   <section class="screen active" id="screen-title">
     <div class="container" style="text-align: center; max-width: 600px; margin-top: 50px;">
       <div class="title-emoji">👸🏼🏰👠</div>
-      <h1>Kisah Cinderella</h1>
-      <p class="title-desc">Mari belajar membina ayat dan melengkapkan cerita Cinderella. Pilih watak, tempat, dan objek yang betul untuk meneruskan penceritaan!</p>
-      <button onclick="goToMap()" style="font-size: 22px; padding: 15px 40px;">Mula Bermain</button>
+      <h1>Cinderella Story</h1>
+      <p class="title-desc">Let's learn to build sentences and complete the Cinderella story. Choose the correct characters, places, and objects to continue the story!</p>
+      <button onclick="goToMap()" style="font-size: 22px; padding: 15px 40px;">Start Playing</button>
     </div>
   </section>
 
   <!-- MAP SCREEN -->
   <section class="screen" id="screen-map">
     <div class="container">
-      <h2>Pilih Bab Cerita</h2>
-      <p style="text-align: center; font-size: 18px;">Pilih bab untuk mula membina cerita.</p>
+      <h2>Choose a Chapter</h2>
+      <p style="text-align: center; font-size: 18px;">Select a chapter to start building the story.</p>
       <div class="map-grid" id="mapNodes"></div>
       <div style="text-align: center; margin-top: 30px;">
-        <button class="btn-secondary" onclick="showScreen('screen-title')">Kembali</button>
+        <button class="btn-secondary" onclick="showScreen('screen-title')">Back</button>
       </div>
     </div>
   </section>
@@ -269,37 +269,37 @@
     <div class="container" style="max-width: 900px;">
       
       <div class="top-bar">
-        <button class="btn-secondary btn-small" onclick="goToMap()">⬅️ Menu Utama</button>
-        <div class="progress-text" id="levelProgress">Bab 1 daripada 6</div>
+        <button class="btn-secondary btn-small" onclick="goToMap()">⬅️ Main Menu</button>
+        <div class="progress-text" id="levelProgress">Chapter 1 of 6</div>
       </div>
       
-      <h2 id="lvlTitle">Tajuk Bab</h2>
+      <h2 id="lvlTitle">Chapter Title</h2>
       
       <div class="instruction-box">
-        <p><strong>Matlamat:</strong> <span id="lvlObjective"></span></p>
-        <p><strong>Arahan:</strong> Pilih kad-kad di bawah dan klik untuk meletakkannya di ruang kosong. Kemudian, tekan "Semak Jawapan".</p>
+        <p><strong>Objective:</strong> <span id="lvlObjective"></span></p>
+        <p><strong>Instructions:</strong> Select the cards below and click to place them in the empty slots. Then, press "Check Answer".</p>
         <div class="instruction-actions">
-          <button class="btn-secondary btn-small" onclick="ulangArahan()" aria-label="Ulang Arahan">🔊 Ulang Arahan</button>
-          <button class="btn-secondary btn-small" onclick="tunjukHint(true)" aria-label="Minta Bantuan">💡 Hint</button>
+          <button class="btn-secondary btn-small" onclick="ulangArahan()" aria-label="Repeat Instructions">🔊 Repeat Instructions</button>
+          <button class="btn-secondary btn-small" onclick="tunjukHint(true)" aria-label="Ask for Help">💡 Hint</button>
         </div>
       </div>
       
-      <div style="text-align:center; margin-bottom:10px; font-weight:bold; color:var(--text-light);" id="questionProgress">Soalan 1 daripada 3</div>
+      <div style="text-align:center; margin-bottom:10px; font-weight:bold; color:var(--text-light);" id="questionProgress">Question 1 of 3</div>
       
-      <div class="slots-area" id="slotsArea" aria-label="Ruang Jawapan"></div>
+      <div class="slots-area" id="slotsArea" aria-label="Answer Slots"></div>
       
       <div class="controls-area">
         <div class="feedback-box" id="feedbackBox" role="alert"></div>
         <div class="action-buttons">
-          <button id="btnSemak" onclick="semakJawapan()">✅ Semak Jawapan</button>
-          <button class="btn-secondary" onclick="kosongkanRuang()">🔄 Cuba Lagi / Kosongkan</button>
+          <button id="btnSemak" onclick="semakJawapan()">✅ Check Answer</button>
+          <button class="btn-secondary" onclick="kosongkanRuang()">🔄 Try Again / Clear</button>
         </div>
       </div>
       
       <div id="paletteArea"></div>
       
       <div class="story-scroll">
-        <h3 style="margin-top: 0; color: #8B4513; text-align: left; font-size: 18px;">📖 Cerita Kita Setakat Ini:</h3>
+        <h3 style="margin-top: 0; color: #8B4513; text-align: left; font-size: 18px;">📖 Our Story So Far:</h3>
         <ul class="story-list" id="storyList"></ul>
       </div>
       
@@ -310,9 +310,9 @@
   <section class="screen" id="screen-final">
     <div class="container" style="text-align: center; max-width: 600px; margin-top: 50px;">
       <div class="title-emoji">🎉👑💖</div>
-      <h1>Tahniah! Cerita Selesai</h1>
-      <p class="title-desc">Kamu telah berjaya melengkapkan keseluruhan kisah Cinderella dengan cemerlang. Putera dan Cinderella hidup gembira selama-lamanya!</p>
-      <button onclick="resetSemua()" style="font-size: 22px; padding: 15px 40px;">Main Semula</button>
+      <h1>Congratulations! Story Completed</h1>
+      <p class="title-desc">You have successfully completed the entire Cinderella story excellently. The Prince and Cinderella lived happily ever after!</p>
+      <button onclick="resetSemua()" style="font-size: 22px; padding: 15px 40px;">Play Again</button>
     </div>
   </section>
 
@@ -322,9 +322,9 @@
 <div class="modal-overlay" id="modalCorrect">
   <div class="modal-content">
     <div class="modal-emoji">🌟</div>
-    <div class="modal-title">Bagus!</div>
-    <div class="modal-text" id="modalCorrectText">Ayat kamu betul!</div>
-    <button onclick="soalanSeterusnya()">Seterusnya ➔</button>
+    <div class="modal-title">Great!</div>
+    <div class="modal-text" id="modalCorrectText">Your sentence is correct!</div>
+    <button onclick="soalanSeterusnya()">Next ➔</button>
   </div>
 </div>
 
@@ -332,91 +332,91 @@
 /* ============================= DATA ============================= */
 const ELEMENTS = {
   cinderella: { name: 'Cinderella', cat: 'watak', icon: '👱‍♀️' },
-  ibu_tiri: { name: 'Ibu Tiri', cat: 'watak', icon: '🦹‍♀️' },
-  kakak_tiri: { name: 'Kakak Tiri', cat: 'watak', icon: '👯‍♀️' },
-  putera: { name: 'Putera', cat: 'watak', icon: '🤴' },
-  pari_pari: { name: 'Pari-pari', cat: 'watak', icon: '🧚‍♀️' },
+  ibu_tiri: { name: 'Stepmother', cat: 'watak', icon: '🦹‍♀️' },
+  kakak_tiri: { name: 'Stepsister', cat: 'watak', icon: '👯‍♀️' },
+  putera: { name: 'Prince', cat: 'watak', icon: '🤴' },
+  pari_pari: { name: 'Fairy', cat: 'watak', icon: '🧚‍♀️' },
   
-  rumah: { name: 'Rumah', cat: 'tempat', icon: '🏠' },
-  istana: { name: 'Istana', cat: 'tempat', icon: '🏰' },
-  taman: { name: 'Taman', cat: 'tempat', icon: '🌳' },
-  dewan: { name: 'Dewan Tari', cat: 'tempat', icon: '✨' },
+  rumah: { name: 'House', cat: 'tempat', icon: '🏠' },
+  istana: { name: 'Palace', cat: 'tempat', icon: '🏰' },
+  taman: { name: 'Garden', cat: 'tempat', icon: '🌳' },
+  dewan: { name: 'Ballroom', cat: 'tempat', icon: '✨' },
   
-  penyapu: { name: 'Penyapu', cat: 'objek', icon: '🧹' },
-  surat: { name: 'Surat Jemputan', cat: 'objek', icon: '✉️' },
-  labu: { name: 'Labu', cat: 'objek', icon: '🎃' },
-  baju: { name: 'Baju Cantik', cat: 'objek', icon: '👗' },
-  kasut: { name: 'Kasut Kaca', cat: 'objek', icon: '👠' },
-  jam: { name: 'Jam', cat: 'objek', icon: '🕰️' }
+  penyapu: { name: 'Broom', cat: 'objek', icon: '🧹' },
+  surat: { name: 'Invitation Letter', cat: 'objek', icon: '✉️' },
+  labu: { name: 'Pumpkin', cat: 'objek', icon: '🎃' },
+  baju: { name: 'Beautiful Dress', cat: 'objek', icon: '👗' },
+  kasut: { name: 'Glass Slipper', cat: 'objek', icon: '👠' },
+  jam: { name: 'Clock', cat: 'objek', icon: '🕰️' }
 };
 
 const LEVELS = [
   {
-    title: 'Bab 1: Di Rumah',
-    objective: "Bantu Cinderella mengemas rumah.",
+    title: 'Chapter 1: At Home',
+    objective: "Help Cinderella clean the house.",
     available: ['cinderella', 'ibu_tiri', 'rumah', 'penyapu'],
     boxes: [
-      { required: ['cinderella', 'rumah'], text: "Cinderella berada di rumah.", hint1: "Siapakah watak utama kita dan di manakah dia berada?" },
-      { required: ['cinderella', 'penyapu'], text: "Cinderella mengambil penyapu.", hint1: "Cinderella mahu menyapu. Apakah alat yang dia perlukan?" },
-      { required: ['cinderella', 'rumah', 'penyapu'], text: "Cinderella menyapu habuk di rumah menggunakan penyapu.", hint1: "Siapa yang menyapu, di mana, dan guna apa?" }
+      { required: ['cinderella', 'rumah'], text: "Cinderella is at home.", hint1: "Who is our main character and where is she?" },
+      { required: ['cinderella', 'penyapu'], text: "Cinderella takes the broom.", hint1: "Cinderella wants to sweep. What tool does she need?" },
+      { required: ['cinderella', 'rumah', 'penyapu'], text: "Cinderella sweeps the dust in the house using the broom.", hint1: "Who is sweeping, where, and using what?" }
     ]
   },
   {
-    title: 'Bab 2: Jemputan ke Istana',
-    objective: "Cinderella mendapat berita tentang majlis tari-menari.",
+    title: 'Chapter 2: Invitation to the Palace',
+    objective: "Cinderella receives news about the royal ball.",
     available: ['cinderella', 'ibu_tiri', 'kakak_tiri', 'putera', 'rumah', 'istana', 'surat'],
     boxes: [
-      { required: ['putera', 'istana'], text: "Putera mengumumkan majlis tari-menari di istana.", hint1: "Siapa yang tinggal di istana dan membuat majlis?" },
-      { required: ['surat', 'rumah'], text: "Surat jemputan sampai di rumah Cinderella.", hint1: "Apakah yang dihantar ke rumah Cinderella?" },
-      { required: ['cinderella', 'surat'], text: "Cinderella membaca surat jemputan itu.", hint1: "Siapa yang sangat gembira membaca surat itu?" },
-      { required: ['cinderella', 'ibu_tiri'], text: "Cinderella meminta izin daripada Ibu Tiri.", hint1: "Cinderella mesti minta izin siapa untuk pergi?" },
-      { required: ['ibu_tiri', 'cinderella'], text: "Ibu Tiri tidak membenarkan Cinderella pergi.", hint1: "Siapa yang marah dan menghalang Cinderella?" }
+      { required: ['putera', 'istana'], text: "The Prince announces a royal ball at the palace.", hint1: "Who lives in the palace and hosts the ball?" },
+      { required: ['surat', 'rumah'], text: "The invitation letter arrives at Cinderella's house.", hint1: "What was sent to Cinderella's house?" },
+      { required: ['cinderella', 'surat'], text: "Cinderella reads the invitation letter.", hint1: "Who is very happy reading the letter?" },
+      { required: ['cinderella', 'ibu_tiri'], text: "Cinderella asks for permission from the Stepmother.", hint1: "Who must Cinderella ask for permission to go?" },
+      { required: ['ibu_tiri', 'cinderella'], text: "The Stepmother does not allow Cinderella to go.", hint1: "Who is angry and stops Cinderella?" }
     ]
   },
   {
-    title: 'Bab 3: Bantuan Pari-pari',
-    objective: "Sediakan Cinderella untuk pergi ke majlis.",
+    title: 'Chapter 3: The Fairy\'s Help',
+    objective: "Prepare Cinderella to go to the ball.",
     available: ['cinderella', 'pari_pari', 'rumah', 'taman', 'labu', 'baju', 'kasut'],
     boxes: [
-      { required: ['cinderella', 'taman'], text: "Cinderella menangis sendirian di taman.", hint1: "Di manakah Cinderella menangis di luar rumah?" },
-      { required: ['pari_pari', 'cinderella'], text: "Pari-pari datang untuk membantu Cinderella.", hint1: "Siapa yang datang membawa magik untuk bantu Cinderella?" },
-      { required: ['pari_pari', 'labu'], text: "Pari-pari menukar labu menjadi kereta kuda yang cantik.", hint1: "Pari-pari guna magik pada sayur apa?" },
-      { required: ['pari_pari', 'baju'], text: "Pari-pari memberikan baju yang bersinar untuk dipakai.", hint1: "Apakah pakaian cantik yang diberikan oleh Pari-pari?" },
-      { required: ['pari_pari', 'kasut'], text: "Pari-pari memberikan sepasang kasut kaca yang sangat cantik.", hint1: "Apakah benda berkaca yang diberikan untuk kaki Cinderella?" }
+      { required: ['cinderella', 'taman'], text: "Cinderella cries alone in the garden.", hint1: "Where is Cinderella crying outside the house?" },
+      { required: ['pari_pari', 'cinderella'], text: "The Fairy comes to help Cinderella.", hint1: "Who comes bringing magic to help Cinderella?" },
+      { required: ['pari_pari', 'labu'], text: "The Fairy turns the pumpkin into a beautiful carriage.", hint1: "What vegetable does the Fairy use magic on?" },
+      { required: ['pari_pari', 'baju'], text: "The Fairy gives a shining beautiful dress to wear.", hint1: "What beautiful clothing is given by the Fairy?" },
+      { required: ['pari_pari', 'kasut'], text: "The Fairy gives a pair of very beautiful glass slippers.", hint1: "What glassy object is given for Cinderella's feet?" }
     ]
   },
   {
-    title: 'Bab 4: Majlis Tari-Menari',
-    objective: "Putera berjumpa dengan gadis misteri di majlis.",
+    title: 'Chapter 4: The Royal Ball',
+    objective: "The Prince meets the mysterious girl at the ball.",
     available: ['cinderella', 'putera', 'istana', 'dewan', 'kasut', 'jam'],
     boxes: [
-      { required: ['cinderella', 'dewan'], text: "Cinderella tiba di dewan tari yang sangat cantik.", hint1: "Cinderella masuk ke ruang mana di istana?" },
-      { required: ['putera', 'cinderella'], text: "Putera melihat Cinderella dan terus jatuh hati.", hint1: "Siapa yang terpesona melihat Cinderella?" },
-      { required: ['putera', 'cinderella', 'dewan'], text: "Mereka berdua menari dengan gembira di dalam dewan.", hint1: "Siapa yang menari bersama di dewan itu?" },
-      { required: ['jam', 'dewan'], text: "Tiba-tiba, jam besar di dewan berbunyi kuat.", hint1: "Apakah objek yang berdetik menunjukkan masa?" }
+      { required: ['cinderella', 'dewan'], text: "Cinderella arrives at the very beautiful ballroom.", hint1: "Which room in the palace does Cinderella enter?" },
+      { required: ['putera', 'cinderella'], text: "The Prince sees Cinderella and immediately falls in love.", hint1: "Who is mesmerized seeing Cinderella?" },
+      { required: ['putera', 'cinderella', 'dewan'], text: "They both dance happily in the ballroom.", hint1: "Who dances together in the ballroom?" },
+      { required: ['jam', 'dewan'], text: "Suddenly, the large clock in the ballroom rings loudly.", hint1: "What ticking object shows the time?" }
     ]
   },
   {
-    title: 'Bab 5: Tengah Malam',
-    objective: "Cinderella mesti lari sebelum pukul 12 malam!",
+    title: 'Chapter 5: Midnight',
+    objective: "Cinderella must run before 12 midnight!",
     available: ['cinderella', 'putera', 'dewan', 'istana', 'jam', 'kasut'],
     boxes: [
-      { required: ['cinderella', 'jam'], text: "Cinderella terkejut mendengar jam berbunyi pukul 12.", hint1: "Siapa yang panik apabila mendengar bunyi jam?" },
-      { required: ['cinderella', 'istana'], text: "Cinderella berlari keluar dari istana dengan sangat laju.", hint1: "Cinderella berlari keluar dari bangunan mana?" },
-      { required: ['kasut', 'istana'], text: "Sebelah kasut kaca tercicir di tangga istana.", hint1: "Apakah yang tertinggal di lantai istana?" },
-      { required: ['putera', 'kasut'], text: "Putera menemui kasut kaca itu dan menyimpannya.", hint1: "Siapa yang mengutip kasut kaca itu?" }
+      { required: ['cinderella', 'jam'], text: "Cinderella is shocked to hear the clock strike 12.", hint1: "Who panics when hearing the clock sound?" },
+      { required: ['cinderella', 'istana'], text: "Cinderella runs out of the palace very fast.", hint1: "Which building does Cinderella run out of?" },
+      { required: ['kasut', 'istana'], text: "One glass slipper is dropped on the palace stairs.", hint1: "What is left behind on the palace floor?" },
+      { required: ['putera', 'kasut'], text: "The Prince finds the glass slipper and keeps it.", hint1: "Who picks up the glass slipper?" }
     ]
   },
   {
-    title: 'Bab 6: Kasut Kaca',
-    objective: "Cari pemilik sebenar kasut kaca itu.",
+    title: 'Chapter 6: The Glass Slipper',
+    objective: "Find the true owner of the glass slipper.",
     available: ['cinderella', 'putera', 'ibu_tiri', 'kakak_tiri', 'rumah', 'kasut'],
     boxes: [
-      { required: ['putera', 'kasut'], text: "Putera berjanji akan mencari pemilik kasut kaca ini.", hint1: "Siapa yang membawa kasut kaca untuk dicuba?" },
-      { required: ['putera', 'rumah'], text: "Putera sampai di rumah Cinderella.", hint1: "Putera tiba di bangunan mana untuk mencari gadis itu?" },
-      { required: ['kakak_tiri', 'kasut'], text: "Kakak tiri cuba memakai kasut itu tetapi kakinya terlalu besar.", hint1: "Siapa yang mencuba kasut tetapi tidak muat?" },
-      { required: ['cinderella', 'kasut'], text: "Cinderella cuba kasut itu dan ia muat dengan sempurna!", hint1: "Siapa pemilik sebenar kasut itu?" },
-      { required: ['putera', 'cinderella'], text: "Putera dan Cinderella sangat gembira dan hidup bahagia selamanya.", hint1: "Siapa yang akhirnya hidup gembira bersama?" }
+      { required: ['putera', 'kasut'], text: "The Prince promises to find the owner of this glass slipper.", hint1: "Who brings the glass slipper to be tried on?" },
+      { required: ['putera', 'rumah'], text: "The Prince arrives at Cinderella's house.", hint1: "Which building does the Prince arrive at to find the girl?" },
+      { required: ['kakak_tiri', 'kasut'], text: "The stepsister tries to wear the slipper but her feet are too big.", hint1: "Who tries the slipper but it doesn't fit?" },
+      { required: ['cinderella', 'kasut'], text: "Cinderella tries the slipper and it fits perfectly!", hint1: "Who is the true owner of the slipper?" },
+      { required: ['putera', 'cinderella'], text: "The Prince and Cinderella are very happy and live happily ever after.", hint1: "Who finally lives happily together?" }
     ]
   }
 ];
@@ -459,7 +459,7 @@ function renderMap() {
     if (isUnlocked) {
       node.setAttribute('tabindex', '0');
       node.setAttribute('role', 'button');
-      node.setAttribute('aria-label', `Main ${lvl.title}`);
+      node.setAttribute('aria-label', `Play ${lvl.title}`);
       node.onclick = () => startLevel(i);
       node.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startLevel(i); } };
     }
@@ -488,11 +488,11 @@ function prepareBox() {
   game.hintLevel = 0;
   game.placedSlots = Array(box.required.length).fill(null);
   
-  // Update Chrome
-  document.getElementById('levelProgress').textContent = `Bab ${game.currentLevel + 1} daripada ${LEVELS.length}`;
+  // Update UI
+  document.getElementById('levelProgress').textContent = `Chapter ${game.currentLevel + 1} of ${LEVELS.length}`;
   document.getElementById('lvlTitle').textContent = lvl.title;
   document.getElementById('lvlObjective').textContent = lvl.objective;
-  document.getElementById('questionProgress').textContent = `Soalan ${game.currentBox + 1} daripada ${lvl.boxes.length}`;
+  document.getElementById('questionProgress').textContent = `Question ${game.currentBox + 1} of ${lvl.boxes.length}`;
   
   sembunyiMaklumBalas();
   renderSlots();
@@ -511,7 +511,7 @@ function renderSlots() {
     slot.className = `slot ${cardId ? 'filled' : ''}`;
     slot.setAttribute('tabindex', '0');
     slot.setAttribute('role', 'button');
-    slot.setAttribute('aria-label', cardId ? `Keluarkan ${ELEMENTS[cardId].name}` : `Ruang kosong ${index+1}`);
+    slot.setAttribute('aria-label', cardId ? `Remove ${ELEMENTS[cardId].name}` : `Empty slot ${index+1}`);
     
     slot.onclick = () => keluarkanKad(index);
     slot.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); keluarkanKad(index); } };
@@ -523,7 +523,7 @@ function renderSlots() {
         <div class="card-name">${el.name}</div>
       `;
     } else {
-      slot.innerHTML = `<div class="slot-empty-text">Kosong</div>`;
+      slot.innerHTML = `<div class="slot-empty-text">Empty</div>`;
     }
     
     area.appendChild(slot);
@@ -536,9 +536,9 @@ function renderPalette() {
   
   const lvl = LEVELS[game.currentLevel];
   const categories = [
-    { id: 'watak', name: 'Watak' },
-    { id: 'tempat', name: 'Tempat' },
-    { id: 'objek', name: 'Objek' }
+    { id: 'watak', name: 'Character' },
+    { id: 'tempat', name: 'Place' },
+    { id: 'objek', name: 'Object' }
   ];
   
   categories.forEach(cat => {
@@ -559,7 +559,7 @@ function renderPalette() {
       card.id = `card-${id}`;
       card.setAttribute('tabindex', '0');
       card.setAttribute('role', 'button');
-      card.setAttribute('aria-label', `Pilih ${el.name}`);
+      card.setAttribute('aria-label', `Select ${el.name}`);
       
       card.onclick = () => pilihKad(id);
       card.onkeydown = (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pilihKad(id); } };
@@ -580,7 +580,7 @@ function renderStory() {
   const list = document.getElementById('storyList');
   list.innerHTML = '';
   if (game.storyLines.length === 0) {
-    list.innerHTML = '<li style="color: #AAA; list-style: none;">Belum ada ayat yang dibina.</li>';
+    list.innerHTML = '<li style="color: #AAA; list-style: none;">No sentences built yet.</li>';
   } else {
     game.storyLines.forEach(line => {
       const li = document.createElement('li');
@@ -600,7 +600,7 @@ function pilihKad(id) {
     checkReadyToSubmit();
     sembunyiMaklumBalas();
   } else {
-    tunjukMaklumBalas("Ruang sudah penuh! Keluarkan kad jika mahu menukar.", "hint");
+    tunjukMaklumBalas("Slot is full! Remove a card if you want to change.", "hint");
   }
 }
 
@@ -688,15 +688,15 @@ function tunjukHint(dariButang) {
 
 function berikanHint(dariSalah) {
   const box = LEVELS[game.currentLevel].boxes[game.currentBox];
-  const intro = dariSalah ? "Belum tepat. " : "💡 Hint: ";
+  const intro = dariSalah ? "Not quite. " : "💡 Hint: ";
   
   if (game.hintLevel === 1) {
-    tunjukMaklumBalas(intro + "Cuba fikir: " + box.hint1, dariSalah ? "error" : "hint");
+    tunjukMaklumBalas(intro + "Think about: " + box.hint1, dariSalah ? "error" : "hint");
   } else if (game.hintLevel === 2) {
-    const namaKad = box.required.map(id => ELEMENTS[id].name).join(" dan ");
-    tunjukMaklumBalas(intro + "Pilih kad " + namaKad + ".", dariSalah ? "error" : "hint");
+    const namaKad = box.required.map(id => ELEMENTS[id].name).join(" and ");
+    tunjukMaklumBalas(intro + "Select the " + namaKad + " cards.", dariSalah ? "error" : "hint");
   } else {
-    tunjukMaklumBalas(intro + "Mari cuba bersama! Pilih kad yang bercahaya di bawah.", dariSalah ? "error" : "hint");
+    tunjukMaklumBalas(intro + "Let's try together! Select the glowing cards below.", dariSalah ? "error" : "hint");
     box.required.forEach(id => {
       const el = document.getElementById(`card-${id}`);
       if (el) el.classList.add('highlight');
@@ -706,7 +706,7 @@ function berikanHint(dariSalah) {
 
 function ulangArahan() {
   const objective = document.getElementById('lvlObjective').textContent;
-  alert("Matlamat: " + objective + "\n\nArahan: Pilih kad yang betul, letakkan di ruang kosong, dan tekan Semak Jawapan.");
+  alert("Objective: " + objective + "\n\nInstructions: Select the correct cards, place them in the empty slots, and press Check Answer.");
 }
 
 function resetSemua() {
