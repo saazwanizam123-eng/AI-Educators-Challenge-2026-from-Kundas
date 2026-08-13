@@ -234,6 +234,12 @@
 </head>
 <body>
 
+<!-- BUTANG KELUAR KE MAIN PAGE -->
+<button onclick="window.location.href='index.html'" style="position: absolute; top: 15px; left: 15px; padding: 10px 20px; background-color: #ff4757; color: white; border: none; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; z-index: 9999; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s;">
+    ⬅ Keluar
+</button>
+<!-- =========================== -->
+
 <div id="app">
 
   <!-- TITLE SCREEN -->
@@ -700,9 +706,7 @@ function berikanHint(dariSalah) {
 
 function ulangArahan() {
   const objective = document.getElementById('lvlObjective').textContent;
-  alert("Matlamat: " + objective + "
-
-Arahan: Pilih kad yang betul, letakkan di ruang kosong, dan tekan Semak Jawapan.");
+  alert("Matlamat: " + objective + "\n\nArahan: Pilih kad yang betul, letakkan di ruang kosong, dan tekan Semak Jawapan.");
 }
 
 function resetSemua() {
