@@ -33,12 +33,18 @@
     }
 
     /* BACKGROUND IMAGE: BG1 ONLY */
-    body {
-      min-height: 100vh;
-      background: url('assets/image/bg1.jpg') center/cover no-repeat fixed;
-      color: var(--text-main);
-      padding: 20px;
-      transition: background 0.3s ease, color 0.3s ease;
+body {
+  min-height: 100vh;
+  background-color: #0f172a; /* Dark fallback background */
+  background-image: url('assets/image/bg1.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text-main);
+  padding: 20px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
     }
 
     /* High Contrast Mode Toggle Class */
