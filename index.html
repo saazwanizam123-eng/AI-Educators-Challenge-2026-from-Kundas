@@ -14,14 +14,14 @@
     /* ==========================================================================
        DASHBOARD DESIGN SYSTEM & VARIABLES
        ========================================================================== */
-:root {
-      /* Transparency increased by 25% */
-      --glass-bg: rgba(15, 23, 42, 0.30);
+    :root {
+      /* Box transparency increased by 75% */
+      --glass-bg: rgba(15, 23, 42, 0.14);
       --glass-card: rgba(255, 255, 255, 0.01);
-      --glass-card-hover: rgba(255, 255, 255, 0.04);
-      --glass-border: rgba(255, 255, 255, 0.10);
+      --glass-card-hover: rgba(255, 255, 255, 0.02);
+      --glass-border: rgba(255, 255, 255, 0.08);
       --glass-border-focus: rgba(56, 189, 248, 0.4);
-      --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
       --text-main: #f8fafc;
       --text-sub: #94a3b8;
       --accent-teal: #0d9488;
@@ -29,7 +29,6 @@
       --accent-glow: rgba(14, 165, 233, 0.4);
       --primary-font: 'Inter', system-ui, sans-serif;
       --heading-font: 'Fredoka', cursive, sans-serif;
-    }
     }
 
     * {
@@ -75,7 +74,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.4), rgba(11, 19, 43, 0.85));
+      background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.2), rgba(11, 19, 43, 0.6));
       z-index: -2;
       pointer-events: none;
     }
@@ -237,13 +236,13 @@
       top: calc(100% + 8px);
       right: 0;
       width: 210px;
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
       border-radius: 12px;
       padding: 8px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -278,6 +277,11 @@
 
     .a11y-option-btn:hover {
       background: rgba(255, 255, 255, 0.12);
+    }
+
+    .a11y-option-btn.active-tts {
+      background: rgba(13, 148, 136, 0.4);
+      border: 1px solid rgba(56, 189, 248, 0.6);
     }
 
     /* ==========================================================================
@@ -325,8 +329,8 @@
        3 & 4. I-THINK MIND MAPS & ACTIVE WORKSPACE
        ========================================================================== */
     .segmented-control {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
       padding: 3px;
       display: grid;
@@ -362,8 +366,8 @@
     .mindmap-workspace {
       flex: 1;
       min-height: 250px;
-      background: rgba(15, 23, 42, 0.4);
-      border: 1px dashed rgba(255, 255, 255, 0.18);
+      background: rgba(15, 23, 42, 0.15);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
       border-radius: 10px;
       padding: 12px;
       display: flex;
@@ -458,15 +462,15 @@
     }
 
     .chat-msg.ai {
-      background: rgba(13, 148, 136, 0.25);
-      border: 1px solid rgba(13, 148, 136, 0.4);
+      background: rgba(13, 148, 136, 0.15);
+      border: 1px solid rgba(13, 148, 136, 0.3);
       align-self: flex-start;
       color: #f1f5f9;
     }
 
     .chat-msg.user {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       align-self: flex-end;
       color: #ffffff;
     }
@@ -480,8 +484,8 @@
     }
 
     .quick-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-main);
       padding: 4px 8px;
       font-size: 0.72rem;
@@ -492,7 +496,7 @@
     }
 
     .quick-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
       border-color: var(--accent-blue);
     }
 
@@ -505,8 +509,8 @@
 
     .chat-input {
       flex: 1;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
       padding: 6px 10px;
       color: #ffffff;
@@ -520,8 +524,8 @@
     }
 
     .action-icon-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #ffffff;
       padding: 6px 10px;
       font-size: 0.8rem;
@@ -532,7 +536,7 @@
     }
 
     .action-icon-btn:hover {
-      background: rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.18);
     }
 
     .recording-active {
@@ -580,7 +584,7 @@
     .material-card:hover {
       transform: translateY(-2px);
       background: var(--glass-card-hover);
-      border-color: rgba(255, 255, 255, 0.28);
+      border-color: rgba(255, 255, 255, 0.18);
     }
 
     .material-info h4 {
@@ -674,7 +678,7 @@
           ♿ Accessibility ▾
         </button>
         <div class="a11y-popover" id="a11yPopover">
-          <button class="a11y-option-btn" onclick="toggleSpeech()">🔊 Text-to-Speech</button>
+          <button class="a11y-option-btn" id="ttsToggleBtn" onclick="toggleSpeech()">🔊 Text-to-Speech: OFF</button>
           <button class="a11y-option-btn" onclick="adjustFontSize(1)">🔤 Increase Text Size</button>
           <button class="a11y-option-btn" onclick="adjustFontSize(-1)">🔤 Decrease Text Size</button>
           <button class="a11y-option-btn" onclick="toggleAnimatedBg()">🌊 Animated Background</button>
@@ -831,8 +835,65 @@
     setInterval(rotateBackground, 8000);
 
     /* ==========================================================================
-       ACCESSIBILITY POPOVER & CONTROLS
+       TEXT-TO-SPEECH (TTS) & ACCESSIBILITY CONTROLS
        ========================================================================== */
+    let ttsActive = false;
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel(); // Stop current speech before speaking new text
+      if (!text || !text.trim()) return;
+      
+      const utterance = new SpeechSynthesisUtterance(text.trim());
+      utterance.rate = 0.95;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function toggleSpeech() {
+      ttsActive = !ttsActive;
+      const ttsBtn = document.getElementById('ttsToggleBtn');
+      
+      if (ttsActive) {
+        ttsBtn.innerText = "🔊 Text-to-Speech: ON";
+        ttsBtn.classList.add('active-tts');
+        speakText("Text to speech enabled. Hover or click buttons to hear sound, and AI chat replies will be read aloud.");
+      } else {
+        ttsBtn.innerText = "🔊 Text-to-Speech: OFF";
+        ttsBtn.classList.remove('active-tts');
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      }
+    }
+
+    // Dynamic Speech Event Listeners for Hover & Click on Interactive Elements
+    function getElementSpeechText(el) {
+      if (el.getAttribute('title')) return el.getAttribute('title');
+      if (el.getAttribute('aria-label')) return el.getAttribute('aria-label');
+      
+      // Clean emoji or icon prefixes out for smoother speech readability
+      let text = el.innerText || el.textContent;
+      text = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+      return text;
+    }
+
+    document.addEventListener('mouseover', (e) => {
+      if (!ttsActive) return;
+      const target = e.target.closest('button, a, .node-child, .node-root');
+      if (target) {
+        const textToSpeak = getElementSpeechText(target);
+        speakText(textToSpeak);
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!ttsActive) return;
+      const target = e.target.closest('button, a, .node-child, .node-root');
+      if (target && target.id !== 'ttsToggleBtn') {
+        const textToSpeak = getElementSpeechText(target);
+        speakText(textToSpeak);
+      }
+    });
+
     function toggleA11yPopover() {
       document.getElementById('a11yPopover').classList.toggle('open');
     }
@@ -858,15 +919,6 @@
       if ((sizeOffset <= -4 && delta < 0) || (sizeOffset >= 8 && delta > 0)) return;
       sizeOffset += delta * 2;
       document.body.style.fontSize = (14 + sizeOffset) + 'px';
-    }
-
-    function toggleSpeech() {
-      const text = "Welcome to MINDA INKLUSIF AI. Select a mind map or ask your AI helper for guidance.";
-      if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.9;
-        window.speechSynthesis.speak(utterance);
-      }
     }
 
     /* ==========================================================================
@@ -895,13 +947,11 @@
     };
 
     function selectMap(type, btnElement) {
-      // Update segmented control active states
       document.querySelectorAll('.segment-btn').forEach(btn => btn.classList.remove('active'));
       if (btnElement) btnElement.classList.add('active');
 
       const canvas = document.getElementById('mindmapCanvas');
       
-      // Use custom image if available, else render clean structural interactive preview
       if (mapImages[type]) {
         canvas.innerHTML = `<img src="${mapImages[type]}" alt="${type} Map" onerror="this.onerror=null; this.parentNode.innerHTML=mapSampleData['${type}'];">`;
       } else {
@@ -914,7 +964,6 @@
        ========================================================================== */
     function sendMessage() {
       const input = document.getElementById('userInput');
-      const messages = document.getElementById('chatMessages');
       const text = input.value.trim();
 
       if (!text) return;
@@ -946,6 +995,11 @@
       msg.innerText = text;
       messages.appendChild(msg);
       messages.scrollTop = messages.scrollHeight;
+
+      // Speak AI messages automatically if TTS mode is enabled
+      if (sender === 'ai' && ttsActive) {
+        speakText(text);
+      }
     }
 
     function handleKey(e) {
@@ -954,7 +1008,7 @@
 
     function generateAIResponse(query) {
       const q = query.toLowerCase();
-      if (q.includes('hello') || q.includes('hi')) return "Hello! 😊 Ready to build an exciting mind map together?";
+      if (q.includes('hello') || q.includes('hi')) return "Hello! Ready to build an exciting mind map together?";
       if (q.includes('part') || q.includes('body') || q.includes('car')) return "1. Best map: Brace Map\n2. Why: Shows parts of a whole!\n3. Example: Whole -> Sections -> Sub-parts.";
       if (q.includes('group') || q.includes('sort') || q.includes('animal')) return "1. Best map: Tree Map\n2. Why: Groups items into neat categories!";
       if (q.includes('step') || q.includes('order')) return "1. Best map: Flow Map\n2. Why: Shows sequence step-by-step with arrows!";
