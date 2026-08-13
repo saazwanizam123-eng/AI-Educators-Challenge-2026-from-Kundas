@@ -112,13 +112,13 @@
       border: 1px solid #ffff00 !important;
     }
 
-    /* Wave Background Overlay */
+    /* Full-Screen Animated Wave Background Overlay */
     .wave-container {
       position: fixed;
-      bottom: 0;
+      top: 0;
       left: 0;
-      width: 100%;
-      height: 180px;
+      width: 100vw;
+      height: 100vh;
       z-index: -1;
       pointer-events: none;
       display: none;
@@ -131,26 +131,26 @@
 
     .wave {
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
       width: 200%;
       height: 100%;
-      background-repeat: repeat-x;
     }
 
     @keyframes colorShift {
-      0% { fill: #06b6d4; }
-      33% { fill: #3b82f6; }
-      66% { fill: #a855f7; }
-      100% { fill: #06b6d4; }
+      0% { fill: rgba(6, 182, 212, 0.35); }
+      25% { fill: rgba(59, 130, 246, 0.35); }
+      50% { fill: rgba(168, 85, 247, 0.35); }
+      75% { fill: rgba(236, 72, 153, 0.35); }
+      100% { fill: rgba(6, 182, 212, 0.35); }
     }
 
     .wave path {
-      animation: colorShift 12s infinite ease-in-out alternate;
+      animation: colorShift 14s infinite ease-in-out alternate;
     }
 
-    .wave1 { animation: waveAnim1 12s linear infinite; opacity: 0.35; }
-    .wave2 { animation: waveAnim2 18s linear infinite; opacity: 0.2; bottom: 8px; }
+    .wave1 { animation: waveAnim1 14s linear infinite; opacity: 0.6; }
+    .wave2 { animation: waveAnim2 20s linear infinite; opacity: 0.4; }
 
     @keyframes waveAnim1 {
       0% { transform: translateX(0); }
@@ -819,13 +819,13 @@
   <div class="bg-layer" id="bg2"></div>
   <div class="bg-overlay"></div>
 
-  <!-- Animated Wave Background Layer -->
+  <!-- Full-Screen Animated Wave Background Layer -->
   <div class="wave-container" id="waveContainer">
-    <svg class="wave wave1" viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path d="M0,0 C150,90 350,-40 500,40 C650,120 900,10 1200,40 L1200,120 L0,120 Z"></path>
+    <svg class="wave wave1" viewBox="0 0 1200 800" preserveAspectRatio="none">
+      <path d="M0,0 C300,180 600,-50 900,220 C1050,320 1200,120 1200,800 L0,800 Z"></path>
     </svg>
-    <svg class="wave wave2" viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path d="M0,30 C200,100 450,-20 600,50 C750,120 1000,0 1200,30 L1200,120 L0,120 Z"></path>
+    <svg class="wave wave2" viewBox="0 0 1200 800" preserveAspectRatio="none">
+      <path d="M0,200 C200,500 450,-100 600,320 C750,680 1000,120 1200,800 L0,800 Z"></path>
     </svg>
   </div>
 
@@ -919,13 +919,14 @@
 
         <!-- Chat Messages Container -->
         <div class="chat-messages" id="chatMessages">
-          <div class="chat-msg ai">Hello! 👋 I am your AI Thinking Map Guide. Tell me your <b>Topic + Learning Objective</b> (e.g., "compare cats and dogs", "classify animals", or "ablution steps"), and I will match it with the exact Thinking Map! 🌟</div>
+          <div class="chat-msg ai">Hello! 👋 I am your AI Thinking Map Guide. Tell me your <b>Topic + Learning Objective</b> (e.g., "compare cats and dogs", "classify plants", "classify animals", or "ablution steps"), and I will match it with the exact Thinking Map! 🌟</div>
         </div>
 
         <!-- Quick Action Suggestion Buttons -->
         <div class="quick-actions">
           <button class="quick-btn" onclick="sendQuickAction('Sequence of ablution steps')"><i class="fa-solid fa-hands-wash"></i> Ablution Steps</button>
-          <button class="quick-btn" onclick="sendQuickAction('Classify types of plants')"><i class="fa-solid fa-tree"></i> Classify Plants</button>
+          <button class="quick-btn" onclick="sendQuickAction('Classify types of plants')"><i class="fa-solid fa-seedling"></i> Classify Plants</button>
+          <button class="quick-btn" onclick="sendQuickAction('Classify types of animals')"><i class="fa-solid fa-paw"></i> Classify Animals</button>
           <button class="quick-btn" onclick="sendQuickAction('Compare cat and rabbit')"><i class="fa-solid fa-scale-balanced"></i> Compare Animals</button>
         </div>
 
@@ -1124,11 +1125,26 @@
       document.body.classList.toggle('high-contrast');
     }
 
-    let sizeOffset = 0;
+    /* PROPORTIONAL DYNAMIC FONT SIZING FOR ALL DOM ELEMENTS */
+    let fontStep = 0;
     function adjustFontSize(delta) {
-      if ((sizeOffset <= -4 && delta < 0) || (sizeOffset >= 8 && delta > 0)) return;
-      sizeOffset += delta * 2;
-      document.body.style.fontSize = (14 + sizeOffset) + 'px';
+      fontStep += delta;
+      const elements = document.querySelectorAll('body, body *');
+      
+      elements.forEach(el => {
+        if (!el.dataset.origFontSize) {
+          const currentComputed = parseFloat(window.getComputedStyle(el).fontSize);
+          if (currentComputed) {
+            el.dataset.origFontSize = currentComputed;
+          }
+        }
+        
+        if (el.dataset.origFontSize) {
+          const baseSize = parseFloat(el.dataset.origFontSize);
+          const newSize = Math.max(8, baseSize + (fontStep * 1.5));
+          el.style.fontSize = newSize + 'px';
+        }
+      });
     }
 
     /* AI DYSLEXIA ADAPTER FUNCTIONS */
@@ -1303,7 +1319,7 @@
 
       if (q === 'hi' || q === 'hello' || q === 'hey' || q === 'greetings') {
         return {
-          text: "Hello! 😊 I am your AI Thinking Map Guide. Please tell me your <b>Topic</b> and <b>Learning Objective</b> (e.g., 'Classify animals by habitat' or 'Steps to plant a seed') so I can create the ideal map!",
+          text: "Hello! 😊 I am your AI Thinking Map Guide. Please tell me your <b>Topic</b> and <b>Learning Objective</b> (e.g., 'Classify plants', 'Classify animals by habitat', or 'Steps to plant a seed') so I can create the ideal map!",
           mapType: null
         };
       }
@@ -1344,20 +1360,40 @@
         q.includes('classify') || q.includes('categorize') || q.includes('category') || 
         q.includes('categories') || q.includes('group') || q.includes('groups') || 
         q.includes('types of') || q.includes('kinds of') || q.includes('divide into') ||
-        q.includes('habitat') || q.includes('classification') || q.includes('plant')
+        q.includes('habitat') || q.includes('classification') || q.includes('plant') || q.includes('animal')
       ) {
+        // PLANT CLASSIFICATION MAP
+        if (q.includes('plant') || q.includes('seed') || q.includes('flora')) {
+          return {
+            text: "SUITABLE MAP: <b>TREE MAP</b> 🌳 (PLANT CLASSIFICATION)<br>" +
+              "<b>Purpose:</b> Categorize or group plant species into distinct structural types.<br><br>" +
+              "```\n" +
+              "                      [ TYPES OF PLANTS ]\n" +
+              "           ┌───────────────────┼───────────────────┐\n" +
+              "           ▼                   ▼                   ▼\n" +
+              "    [ Flowering Plants ]  [ Non-Flowering ]    [ Mosses & Ferns ]\n" +
+              "       • Hibiscus          • Pine Tree         • Staghorn Fern\n" +
+              "       • Rose              • Cycad             • Java Moss\n" +
+              "```<br>" +
+              "<b>In Simple Terms:</b> Plants are grouped into Flowering, Non-Flowering, and Mosses/Ferns!<br>" +
+              "💡 <b>Teacher's Tip:</b> Tree Maps make sorting plant traits visual and structured.",
+            mapType: 'Tree'
+          };
+        }
+
+        // ANIMAL CLASSIFICATION MAP (DEFAULT ANIMAL RESPONSE)
         return {
-          text: "SUITABLE MAP: <b>TREE MAP</b> 🌳<br>" +
-            "<b>Purpose:</b> Categorize or group information under main subtopics.<br><br>" +
+          text: "SUITABLE MAP: <b>TREE MAP</b> 🌳 (ANIMAL CLASSIFICATION)<br>" +
+            "<b>Purpose:</b> Categorize or group animals under main subtopics.<br><br>" +
             "```\n" +
-            "                      [ ANIMAL HABITATS ]\n" +
+            "                      [ TYPES OF ANIMALS ]\n" +
             "           ┌───────────────────┼───────────────────┐\n" +
             "           ▼                   ▼                   ▼\n" +
-            "    [ Land Animals ]    [ Water Animals ]   [ Air Animals ]\n" +
-            "       • Cat               • Fish              • Bird\n" +
-            "       • Elephant          • Whale             • Eagle\n" +
+            "    [ Mammals ]         [ Reptiles ]        [ Birds & Fish ]\n" +
+            "       • Cat               • Snake             • Eagle\n" +
+            "       • Elephant          • Turtle            • Salmon\n" +
             "```<br>" +
-            "<b>In Simple Terms:</b> Information is split neatly into main groups and examples!<br>" +
+            "<b>In Simple Terms:</b> Animals are split neatly into main groups like Mammals, Reptiles, and Birds/Fish!<br>" +
             "💡 <b>Teacher's Tip:</b> When the objective involves sorting or categorizing facts, choose a Tree Map.",
           mapType: 'Tree'
         };
