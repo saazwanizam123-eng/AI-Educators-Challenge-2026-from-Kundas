@@ -8,7 +8,7 @@
   <!-- Favicon Integration -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2338bdf8'/><stop offset='100%' stop-color='%23c084fc'/></linearGradient></defs><rect width='100' height='100' rx='24' fill='%230f172a'/><circle cx='50' cy='50' r='35' fill='none' stroke='url(%23g)' stroke-width='8'/><path d='M35 40a15 15 0 0 1 30 0c0 10-15 15-15 25' fill='none' stroke='url(%23g)' stroke-width='8' stroke-linecap='round'/><circle cx='50' cy='80' r='5' fill='%2338bdf8'/></svg>">
 
-  <!-- Inter, Fredoka & Lexend (Dyslexia-Friendly) Fonts -->
+  <!-- Inter, Fredoka & Lexend Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -162,9 +162,7 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* ==========================================================================
-       MAIN APPLICATION CONTAINER
-       ========================================================================== */
+    /* MAIN APPLICATION CONTAINER */
     .app-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -181,9 +179,7 @@
       transition: opacity 0.5s ease;
     }
 
-    /* ==========================================================================
-       1. COMPACT APPLICATION HEADER
-       ========================================================================== */
+    /* HEADER */
     .app-header {
       display: flex;
       align-items: center;
@@ -306,9 +302,7 @@
       border: 1px solid rgba(56, 189, 248, 0.6);
     }
 
-    /* ==========================================================================
-       2. MAIN DASHBOARD WORKSPACE (2-COLUMN LAYOUT)
-       ========================================================================== */
+    /* DASHBOARD WORKSPACE */
     .dashboard-workspace {
       display: grid;
       grid-template-columns: 1.2fr 1.2fr;
@@ -351,9 +345,7 @@
       color: var(--text-sub);
     }
 
-    /* ==========================================================================
-       3 & 4. I-THINK MIND MAPS & ACTIVE WORKSPACE
-       ========================================================================== */
+    /* I-THINK MIND MAP CONTROLS */
     .segmented-control {
       background: rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -404,59 +396,15 @@
       transition: background 0.3s ease;
     }
 
-    .mindmap-node-tree {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-    }
-
-    .node-root {
-      background: linear-gradient(135deg, #0284c7, #0d9488);
-      color: #ffffff;
-      font-weight: 700;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .node-branches {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      width: 100%;
-      flex-wrap: wrap;
-    }
-
-    .node-child {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #e2e8f0;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .node-child:hover {
-      transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.15);
-    }
-
     .mindmap-workspace img {
       max-width: 100%;
       max-height: 230px;
       object-fit: contain;
       border-radius: 6px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
-    /* ==========================================================================
-       5. FRIENDLY AI ASSISTANT CHATBOX
-       ========================================================================== */
+    /* AI ASSISTANT CHATBOX */
     .ai-chat-card {
       justify-content: space-between;
     }
@@ -513,7 +461,6 @@
       color: #ffffff;
     }
 
-    /* Quick Action Buttons */
     .quick-actions {
       display: flex;
       gap: 6px;
@@ -545,7 +492,6 @@
       border-color: var(--accent-blue);
     }
 
-    /* Chat Input Bar */
     .chat-input-area {
       display: flex;
       gap: 6px;
@@ -599,9 +545,7 @@
       100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
     }
 
-    /* ==========================================================================
-       6. AI DYSLEXIA TEXT ADAPTER & ACCESSIBILITY SECTION
-       ========================================================================== */
+    /* DYSLEXIA TEXT ADAPTER */
     .dyslexia-toolbar {
       background: rgba(0, 0, 0, 0.25);
       border: 1px solid var(--glass-border);
@@ -639,7 +583,6 @@
       color: #ffffff;
     }
 
-    /* Tint Swatches for Visual Stress */
     .tint-swatches {
       display: flex;
       align-items: center;
@@ -666,7 +609,6 @@
     .tint-mint { background-color: #e8f5e9; }
     .tint-peach { background-color: #fff3e0; }
 
-    /* Grid for Dyslexia Input & Output */
     .dyslexia-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -716,7 +658,6 @@
       transform: translateY(-1px);
     }
 
-    /* Adapted Output Card Styles */
     .dyslexia-output-card {
       background: rgba(15, 23, 42, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -776,9 +717,7 @@
       color: #86efac;
     }
 
-    /* ==========================================================================
-       7. LEARNING MATERIALS HORIZONTAL DASHBOARD CARDS
-       ========================================================================== */
+    /* LEARNING MATERIALS */
     .learning-materials-section {
       display: flex;
       flex-direction: column;
@@ -841,9 +780,7 @@
       gap: 4px;
     }
 
-    /* ==========================================================================
-       RESPONSIVE DASHBOARD LAYOUT
-       ========================================================================== */
+    /* RESPONSIVE LAYOUT */
     @media (max-width: 900px) {
       .dashboard-workspace, .dyslexia-grid {
         grid-template-columns: 1fr;
@@ -897,7 +834,6 @@
     <!-- 1. COMPACT HEADER -->
     <header class="app-header">
       <div class="header-brand">
-        <!-- SVG Vector Portal Logo -->
         <svg class="brand-svg-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10" stroke="url(#logo-grad)" stroke-dasharray="4 2"/>
           <path d="M9.5 8.5A2.5 2.5 0 0 1 12 6a2.5 2.5 0 0 1 2.5 2.5c0 1.5-1.5 2.5-2.5 4" stroke="url(#logo-grad)"/>
@@ -970,28 +906,20 @@
 
         <!-- Active Interactive Workspace Area -->
         <div class="mindmap-workspace" id="mindmapCanvas">
-          <!-- Initial Active Example Map -->
-          <div class="mindmap-node-tree">
-            <div class="node-root"><i class="fa-solid fa-paw"></i> Animals</div>
-            <div class="node-branches">
-              <div class="node-child"><i class="fa-solid fa-cat"></i> Cat (Land)</div>
-              <div class="node-child"><i class="fa-solid fa-fish"></i> Fish (Water)</div>
-              <div class="node-child"><i class="fa-solid fa-crow"></i> Bird (Air)</div>
-            </div>
-          </div>
+          <img src="pbulat.jpg" alt="Circle Map">
         </div>
       </section>
 
-      <!-- RIGHT COLUMN: Friendly AI Assistant (AI Thinking Map Builder) -->
+      <!-- RIGHT COLUMN: Friendly AI Assistant -->
       <section class="glass-card ai-chat-card">
         <div class="card-header">
           <h2 class="card-title"><i class="fa-solid fa-robot"></i> AI Thinking Map Builder</h2>
           <p class="card-subtitle">State a topic, learning objective, or query to build an ASCII map</p>
         </div>
 
-        <!-- Chat Messages Container -->
+        <!-- Chat Messages Container (Asterisks removed) -->
         <div class="chat-messages" id="chatMessages">
-          <div class="chat-msg ai">Hello! 👋 I am your AI Thinking Map Guide. Tell me your **Topic + Learning Objective** (e.g., "compare cats and dogs", "classify animals", or "ablution steps"), and I will match it with the exact Thinking Map! 🌟</div>
+          <div class="chat-msg ai">Hello! 👋 I am your AI Thinking Map Guide. Tell me your <b>Topic + Learning Objective</b> (e.g., "compare cats and dogs", "classify animals", or "ablution steps"), and I will match it with the exact Thinking Map! 🌟</div>
         </div>
 
         <!-- Quick Action Suggestion Buttons -->
@@ -1018,7 +946,6 @@
         <p class="card-subtitle">Transform dense textbook passages into accessible, low-stress structured learning material</p>
       </div>
 
-      <!-- Dyslexia Controls Toolbar -->
       <div class="dyslexia-toolbar">
         <div class="dyslexia-control-group">
           <label for="fontSelect"><i class="fa-solid fa-font"></i> Font:</label>
@@ -1052,9 +979,7 @@
         </div>
       </div>
 
-      <!-- Dyslexia Interactive Grid -->
       <div class="dyslexia-grid">
-        <!-- Input Text Box -->
         <div>
           <label for="inputText" style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">📝 Paste Text:</label>
           <textarea id="inputText" class="dyslexia-textarea" placeholder="Paste any text passage or textbook content here..."></textarea>
@@ -1063,7 +988,6 @@
           </button>
         </div>
 
-        <!-- Dynamic Adapted Output Display Card -->
         <div>
           <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">🎯 Easy-to-Read Output:</label>
           <div id="outputCard" class="dyslexia-output-card">
@@ -1117,9 +1041,7 @@
   </div>
 
   <script>
-    /* ==========================================================================
-       BACKGROUND ROTATION LOGIC
-       ========================================================================== */
+    /* BACKGROUND ROTATION LOGIC */
     const bgImages = [
       'assets/image/bg1.jpg',
       'assets/image/bg2.jpg',
@@ -1153,9 +1075,7 @@
     }
     setInterval(rotateBackground, 8000);
 
-    /* ==========================================================================
-       TEXT-TO-SPEECH (TTS) & ACCESSIBILITY CONTROLS
-       ========================================================================== */
+    /* ACCESSIBILITY & SPEECH CONTROLS */
     let ttsActive = false;
 
     function speakText(text) {
@@ -1211,9 +1131,7 @@
       document.body.style.fontSize = (14 + sizeOffset) + 'px';
     }
 
-    /* ==========================================================================
-       AI DYSLEXIA ADAPTER FUNCTIONS
-       ========================================================================== */
+    /* AI DYSLEXIA ADAPTER FUNCTIONS */
     function changeFont(font) {
       document.getElementById('outputCard').style.fontFamily = font;
     }
@@ -1298,48 +1216,38 @@
       }
     }
 
-    /* ==========================================================================
-       INTERACTIVE MIND MAP WORKSPACE & MAP RENDERING
-       ========================================================================== */
-    const mapSampleData = {
-      'Circle': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-regular fa-circle"></i> Meaning: Solar System</div><div class="node-branches"><div class="node-child">Sun</div><div class="node-child">Planets</div><div class="node-child">Moon</div></div></div>`,
-      'Bubble': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-regular fa-comment-dots"></i> Feature: Ocean</div><div class="node-branches"><div class="node-child">Deep</div><div class="node-child">Blue</div><div class="node-child">Vast</div><div class="node-child">Salty</div></div></div>`,
-      'Double Bubble': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-scale-balanced"></i> Compare: Apple vs Orange</div><div class="node-branches"><div class="node-child">Fruit (Same)</div><div class="node-child">Red (Apple)</div><div class="node-child">Orange (Orange)</div></div></div>`,
-      'Tree': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-paw"></i> Animals</div><div class="node-branches"><div class="node-child"><i class="fa-solid fa-cat"></i> Cat (Land)</div><div class="node-child"><i class="fa-solid fa-fish"></i> Fish (Water)</div><div class="node-child"><i class="fa-solid fa-crow"></i> Bird (Air)</div></div></div>`,
-      'Brace': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-cubes"></i> Parts: Computer</div><div class="node-branches"><div class="node-child">Screen</div><div class="node-child">Keyboard</div><div class="node-child">Mouse</div></div></div>`,
-      'Flow': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-arrow-right-long"></i> Sequence: Plant Growth</div><div class="node-branches"><div class="node-child">1. Seed</div><div class="node-child">2. Sprout</div><div class="node-child">3. Tree</div></div></div>`,
-      'Multi-Flow': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-code-fork"></i> Cause & Effect: Rain</div><div class="node-branches"><div class="node-child">Heavy Clouds (Cause)</div><div class="node-child">Wet Ground (Effect)</div></div></div>`,
-      'Bridge': `<div class="mindmap-node-tree"><div class="node-root"><i class="fa-solid fa-bridge"></i> Analogy: Wing to Bird</div><div class="node-branches"><div class="node-child">Fin to Fish</div><div class="node-child">Wheel to Car</div></div></div>`
-    };
-
+    /* INTERACTIVE MIND MAP WORKSPACE & IMAGE MAP RENDERING */
     const mapImages = {
-      'Circle': 'assets/image/circle.jpg',
-      'Bubble': 'assets/image/bubble.jpg',
-      'Double Bubble': 'assets/image/double_bubble.jpg',
-      'Tree': 'assets/image/tree.jpg',
-      'Brace': 'assets/image/brace.jpg',
-      'Flow': 'assets/image/flow.jpg',
-      'Multi-Flow': 'assets/image/multi_flow.jpg',
-      'Bridge': 'assets/image/bridge.jpg'
+      'Circle': 'pbulat.jpg',
+      'Bubble': 'pb.jpg',
+      'Double Bubble': 'pbb.jpg',
+      'Tree': 'pp.jpg',
+      'Brace': 'pd.jpg',
+      'Flow': 'pa.jpg',
+      'Multi-Flow': 'pba.jpg',
+      'Bridge': 'pt.jpg'
     };
 
     function selectMap(type, btnElement) {
-      document.querySelectorAll('.segment-btn').forEach(btn => btn.classList.remove('active'));
-      if (btnElement) btnElement.classList.add('active');
+      // Synchronize Segmented Control Active Button Highlight
+      document.querySelectorAll('.segment-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.trim().toLowerCase() === type.toLowerCase()) {
+          btn.classList.add('active');
+        }
+      });
+
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
 
       const canvas = document.getElementById('mindmapCanvas');
-      
       if (mapImages[type]) {
-        canvas.innerHTML = `<img src="${mapImages[type]}" alt="${type} Map" onerror="this.onerror=null; this.parentNode.innerHTML=mapSampleData['${type}'];">`;
-      } else {
-        canvas.innerHTML = mapSampleData[type] || mapSampleData['Tree'];
+        canvas.innerHTML = `<img src="${mapImages[type]}" alt="${type} Map">`;
       }
     }
 
-    /* ==========================================================================
-       AI ASSISTANT ENGINE (INTEGRATED ENHANCED SYSTEM PROMPT LOGIC)
-       Formula: Topic + Learning Objective -> Keywords -> Relationship -> Map Selection
-       ========================================================================== */
+    /* AI ASSISTANT CHATBOX ENGINE WITH AUTO MIND MAP CANVAS SYNC */
     function sendMessage() {
       const input = document.getElementById('userInput');
       const text = input.value.trim();
@@ -1350,8 +1258,12 @@
       input.value = '';
 
       setTimeout(() => {
-        const response = generateAIResponse(text);
-        appendMessage(response, 'ai');
+        const responseData = generateAIResponse(text);
+        appendMessage(responseData.text, 'ai');
+        // Synchronize Mind Map Canvas Image automatically with Chatbot Suggestion
+        if (responseData.mapType) {
+          selectMap(responseData.mapType);
+        }
       }, 400);
     }
 
@@ -1385,67 +1297,73 @@
       if (e.key === 'Enter') sendMessage();
     }
 
-    /* Enhanced System Prompt AI Response Engine */
+    /* AI Logic Engine (Asterisks completely stripped out) */
     function generateAIResponse(query) {
       const q = query.toLowerCase().trim();
 
-      // Greetings
       if (q === 'hi' || q === 'hello' || q === 'hey' || q === 'greetings') {
-        return "Hello! 😊 I am your AI Thinking Map Guide. Please tell me your **Topic** and **Learning Objective** (e.g., 'Classify animals by habitat' or 'Steps to plant a seed') so I can create the ideal map!";
+        return {
+          text: "Hello! 😊 I am your AI Thinking Map Guide. Please tell me your <b>Topic</b> and <b>Learning Objective</b> (e.g., 'Classify animals by habitat' or 'Steps to plant a seed') so I can create the ideal map!",
+          mapType: null
+        };
       }
 
-      // PRIORITY MATRIX 1 & 2: LEARNING OBJECTIVE + INTENT KEYWORDS EVALUATION
-
-      // 1. DOUBLE BUBBLE MAP - Compare & Contrast / Similarities & Differences
+      // 1. DOUBLE BUBBLE MAP - Compare & Contrast
       if (
         q.includes('compare') || q.includes('contrast') || q.includes('difference') || 
         q.includes('similarity') || q.includes('similarities') || q.includes('differences') || 
         q.includes(' versus ') || q.includes(' vs ') || q.includes('same and different') ||
         q.includes('both have') || q.includes('whereas')
       ) {
-        return "SUITABLE MAP: **DOUBLE BUBBLE MAP** 👥<br>" +
-          "**Purpose:** Compare two topics to identify similarities and differences.<br><br>" +
-          "```\n" +
-          "             [ CAT ]                       [ DOG ]\n" +
-          "                │                             │\n" +
-          "         ┌──────▼──────┐               ┌──────▼──────┐\n" +
-          "         │ Meows / Soft│               │ Barks / Loud│\n" +
-          "         └──────┬──────┘               └──────┬──────┘\n" +
-          "                │                             │\n" +
-          "                └──────────────┬──────────────┘\n" +
-          "                               ▼\n" +
-          "                     ┌───────────────────┐\n" +
-          "                     │   SIMILARITIES:   │\n" +
-          "                     │ • 4 Legs          │\n" +
-          "                     │ • Mammal / Pet    │\n" +
-          "                     └───────────────────┘\n" +
-          "```<br>" +
-          "**In Simple Terms:** The center box shows what both share, while side boxes show what makes each unique!<br>" +
-          "💡 **Teacher's Tip:** Use Double Bubble Maps when the objective asks students to find similarities and differences.";
+        return {
+          text: "SUITABLE MAP: <b>DOUBLE BUBBLE MAP</b> 👥<br>" +
+            "<b>Purpose:</b> Compare two topics to identify similarities and differences.<br><br>" +
+            "```\n" +
+            "             [ CAT ]                       [ DOG ]\n" +
+            "                │                             │\n" +
+            "         ┌──────▼──────┐               ┌──────▼──────┐\n" +
+            "         │ Meows / Soft│               │ Barks / Loud│\n" +
+            "         └──────┬──────┘               └──────┬──────┘\n" +
+            "                │                             │\n" +
+            "                └──────────────┬──────────────┘\n" +
+            "                               ▼\n" +
+            "                     ┌───────────────────┐\n" +
+            "                     │   SIMILARITIES:   │\n" +
+            "                     │ • 4 Legs          │\n" +
+            "                     │ • Mammal / Pet    │\n" +
+            "                     └───────────────────┘\n" +
+            "```<br>" +
+            "<b>In Simple Terms:</b> The center box shows what both share, while side boxes show what makes each unique!<br>" +
+            "💡 <b>Teacher's Tip:</b> Use Double Bubble Maps when the objective asks students to find similarities and differences.",
+          mapType: 'Double Bubble'
+        };
       }
 
-      // 2. TREE MAP - Classification, Categorization, Groups & Hierarchy
+      // 2. TREE MAP - Classification, Categorization, Groups
       if (
         q.includes('classify') || q.includes('categorize') || q.includes('category') || 
         q.includes('categories') || q.includes('group') || q.includes('groups') || 
         q.includes('types of') || q.includes('kinds of') || q.includes('divide into') ||
-        q.includes('habitat') || q.includes('classification')
+        q.includes('habitat') || q.includes('classification') || q.includes('plant')
       ) {
-        return "SUITABLE MAP: **TREE MAP** 🌳<br>" +
-          "**Purpose:** Categorize or group information under main subtopics.<br><br>" +
-          "```\n" +
-          "                      [ ANIMAL HABITATS ]\n" +
-          "           ┌───────────────────┼───────────────────┐\n" +
-          "           ▼                   ▼                   ▼\n" +
-          "    [ Land Animals ]    [ Water Animals ]   [ Air Animals ]\n" +
-          "       • Cat               • Fish              • Bird\n" +
-          "       • Elephant          • Whale             • Eagle\n" +
-          "```<br>" +
-          "**In Simple Terms:** Information is split neatly into main groups and examples!<br>" +
-          "💡 **Teacher's Tip:** When the objective involves sorting or categorizing facts, choose a Tree Map.";
+        return {
+          text: "SUITABLE MAP: <b>TREE MAP</b> 🌳<br>" +
+            "<b>Purpose:</b> Categorize or group information under main subtopics.<br><br>" +
+            "```\n" +
+            "                      [ ANIMAL HABITATS ]\n" +
+            "           ┌───────────────────┼───────────────────┐\n" +
+            "           ▼                   ▼                   ▼\n" +
+            "    [ Land Animals ]    [ Water Animals ]   [ Air Animals ]\n" +
+            "       • Cat               • Fish              • Bird\n" +
+            "       • Elephant          • Whale             • Eagle\n" +
+            "```<br>" +
+            "<b>In Simple Terms:</b> Information is split neatly into main groups and examples!<br>" +
+            "💡 <b>Teacher's Tip:</b> When the objective involves sorting or categorizing facts, choose a Tree Map.",
+          mapType: 'Tree'
+        };
       }
 
-      // 3. BRACE MAP - Whole to Physical Parts / Structural Breakdown
+      // 3. BRACE MAP - Whole to Physical Parts
       if (
         q.includes('part') || q.includes('parts') || q.includes('component') || 
         q.includes('structure') || q.includes('consist of') || q.includes('breakdown') || 
@@ -1453,18 +1371,21 @@
         q.includes('parts of a tree') || q.includes('parts of a computer')
       ) {
         let topic = q.includes('tree') ? 'Tree' : (q.includes('computer') ? 'Computer' : 'Object');
-        return `SUITABLE MAP: **BRACE MAP** 🧩<br>` +
-          `**Purpose:** Divide a whole physical object into its components and subparts.<br><br>` +
-          "```\n" +
-          `                    ┌─ Roots (Absorb water)\n` +
-          `Parts of ${topic} ──┼─ Trunk (Supports structure)\n` +
-          `                    └─ Leaves & Flowers (Make food)\n` +
-          "```<br>" +
-          "**In Simple Terms:** Shows all physical parts that build a complete object!<br>" +
-          "💡 **Teacher's Tip:** Use Brace Maps strictly for physical whole-to-part structural analysis.";
+        return {
+          text: `SUITABLE MAP: <b>BRACE MAP</b> 🧩<br>` +
+            `<b>Purpose:</b> Divide a whole physical object into its components and subparts.<br><br>` +
+            "```\n" +
+            `                    ┌─ Roots (Absorb water)\n` +
+            `Parts of ${topic} ──┼─ Trunk (Supports structure)\n` +
+            `                    └─ Leaves & Flowers (Make food)\n` +
+            "```<br>" +
+            "<b>In Simple Terms:</b> Shows all physical parts that build a complete object!<br>" +
+            "💡 <b>Teacher's Tip:</b> Use Brace Maps strictly for physical whole-to-part structural analysis.",
+          mapType: 'Brace'
+        };
       }
 
-      // 4. FLOW MAP - Steps, Sequencing, Process, Chronology & Order
+      // 4. FLOW MAP - Steps, Sequencing, Process
       if (
         q.includes('step') || q.includes('steps') || q.includes('sequence') || 
         q.includes('process') || q.includes('order') || q.includes('chronology') || 
@@ -1473,53 +1394,62 @@
         q.includes('growth') || q.includes('germination') || q.includes('recipe')
       ) {
         if (q.includes('ablution') || q.includes('wuduk')) {
-          return "SUITABLE MAP: **FLOW MAP** 🌊<br>" +
-            "**Purpose:** Show a step-by-step sequence or ordered procedure.<br><br>" +
-            "```\n" +
-            "┌──────────────┐    ┌──────────────┐    ┌──────────────────┐\n" +
-            "│ 1. Intention │ ➔ │ 2. Wash Face │ ➔ │ 3. Wash Arms to  │\n" +
-            "└──────────────┘    └──────────────┘    │    Elbows        │\n" +
-            "                                        └────────┬─────────┘\n" +
-            "                                                 │\n" +
-            "┌──────────────┐    ┌──────────────┐             ▼\n" +
-            "│ 6. Wash Feet │ ◄─ │ 5. Wipe Ears │ ◄─ ┌──────────────────┐\n" +
-            "└──────────────┘    └──────────────┘    │ 4. Wipe Head     │\n" +
-            "                                        └──────────────────┘\n" +
-            "```<br>" +
-            "**In Simple Terms:** Intention ➔ Wash Face ➔ Wash Arms ➔ Wipe Head ➔ Wipe Ears ➔ Wash Feet.<br>" +
-            "💡 **Teacher's Tip:** Flow Maps use directional arrows to teach ordered processes from start to finish.";
+          return {
+            text: "SUITABLE MAP: <b>FLOW MAP</b> 🌊<br>" +
+              "<b>Purpose:</b> Show a step-by-step sequence or ordered procedure.<br><br>" +
+              "```\n" +
+              "┌──────────────┐    ┌──────────────┐    ┌──────────────────┐\n" +
+              "│ 1. Intention │ ➔ │ 2. Wash Face │ ➔ │ 3. Wash Arms to  │\n" +
+              "└──────────────┘    └──────────────┘    │    Elbows        │\n" +
+              "                                        └────────┬─────────┘\n" +
+              "                                                 │\n" +
+              "┌──────────────┐    ┌──────────────┐             ▼\n" +
+              "│ 6. Wash Feet │ ◄─ │ 5. Wipe Ears │ ◄─ ┌──────────────────┐\n" +
+              "└──────────────┘    └──────────────┘    │ 4. Wipe Head     │\n" +
+              "                                        └──────────────────┘\n" +
+              "```<br>" +
+              "<b>In Simple Terms:</b> Intention ➔ Wash Face ➔ Wash Arms ➔ Wipe Head ➔ Wipe Ears ➔ Wash Feet.<br>" +
+              "💡 <b>Teacher's Tip:</b> Flow Maps use directional arrows to teach ordered processes from start to finish.",
+            mapType: 'Flow'
+          };
         }
 
-        return "SUITABLE MAP: **FLOW MAP** ➔<br>" +
-          "**Purpose:** Show an ordered sequence, chronology, or step-by-step procedure.<br><br>" +
-          "```\n" +
-          "[ Step 1: Start ] ➔ [ Step 2: Action ] ➔ [ Step 3: Next ] ➔ [ Step 4: Finish ]\n" +
-          "```<br>" +
-          "**In Simple Terms:** Steps follow arrows from beginning to end!<br>" +
-          "💡 **Teacher's Tip:** Flow Maps help young learners memorize chronological order.";
+        return {
+          text: "SUITABLE MAP: <b>FLOW MAP</b> ➔<br>" +
+            "<b>Purpose:</b> Show an ordered sequence, chronology, or step-by-step procedure.<br><br>" +
+            "```\n" +
+            "[ Step 1: Start ] ➔ [ Step 2: Action ] ➔ [ Step 3: Next ] ➔ [ Step 4: Finish ]\n" +
+            "```<br>" +
+            "<b>In Simple Terms:</b> Steps follow arrows from beginning to end!<br>" +
+            "💡 <b>Teacher's Tip:</b> Flow Maps help young learners memorize chronological order.",
+          mapType: 'Flow'
+        };
       }
 
-      // 5. MULTI-FLOW MAP - Cause & Effect / Reasons & Results
+      // 5. MULTI-FLOW MAP - Cause & Effect
       if (
         q.includes('cause') || q.includes('effect') || q.includes('reason') || 
         q.includes('impact') || q.includes('result') || q.includes('why') || 
         q.includes('because') || q.includes('led to') || q.includes('consequence') ||
         q.includes('flood') || q.includes('pollution')
       ) {
-        return "SUITABLE MAP: **MULTI-FLOW MAP** 🔀<br>" +
-          "**Purpose:** Analyze the causes leading to an event and the resulting effects.<br><br>" +
-          "```\n" +
-          "CAUSES                       EVENT                      EFFECTS\n\n" +
-          "┌──────────────┐        ┌──────────────┐        ┌──────────────┐\n" +
-          "│ Heavy Rain   │───────▶│              │───────▶│ Flooded      │\n" +
-          "└──────────────┘        │  HEAVY FLOOD │        │ Houses       │\n" +
-          "┌──────────────┐        │              │        └──────────────┘\n" +
-          "│ Clogged      │───────▶│              │───────▶┌──────────────┐\n" +
-          "│ Drains       │        └──────────────┘        │ Closed Roads │\n" +
-          "└──────────────┘                                └──────────────┘\n" +
-          "```<br>" +
-          "**In Simple Terms:** Causes are on the left, the main event is in the middle, and consequences are on the right!<br>" +
-          "💡 **Teacher's Tip:** Multi-Flow Maps clarify cause-and-effect relationships.";
+        return {
+          text: "SUITABLE MAP: <b>MULTI-FLOW MAP</b> 🔀<br>" +
+            "<b>Purpose:</b> Analyze the causes leading to an event and the resulting effects.<br><br>" +
+            "```\n" +
+            "CAUSES                       EVENT                      EFFECTS\n\n" +
+            "┌──────────────┐        ┌──────────────┐        ┌──────────────┐\n" +
+            "│ Heavy Rain   │───────▶│              │───────▶│ Flooded      │\n" +
+            "└──────────────┘        │  HEAVY FLOOD │        │ Houses       │\n" +
+            "┌──────────────┐        │              │        └──────────────┘\n" +
+            "│ Clogged      │───────▶│              │───────▶┌──────────────┐\n" +
+            "│ Drains       │        └──────────────┘        │ Closed Roads │\n" +
+            "└──────────────┘                                └──────────────┘\n" +
+            "```<br>" +
+            "<b>In Simple Terms:</b> Causes are on the left, the main event is in the middle, and consequences are on the right!<br>" +
+            "💡 <b>Teacher's Tip:</b> Multi-Flow Maps clarify cause-and-effect relationships.",
+          mapType: 'Multi-Flow'
+        };
       }
 
       // 6. BRIDGE MAP - Analogy & Equivalent Relationships
@@ -1527,25 +1457,28 @@
         q.includes('analogy') || q.includes('relationship') || q.includes('same as') || 
         q.includes('relates to') || q.includes('pair') || q.includes('equivalent')
       ) {
-        return "SUITABLE MAP: **BRIDGE MAP** 🌉<br>" +
-          "**Purpose:** Show equivalent relationship pairs across an analogy bridge.<br><br>" +
-          "```\n" +
-          "┌────────────┐       ┌────────────┐\n" +
-          "│    Wing    │  ➔    │    Bird    │\n" +
-          "└────────────┘       └────────────┘\n" +
-          "      :                    :\n" +
-          "   (as)                 (as)\n" +
-          "      :                    :\n" +
-          "┌────────────┐       ┌────────────┐\n" +
-          "│    Fin     │  ➔    │    Fish    │\n" +
-          "└────────────┘       └────────────┘\n" +
-          "```<br>" +
-          "**Relating Factor:** Movement organ for each animal.<br>" +
-          "**In Simple Terms:** Wing is to Bird as Fin is to Fish!<br>" +
-          "💡 **Teacher's Tip:** Bridge Maps help students recognize matching patterns and relationships.";
+        return {
+          text: "SUITABLE MAP: <b>BRIDGE MAP</b> 🌉<br>" +
+            "<b>Purpose:</b> Show equivalent relationship pairs across an analogy bridge.<br><br>" +
+            "```\n" +
+            "┌────────────┐       ┌────────────┐\n" +
+            "│    Wing    │  ➔    │    Bird    │\n" +
+            "└────────────┘       └────────────┘\n" +
+            "      :                    :\n" +
+            "   (as)                 (as)\n" +
+            "      :                    :\n" +
+            "┌────────────┐       ┌────────────┐\n" +
+            "│    Fin     │  ➔    │    Fish    │\n" +
+            "└────────────┘       └────────────┘\n" +
+            "```<br>" +
+            "<b>Relating Factor:</b> Movement organ for each animal.<br>" +
+            "<b>In Simple Terms:</b> Wing is to Bird as Fin is to Fish!<br>" +
+            "💡 <b>Teacher's Tip:</b> Bridge Maps help students recognize matching patterns and relationships.",
+          mapType: 'Bridge'
+        };
       }
 
-      // 7. BUBBLE MAP - Describing Qualities, Characteristics & Adjectives
+      // 7. BUBBLE MAP - Describing Qualities & Characteristics
       if (
         q.includes('characteristic') || q.includes('characteristics') || q.includes('quality') || 
         q.includes('qualities') || q.includes('feature') || q.includes('features') || 
@@ -1554,36 +1487,42 @@
         q.includes('cat features')
       ) {
         let topic = q.includes('cat') ? 'CAT' : 'TOPIC';
-        return `SUITABLE MAP: **BUBBLE MAP** 💭<br>` +
-          `**Purpose:** Describe qualities, traits, or characteristics using adjectives.<br><br>` +
-          "```\n" +
-          "                  ( Soft Fur )\n" +
-          "                       │\n" +
-          "  ( 4 Legs ) ─────── [ " + topic + " ] ─────── ( Cute & Playful )\n" +
-          "                       │\n" +
-          "                 ( Sharp Claws )\n" +
-          "```<br>" +
-          "**In Simple Terms:** Descriptive adjectives surround the main subject!<br>" +
-          "💡 **Teacher's Tip:** Bubble Maps focus exclusively on descriptive words (adjectives).";
+        return {
+          text: `SUITABLE MAP: <b>BUBBLE MAP</b> 💭<br>` +
+            `<b>Purpose:</b> Describe qualities, traits, or characteristics using adjectives.<br><br>` +
+            "```\n" +
+            "                  ( Soft Fur )\n" +
+            "                       │\n" +
+            "  ( 4 Legs ) ─────── [ " + topic + " ] ─────── ( Cute & Playful )\n" +
+            "                       │\n" +
+            "                 ( Sharp Claws )\n" +
+            "```<br>" +
+            "<b>In Simple Terms:</b> Descriptive adjectives surround the main subject!<br>" +
+            "💡 <b>Teacher's Tip:</b> Bubble Maps focus exclusively on descriptive words (adjectives).",
+          mapType: 'Bubble'
+        };
       }
 
-      // 8. CIRCLE MAP - Defining, Facts, Brainstorming & Context (DEFAULT)
-      return "SUITABLE MAP: **CIRCLE MAP** ⭕<br>" +
-        "**Purpose:** Define a topic, gather general facts, and activate prior knowledge.<br><br>" +
-        "```\n" +
-        "┌───────────────────────────────────────────────────────────┐\n" +
-        "│  [ Frame of Reference: Textbook / Teacher ]               │\n" +
-        "│              ┌─────────────────────────────┐              │\n" +
-        "│              │   Fact 1        Fact 2      │              │\n" +
-        "│              │       ┌─────────────┐       │              │\n" +
-        "│              │       │  " + q.toUpperCase().substring(0, 12) + "  │       │              │\n" +
-        "│              │       └─────────────┘       │              │\n" +
-        "│              │   Fact 3        Fact 4      │              │\n" +
-        "│              └─────────────────────────────┘              │\n" +
-        "└───────────────────────────────────────────────────────────┘\n" +
-        "```<br>" +
-        "**In Simple Terms:** Put the main topic in the center circle and list all known facts around it!<br>" +
-        "💡 **Teacher's Tip:** Circle Maps are ideal for brainstorming initial thoughts and definitions.";
+      // 8. CIRCLE MAP - Default/Brainstorming/Defining Facts
+      return {
+        text: "SUITABLE MAP: <b>CIRCLE MAP</b> ⭕<br>" +
+          "<b>Purpose:</b> Define a topic, gather general facts, and activate prior knowledge.<br><br>" +
+          "```\n" +
+          "┌───────────────────────────────────────────────────────────┐\n" +
+          "│  [ Frame of Reference: Textbook / Teacher ]               │\n" +
+          "│              ┌─────────────────────────────┐              │\n" +
+          "│              │   Fact 1        Fact 2      │              │\n" +
+          "│              │       ┌─────────────┐       │              │\n" +
+          "│              │       │  " + q.toUpperCase().substring(0, 12) + "  │       │              │\n" +
+          "│              │       └─────────────┘       │              │\n" +
+          "│              │   Fact 3        Fact 4      │              │\n" +
+          "│              └─────────────────────────────┘              │\n" +
+          "└───────────────────────────────────────────────────────────┘\n" +
+          "```<br>" +
+          "<b>In Simple Terms:</b> Put the main topic in the center circle and list all known facts around it!<br>" +
+          "💡 <b>Teacher's Tip:</b> Circle Maps are ideal for brainstorming initial thoughts and definitions.",
+        mapType: 'Circle'
+      };
     }
 
     /* Voice Recognition Support */
