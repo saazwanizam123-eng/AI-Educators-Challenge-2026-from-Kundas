@@ -906,7 +906,7 @@
 
         <!-- Active Interactive Workspace Area -->
         <div class="mindmap-workspace" id="mindmapCanvas">
-          <img src="pbulat.jpg" alt="Circle Map">
+          <img src="assets/image/pbulat.jpg" alt="Circle Map">
         </div>
       </section>
 
@@ -917,7 +917,7 @@
           <p class="card-subtitle">State a topic, learning objective, or query to build an ASCII map</p>
         </div>
 
-        <!-- Chat Messages Container (Asterisks removed) -->
+        <!-- Chat Messages Container -->
         <div class="chat-messages" id="chatMessages">
           <div class="chat-msg ai">Hello! 👋 I am your AI Thinking Map Guide. Tell me your <b>Topic + Learning Objective</b> (e.g., "compare cats and dogs", "classify animals", or "ablution steps"), and I will match it with the exact Thinking Map! 🌟</div>
         </div>
@@ -1218,14 +1218,14 @@
 
     /* INTERACTIVE MIND MAP WORKSPACE & IMAGE MAP RENDERING */
     const mapImages = {
-      'Circle': 'pbulat.jpg',
-      'Bubble': 'pb.jpg',
-      'Double Bubble': 'pbb.jpg',
-      'Tree': 'pp.jpg',
-      'Brace': 'pd.jpg',
-      'Flow': 'pa.jpg',
-      'Multi-Flow': 'pba.jpg',
-      'Bridge': 'pt.jpg'
+      'Circle': 'assets/image/pbulat.jpg',
+      'Bubble': 'assets/image/pb.jpg',
+      'Double Bubble': 'assets/image/pbb.jpg',
+      'Tree': 'assets/image/pp.jpg',
+      'Brace': 'assets/image/pd.jpg',
+      'Flow': 'assets/image/pa.jpg',
+      'Multi-Flow': 'assets/image/pba.jpg',
+      'Bridge': 'assets/image/pt.jpg'
     };
 
     function selectMap(type, btnElement) {
@@ -1297,7 +1297,7 @@
       if (e.key === 'Enter') sendMessage();
     }
 
-    /* AI Logic Engine (Asterisks completely stripped out) */
+    /* AI Logic Engine */
     function generateAIResponse(query) {
       const q = query.toLowerCase().trim();
 
