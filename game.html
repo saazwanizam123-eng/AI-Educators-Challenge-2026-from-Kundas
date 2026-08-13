@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storyteller Game — Minda Inklusif AI</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      color: #f8fafc;
+      padding: 30px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game-card {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(30, 41, 59, 0.9);
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 2.2rem;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+
+    /* Sequence Board Slots */
+    .sequence-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    @media (max-width: 650px) { .sequence-board { grid-template-columns: 1fr; } }
+
+    .slot {
+      min-height: 170px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 2px dashed rgba(56, 189, 248, 0.4);
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      position: relative;
+    }
+
+    .slot-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: #38bdf8;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    /* Cards */
+    .cards-pool {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: rgba(0,0,0,0.3);
+      padding: 20px;
+      border-radius: 18px;
+      min-height: 140px;
+    }
+
+    .story-card {
+      width: 140px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 16px;
+      padding: 15px 10px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s;
+    }
+
+    .story-card:hover { transform: translateY(-4px); border-color: #38bdf8; }
+    .story-card.selected { border: 2px solid #38bdf8; box-shadow: 0 0 15px #38bdf8; }
+
+    .emoji { font-size: 2.8rem; margin-bottom: 5px; }
+    .card-text { font-size: 0.9rem; font-weight: 800; }
+
+    /* Controls & Feedback */
+    .btn {
+      background: linear-gradient(135deg, #0284c7, #0d9488);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .feedback {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      min-height: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-card">
+    <a href="index.html" class="nav-btn">← Back to Main Hub</a>
+    
+    <h1 class="title">📖 Storyteller: Sequence Game</h1>
+    <p>Click a picture card below, then click a numbered box to place it in order!</p>
+
+    <!-- Slots -->
+    <div class="sequence-board">
+      <div class="slot" id="slot1" onclick="placeInSlot(1)"><span class="slot-badge">Step 1</span></div>
+      <div class="slot" id="slot2" onclick="placeInSlot(2)"><span class="slot-badge">Step 2</span></div>
+      <div class="slot" id="slot3" onclick="placeInSlot(3)"><span class="slot-badge">Step 3</span></div>
+    </div>
+
+    <!-- Available Cards -->
+    <div class="cards-pool" id="cardsPool">
+      <div class="story-card" id="card2" data-order="2" onclick="selectCard(this)">
+        <div class="emoji">🌱</div><div class="card-text">Water the Seed</div>
+      </div>
+      <div class="story-card" id="card1" data-order="1" onclick="selectCard(this)">
+        <div class="emoji">🪴</div><div class="card-text">Plant the Seed</div>
+      </div>
+      <div class="story-card" id="card3" data-order="3" onclick="selectCard(this)">
+        <div class="emoji">🌻</div><div class="card-text">Flower Grows</div>
+      </div>
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+      <button class="btn" onclick="checkSequence()">✨ Check Answer</button>
+      <button class="btn" style="background: rgba(255,255,255,0.2);" onclick="resetGame()">🔄 Reset</button>
+    </div>
+  </div>
+
+  <script>
+    let selectedCard = null;
+    let slotContents = { 1: null, 2: null, 3: null };
+
+    function selectCard(card) {
+      document.querySelectorAll('.story-card').forEach(c => c.classList.remove('selected'));
+      selectedCard = card;
+      card.classList.add('selected');
+    }
+
+    function placeInSlot(slotNum) {
+      if (!selectedCard) return;
+
+      const slot = document.getElementById(`slot${slotNum}`);
+      
+      // Clear slot if it already has a card
+      if (slotContents[slotNum]) {
+        const oldCard = slot.querySelector('.story-card');
+        if (oldCard) document.getElementById('cardsPool').appendChild(oldCard);
+      }
+
+      slot.appendChild(selectedCard);
+      slotContents[slotNum] = selectedCard.getAttribute('data-order');
+      selectedCard.classList.remove('selected');
+      selectedCard = null;
+    }
+
+    function checkSequence() {
+      const fb = document.getElementById('feedback');
+      if (slotContents[1] == '1' && slotContents[2] == '2' && slotContents[3] == '3') {
+        fb.style.color = '#4ade80';
+        fb.innerText = '🎉 Fantastic job! The steps are in perfect order!';
+      } else {
+        fb.style.color = '#f87171';
+        fb.innerText = '❌ Not quite right. Try rearranging the steps!';
+      }
+    }
+
+    function resetGame() {
+      const pool = document.getElementById('cardsPool');
+      document.querySelectorAll('.story-card').forEach(card => pool.appendChild(card));
+      slotContents = { 1: null, 2: null, 3: null };
+      document.getElementById('feedback').innerText = '';
+    }
+  </script>
+</body>
+</html>
