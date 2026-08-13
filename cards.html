@@ -13,8 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- MathJax for Visual Math Expressions -->
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <!-- MathJax for Visual Math Expressions (Permission-Free CDN) -->
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
@@ -522,7 +521,7 @@
       </article>
 
 
-      <!-- ================= MATHEMATICS (ENGLISH) ================= -->
+      <!-- ================= MATHEMATICS (100% ENGLISH) ================= -->
 
       <!-- MATH 1: Visual Fractions -->
       <article class="note-card" data-category="math">
@@ -546,14 +545,14 @@
           <span class="subject-badge badge-math">Mathematics</span>
           <button class="tts-card-btn" onclick="readCard(this)" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
         </div>
-        <h2 class="note-title">Money Skills (RM)</h2>
+        <h2 class="note-title">Money & Currency Skills</h2>
         <ul class="note-bullets">
-          <li><strong>Banknote Colors:</strong> <strong>RM1</strong> (Blue 🔵), <strong>RM5</strong> (Green 🟢), <strong>RM10</strong> (Red 🔴).</li>
-          <li><strong>Coins:</strong> 10 sen, 20 sen, 50 sen.</li>
-          <li><strong>Shopping Example:</strong> Have RM5 - Buy Nasi Lemak (RM2) = Change **RM3**.</li>
+          <li><strong>Banknotes:</strong> RM1 / $1 (Blue 🔵), RM5 / $5 (Green 🟢), RM10 / $10 (Red 🔴).</li>
+          <li><strong>Coins:</strong> 10 cents, 20 cents, 50 cents 🪙.</li>
+          <li><strong>Buying Example:</strong> Have $5 - Buy item ($2) = Change **$3**.</li>
         </ul>
         <button class="flip-btn" onclick="toggleHint(this)">💡 Quick Hint</button>
-        <p class="hint-text" style="display:none;">Recognize money by color for fast visual processing!</p>
+        <p class="hint-text" style="display:none;">Recognize currency by color for fast visual identification!</p>
       </article>
 
       <!-- MATH 3: Telling Time -->
@@ -569,10 +568,10 @@
           <li><strong>Example:</strong> Short hand on 3, long hand on 12 = **3:00 o'clock**.</li>
         </ul>
         <button class="flip-btn" onclick="toggleHint(this)">💡 Quick Hint</button>
-        <p class="hint-text" style="display:none;">When the long hand points at 12, it always means "o'clock" or "00 minutes".</p>
+        <p class="hint-text" style="display:none;">When the long hand points to 12, it always means "o'clock" or "00 minutes".</p>
       </article>
 
-      <!-- MATH 4: Visual Addition & Subtraction -->
+      <!-- MATH 4: Basic Addition & Subtraction -->
       <article class="note-card" data-category="math">
         <div class="card-top">
           <span class="subject-badge badge-math">Mathematics</span>
@@ -593,7 +592,7 @@
   </div>
 
   <script>
-    /* Read Card Text using standard Web Speech API (zero permissions needed) */
+    /* Permission-Free Client-Side Text-To-Speech */
     function readCard(btn) {
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
