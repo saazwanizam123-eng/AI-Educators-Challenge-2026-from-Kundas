@@ -88,7 +88,13 @@
       overflow-y: auto; max-height: 200px; padding-right: 6px;
     }
 
-    .highlighted-sentence { background: rgba(56, 189, 248, 0.25); border-left: 3px solid var(--accent-blue); padding-left: 6px; border-radius: 2px; }
+    .highlighted-sentence { 
+      background: rgba(56, 189, 248, 0.25); 
+      border-left: 3px solid var(--accent-blue); 
+      padding-left: 6px; 
+      border-radius: 2px; 
+      transition: background 0.2s ease-in-out;
+    }
 
     .player-controls { display: flex; gap: 8px; margin-top: 12px; }
 
@@ -96,7 +102,18 @@
       background: linear-gradient(135deg, #0284c7, #0d9488);
       color: #fff; border: none; padding: 8px 16px; border-radius: 8px;
       font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;
+      transition: opacity 0.2s;
     }
+    .btn-play:hover { opacity: 0.9; }
+
+    .btn-stop {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5; padding: 8px 14px; border-radius: 8px;
+      font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-stop:hover { background: rgba(239, 68, 68, 0.35); }
 
     /* Library Cards */
     .library-section { display: flex; flex-direction: column; gap: 12px; }
@@ -107,9 +124,15 @@
     .video-card {
       background: var(--glass-card); border: 1px solid var(--glass-border);
       border-radius: 10px; overflow: hidden; cursor: pointer;
-      transition: transform 0.2s, background 0.2s; display: flex; flex-direction: column;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s; display: flex; flex-direction: column;
     }
     .video-card:hover { transform: translateY(-3px); background: var(--glass-card-hover); border-color: var(--accent-blue); }
+    
+    .video-card.active {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+      background: var(--glass-card-hover);
+    }
 
     .card-thumb {
       position: relative; width: 100%; height: 140px; background: #0f172a;
@@ -156,6 +179,7 @@
 
         <div class="player-controls">
           <button class="btn-play" onclick="readActiveStory()"><i class="fa-solid fa-volume-high"></i> Read Story Aloud</button>
+          <button class="btn-stop" onclick="stopSpeech()"><i class="fa-solid fa-circle-stop"></i> Stop</button>
         </div>
       </div>
     </section>
@@ -166,7 +190,7 @@
       
       <div class="video-grid">
         <!-- Story 1 -->
-        <div class="video-card" onclick="loadStory('The Story of Sang Kancil and the Giant', 'assets/image/kancil.jpg', storyKancil)">
+        <div class="video-card active" onclick="loadStory('The Story of Sang Kancil and the Giant', 'assets/image/kancil.jpg', storyKancil, this)">
           <div class="card-thumb" style="background-image: url('assets/image/kancil.jpg');">
             <i class="fa-solid fa-circle-play play-overlay"></i>
           </div>
@@ -177,7 +201,7 @@
         </div>
 
         <!-- Story 2 -->
-        <div class="video-card" onclick="loadStory('The Story of The Monkey and the Crocodile', 'assets/image/monkey.jpg', storyMonkey)">
+        <div class="video-card" onclick="loadStory('The Story of The Monkey and the Crocodile', 'assets/image/monkey.jpg', storyMonkey, this)">
           <div class="card-thumb" style="background-image: url('assets/image/monkey.jpg');">
             <i class="fa-solid fa-circle-play play-overlay"></i>
           </div>
@@ -188,7 +212,7 @@
         </div>
 
         <!-- Story 3 -->
-        <div class="video-card" onclick="loadStory('The Story of The Tortoise and the Hare', 'assets/image/hare.jpg', storyHare)">
+        <div class="video-card" onclick="loadStory('The Story of The Tortoise and the Hare', 'assets/image/hare.jpg', storyHare, this)">
           <div class="card-thumb" style="background-image: url('assets/image/hare.jpg');">
             <i class="fa-solid fa-circle-play play-overlay"></i>
           </div>
@@ -226,36 +250,75 @@
       "This story teaches us that slow and steady effort wins over overconfidence and laziness."
     ];
 
-    function loadStory(title, imageSrc, sentences) {
+    let currentUtterance = null; // Global reference prevents Chrome speech GC bug
+
+    function loadStory(title, imageSrc, sentences, cardElement) {
+      stopSpeech(); // Stop speech if playing
+
       document.getElementById('activeStoryTitle').innerText = title;
-      document.getElementById('mainImage').src = imageSrc;
-      document.getElementById('mainImage').alt = title;
+      const mainImg = document.getElementById('mainImage');
+      mainImg.src = imageSrc;
+      mainImg.alt = title;
+
+      // Image Fallback Handler (If image files are missing)
+      mainImg.onerror = function() {
+        this.onerror = null;
+        this.src = 'https://via.placeholder.com/800x450/0f172a/38bdf8?text=' + encodeURIComponent(title);
+      };
       
       const container = document.getElementById('activeStoryText');
       container.innerHTML = sentences.map(s => `<p class="sentence">${s}</p>`).join('');
+
+      // Highlight active card
+      document.querySelectorAll('.video-card').forEach(card => card.classList.remove('active'));
+      if (cardElement) {
+        cardElement.classList.add('active');
+      }
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      document.querySelectorAll('.sentence').forEach(p => p.classList.remove('highlighted-sentence'));
     }
 
     function readActiveStory() {
-      if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
+      if (!('speechSynthesis' in window)) {
+        alert('Text-to-speech is not supported in your browser.');
+        return;
+      }
+
+      stopSpeech();
 
       const paragraphs = document.querySelectorAll('.sentence');
+      if (paragraphs.length === 0) return;
+
       let index = 0;
 
       function speakNext() {
-        if (index >= paragraphs.length) return;
+        if (index >= paragraphs.length) {
+          stopSpeech();
+          return;
+        }
         
         paragraphs.forEach(p => p.classList.remove('highlighted-sentence'));
         paragraphs[index].classList.add('highlighted-sentence');
 
-        const utterance = new SpeechSynthesisUtterance(paragraphs[index].innerText);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.88;
-        utterance.onend = () => {
+        currentUtterance = new SpeechSynthesisUtterance(paragraphs[index].innerText);
+        currentUtterance.lang = 'en-US';
+        currentUtterance.rate = 0.88;
+
+        currentUtterance.onend = () => {
           index++;
           speakNext();
         };
-        window.speechSynthesis.speak(utterance);
+
+        currentUtterance.onerror = () => {
+          stopSpeech();
+        };
+
+        window.speechSynthesis.speak(currentUtterance);
       }
 
       speakNext();
