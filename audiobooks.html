@@ -73,7 +73,6 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    /* Changed from iframe to img for the story */
     .video-container img { width: 100%; height: 100%; object-fit: contain; }
 
     .read-along-box {
@@ -140,7 +139,6 @@
     <!-- Active Media Player Workspace -->
     <section class="media-player-card">
       <div class="video-container" id="videoBox">
-        <!-- Changed to Image -->
         <img id="mainImage" src="assets/image/kancil.jpg" alt="The Story of Sang Kancil and the Giant">
       </div>
 
@@ -177,6 +175,28 @@
             <p>A story about kindness and wisdom.</p>
           </div>
         </div>
+
+        <!-- Story 2 -->
+        <div class="video-card" onclick="loadStory('The Story of The Monkey and the Crocodile', 'assets/image/monkey.jpg', storyMonkey)">
+          <div class="card-thumb" style="background-image: url('assets/image/monkey.jpg');">
+            <i class="fa-solid fa-circle-play play-overlay"></i>
+          </div>
+          <div class="card-info">
+            <h3>English: The Monkey & The Crocodile</h3>
+            <p>A story about presence of mind and quick thinking.</p>
+          </div>
+        </div>
+
+        <!-- Story 3 -->
+        <div class="video-card" onclick="loadStory('The Story of The Tortoise and the Hare', 'assets/image/hare.jpg', storyHare)">
+          <div class="card-thumb" style="background-image: url('assets/image/hare.jpg');">
+            <i class="fa-solid fa-circle-play play-overlay"></i>
+          </div>
+          <div class="card-info">
+            <h3>English: The Tortoise & The Hare</h3>
+            <p>A story about persistence and humility.</p>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -190,9 +210,26 @@
       "This story teaches us that being clever and wise is more important than being big and strong."
     ];
 
+    const storyMonkey = [
+      "A clever monkey lived happily in a big mango tree by the river and loved eating sweet fruit.",
+      "One day, a hungry crocodile came by and wanted to catch the monkey for dinner. He offered him a ride across the river to visit another fruit island.",
+      "Halfway across, the quick-thinking monkey used a clever idea to trick the crocodile, saying his heart was left behind in the tree.",
+      "The crocodile was fooled and swam back to shore, allowing the monkey to escape safely into his tree.",
+      "This story teaches us that being calm and quick-thinking is more effective than sheer strength when facing trouble."
+    ];
+
+    const storyHare = [
+      "A boastful hare always laughed at a slow-moving tortoise, until one day the tortoise challenged him to a race.",
+      "The hare sprinted ahead quickly. Seeing how far behind the tortoise was, the hare decided to take a nap under a tree.",
+      "While the hare slept soundly, the tortoise kept walking step-by-step without stopping or giving up.",
+      "The hare woke up just in time to see the tortoise cross the finish line and win the race!",
+      "This story teaches us that slow and steady effort wins over overconfidence and laziness."
+    ];
+
     function loadStory(title, imageSrc, sentences) {
       document.getElementById('activeStoryTitle').innerText = title;
       document.getElementById('mainImage').src = imageSrc;
+      document.getElementById('mainImage').alt = title;
       
       const container = document.getElementById('activeStoryText');
       container.innerHTML = sentences.map(s => `<p class="sentence">${s}</p>`).join('');
@@ -212,7 +249,7 @@
         paragraphs[index].classList.add('highlighted-sentence');
 
         const utterance = new SpeechSynthesisUtterance(paragraphs[index].innerText);
-        utterance.lang = 'en-US'; // Set to English for correct pronunciation
+        utterance.lang = 'en-US';
         utterance.rate = 0.88;
         utterance.onend = () => {
           index++;
